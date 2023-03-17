@@ -4,5 +4,5 @@ public class Delivery{
     private double timestamp;
     private double distance;
 
-    public Delivery(int deliveryNumber, double )
+    public Delivery(int deliveryNumber, double)
 }
