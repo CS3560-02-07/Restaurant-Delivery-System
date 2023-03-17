@@ -1,14 +1,14 @@
 public class PickUpConfirmation{ 
-    private Boolean pickUpConfirm;  //confirmation if delivery was picked up by driver
+    private boolean pickUpConfirm;  //confirmation if delivery was picked up by driver
     private int confirmNumber;  //creates a restaraurant confirmation number
 
     //creates a PickUpConfirmation object and defines all the variables above
-    public PickUpConfirmation(Boolean pickUpConfirm, int confirmNumber){    
+    public PickUpConfirmation(boolean pickUpConfirm, int confirmNumber){    
         this.pickUpConfirm = pickUpConfirm;
         this.confirmNumber = confirmNumber;
     }
 
-    public void setPickUpConfirm(Boolean newPickUpConfirm){   //sets the delivery confirmation
+    public void setPickUpConfirm(boolean newPickUpConfirm){   //sets the delivery confirmation
         pickUpConfirm = newPickUpConfirm;
     }
 
@@ -17,7 +17,7 @@ public class PickUpConfirmation{
     }
 
 
-    public Boolean setPickUpConfirm(){   //gets the delivery confirmation
+    public boolean setPickUpConfirm(){   //gets the delivery confirmation
         return pickUpConfirm;
     }
 
