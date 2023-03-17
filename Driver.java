@@ -1,11 +1,12 @@
+import java.util.ArrayList;
 public class Driver{
     private int driverID;  
     private String name;
     private String carInfo; // "Year Make Model" 
     private String driversLicense;
-    private boolean history; // Clean driving history?
+    private ArrayList<Delivery> history;
 
-    public Driver(int driverID, String name, String carInfo, String driversLicense, boolean history){   
+    public Driver(int driverID, String name, String carInfo, String driversLicense, ArrayList<Delivery> history){   
         this.driverID = driverID;
         this.name = name;
         this.carInfo = carInfo;
@@ -43,6 +44,10 @@ public class Driver{
 
     public String getDriversLicense(){  //gets the driver's license info
         return driversLicense;
+    }
+
+    public ArrayList<Delivery> getHistory(){ //get delivery history
+        return history;
     }
 
 
