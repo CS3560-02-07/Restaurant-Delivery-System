@@ -1,4 +1,5 @@
 
+
 import javax.swing.*;
 
 public class LoginPageGUI extends javax.swing.JFrame {
@@ -109,6 +110,11 @@ public class LoginPageGUI extends javax.swing.JFrame {
         else if(userInput.getText().equals("abcRestaurant") && passInput.getText().equals("lmaoxd")){
             RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
             restaurant.setVisible(true);
+            setVisible(false);
+        }
+        else if(userInput.getText().equals("abcRestDriver") && passInput.getText().equals("lolgg")){
+            DriverInfoGUI driver = new DriverInfoGUI();
+            driver.setVisible(true);
             setVisible(false);
         }
     }                                           
