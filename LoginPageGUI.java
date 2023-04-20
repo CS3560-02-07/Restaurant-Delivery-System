@@ -12,27 +12,33 @@ public class LoginPageGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
+        //create labels (text on screen)
         loginLabel = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         passLabel = new javax.swing.JLabel();
+        //create text box for user input
         userInput = new javax.swing.JTextField();
+        //create text box for password input
         passInput = new javax.swing.JPasswordField();
+        //create buttons
         loginButton = new javax.swing.JButton();
         regButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(166, 216, 233));
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); //close window application
+        setBackground(new java.awt.Color(166, 216, 233)); //sets background color
+        setResizable(false); //doesn't allow user to change window size
 
-        loginLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        //set font style and size for each label
+        loginLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 24));
         loginLabel.setText("Login");
 
-        userLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        userLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); 
         userLabel.setText("Username:");
 
-        passLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        passLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); 
         passLabel.setText("Password:");
 
+        //action set by user (input text boxes)
         userInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userInputActionPerformed(evt);
@@ -59,6 +65,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
             }
         });
 
+        //for horizontal and vertical layouts of labels, text boxes, buttons, etc.
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,6 +114,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
         pack();
     }                        
 
+    //actions for login button
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if(userInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out username");
@@ -132,6 +140,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
     private void userInputActionPerformed(java.awt.event.ActionEvent evt) {                                          
     }                                         
 
+    //actions for register button
     private void regButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         RegisterFormGUI register = new RegisterFormGUI();
         register.setVisible(true);

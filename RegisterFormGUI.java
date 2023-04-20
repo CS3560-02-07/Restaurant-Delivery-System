@@ -12,7 +12,9 @@ public class RegisterFormGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
+        //create tabs
         registerFormTabs = new javax.swing.JTabbedPane();
+        //restaurant tabs, labels (text on screen), text boxes (for user input), and buttons
         newRestTab = new javax.swing.JPanel();
         restNamePrompt = new javax.swing.JLabel();
         restAddyPrompt = new javax.swing.JLabel();
@@ -26,6 +28,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         restPassInput = new javax.swing.JTextField();
         restRegButton = new javax.swing.JButton();
         restBackToLoginButton = new javax.swing.JButton();
+        //driver tabs, labels (text on screen), text boxes (for user input), and buttons 
         newDriverTab = new javax.swing.JPanel();
         driverNamePrompt = new javax.swing.JLabel();
         driverLicPrompt = new javax.swing.JLabel();
@@ -40,27 +43,29 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         driverRegButton = new javax.swing.JButton();
         driverBackToLoginButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); //close window application
 
-        registerFormTabs.setBackground(new java.awt.Color(166, 216, 233));
+        registerFormTabs.setBackground(new java.awt.Color(166, 216, 233)); //set background color for register form tab
 
-        newRestTab.setBackground(new java.awt.Color(199, 234, 245));
+        newRestTab.setBackground(new java.awt.Color(199, 234, 245)); //set background color for new restaurant tab
 
-        restNamePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        //set font style and size for labels on new restaurant tab
+        restNamePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         restNamePrompt.setText("Restaurant Name:");
 
-        restAddyPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        restAddyPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         restAddyPrompt.setText("Address:");
 
-        restNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        restNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         restNumPrompt.setText("Number:");
 
-        restUserPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        restUserPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         restUserPrompt.setText("Username:");
 
-        restPassPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        restPassPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         restPassPrompt.setText("Password:");
 
+        //action set by user (input text boxes)
         restNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restNameInputActionPerformed(evt);
@@ -91,6 +96,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             }
         });
 
+        //action set by user(buttons)
         restRegButton.setText("Register");
         restRegButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +111,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             }
         });
 
+        //horizontal and vertical layouts of new restaurant tab
         javax.swing.GroupLayout newRestTabLayout = new javax.swing.GroupLayout(newRestTab);
         newRestTab.setLayout(newRestTabLayout);
         newRestTabLayout.setHorizontalGroup(
@@ -163,25 +170,27 @@ public class RegisterFormGUI extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        registerFormTabs.addTab("New Restaurant", newRestTab);
+        registerFormTabs.addTab("New Restaurant", newRestTab); //names tab "new restaurant"
 
-        newDriverTab.setBackground(new java.awt.Color(199, 234, 245));
+        newDriverTab.setBackground(new java.awt.Color(199, 234, 245)); //sets background for new driver tab
 
-        driverNamePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        //set font style and size for labels on new driver tab
+        driverNamePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
         driverNamePrompt.setText("Driver Name;");
 
-        driverLicPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        driverLicPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         driverLicPrompt.setText("Driver License:");
 
-        carInfoPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        carInfoPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         carInfoPrompt.setText("Car Information:");
 
-        driverUserPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        driverUserPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         driverUserPrompt.setText("Username:");
 
-        driverPassPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        driverPassPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         driverPassPrompt.setText("Password:");
 
+        //action set by user(text boxes)
         driverNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 driverNameInputActionPerformed(evt);
@@ -212,6 +221,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             }
         });
 
+        //action set by user(buttons)
         driverRegButton.setText("Register");
         driverRegButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +236,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             }
         });
 
+        //horizontal and vertical layouts of new driver tab
         javax.swing.GroupLayout newDriverTabLayout = new javax.swing.GroupLayout(newDriverTab);
         newDriverTab.setLayout(newDriverTabLayout);
         newDriverTabLayout.setHorizontalGroup(
@@ -351,6 +362,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         driverPass = driverPassInput.getText();
     }                                               
   
+    //actions for buttons
     private void driverBackToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         LoginPageGUI login = new LoginPageGUI();
         login.setVisible(true);

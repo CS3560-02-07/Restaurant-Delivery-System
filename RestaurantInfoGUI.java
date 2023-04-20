@@ -10,21 +10,24 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
+        //create tabs
         restInfoTab = new javax.swing.JTabbedPane();
         restOptionTabs = new javax.swing.JTabbedPane();
         viewInfo = new javax.swing.JPanel();
         reqDelivery = new javax.swing.JPanel();
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
+        //log out button for restaurant
         logOutButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(166, 216, 233));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); //close window application
+        setBackground(new java.awt.Color(166, 216, 233)); //set background color of window
 
-        restOptionTabs.setBackground(new java.awt.Color(166, 216, 233));
+        restOptionTabs.setBackground(new java.awt.Color(166, 216, 233)); //set background color of restaurant option tab
 
-        viewInfo.setBackground(new java.awt.Color(199, 234, 245));
+        viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color for view info tab
 
+        //horizontal and vertical layouts of view info tab
         javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
         viewInfo.setLayout(viewInfoLayout);
         viewInfoLayout.setHorizontalGroup(
@@ -36,10 +39,11 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
             .addGap(0, 317, Short.MAX_VALUE)
         );
 
-        restOptionTabs.addTab("View Info", viewInfo);
+        restOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
 
-        reqDelivery.setBackground(new java.awt.Color(199, 234, 245));
+        reqDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of request delivery tab
 
+        //horizontal and vertical layouts of request delivery tab
         javax.swing.GroupLayout reqDeliveryLayout = new javax.swing.GroupLayout(reqDelivery);
         reqDelivery.setLayout(reqDeliveryLayout);
         reqDeliveryLayout.setHorizontalGroup(
@@ -51,13 +55,15 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
             .addGap(0, 317, Short.MAX_VALUE)
         );
 
-        restOptionTabs.addTab("Request Delivery", reqDelivery);
+        restOptionTabs.addTab("Request Delivery", reqDelivery); //names the tab "request delivery"
 
-        logOut.setBackground(new java.awt.Color(199, 234, 245));
+        logOut.setBackground(new java.awt.Color(199, 234, 245)); //sets background color of log out tab
 
-        logOutPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        //set font style and size for labels on log out tab
+        logOutPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 18));
         logOutPrompt.setText("Would you like to log-out?");
 
+        //action set by user(button)
         logOutButton.setText("Log-out");
         logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +71,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
             }
         });
 
+        //horizontal and vertical layouts of log out tab
         javax.swing.GroupLayout logOutLayout = new javax.swing.GroupLayout(logOut);
         logOut.setLayout(logOutLayout);
         logOutLayout.setHorizontalGroup(
@@ -86,10 +93,11 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(164, Short.MAX_VALUE))
         );
 
-        restOptionTabs.addTab("Log-out", logOut);
+        restOptionTabs.addTab("Log-out", logOut); //names tab "log out"
 
-        restInfoTab.addTab("Restaurant Information", restOptionTabs);
+        restInfoTab.addTab("Restaurant Information", restOptionTabs); //names top tab "restaurant information"
 
+        //horizontal and vertical layouts for restaurant information tab
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,6 +118,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         pack();
     }                       
 
+    //action for log out button
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         LoginPageGUI login = new LoginPageGUI();
         setVisible(false);
