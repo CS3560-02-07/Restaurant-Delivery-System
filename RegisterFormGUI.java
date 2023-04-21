@@ -1,7 +1,7 @@
 import javax.swing.JOptionPane;
 
 public class RegisterFormGUI extends javax.swing.JFrame {
-
+    String restNameIn;
     /**
      * Creates new form RegisterFormGUI
      */
@@ -69,6 +69,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         restNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restNameInputActionPerformed(evt);
+                //restNameIn = restNameInput.getText();
             }
         });
 
@@ -176,7 +177,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
 
         //set font style and size for labels on new driver tab
         driverNamePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
-        driverNamePrompt.setText("Driver Name;");
+        driverNamePrompt.setText("Driver Name:");
 
         driverLicPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); 
         driverLicPrompt.setText("Driver License:");
@@ -316,51 +317,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
 
         pack();
     }                        
-
-    
-    //variable delcaration to save user input
-    public String restName, restAddy, restNum, restUser, restPass;
-    public String driverName, driverLic, carInfo, driverUser, driverPass;
-    
-    private void restNameInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        restName = restNameInput.getText();
-    }                                             
-
-    private void addyInputActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        restAddy = addyInput.getText();
-    }                                         
-
-    private void restNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        restNum = restNumInput.getText();
-    }                                            
-
-    private void restUserInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        restUser = restUserInput.getText();
-    }                                             
-
-    private void restPassInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        restPass = restPassInput.getText();
-    }                                             
-
-    private void driverNameInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        driverName = driverNameInput.getText();
-    }                                               
-
-    private void driverLicInputActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        driverLic = driverLicInput.getText();
-    }                                              
-
-    private void carInfoInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        carInfo = carInfoInput.getText();
-    }                                            
-
-    private void driverUserInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        driverUser = driverUserInput.getText();
-    }                                               
-
-    private void driverPassInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        driverPass = driverPassInput.getText();
-    }                                               
+                        
   
     //actions for buttons
     private void driverBackToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
@@ -373,7 +330,11 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         LoginPageGUI login = new LoginPageGUI();
         login.setVisible(true);
         setVisible(false);
-    }                                                     
+    }           
+    
+    //variable delcaration to save user input                          
+    public String restName, restAddy, restNum, restUser, restPass;
+    public String driverName, driverLic, carInfo, driverUser, driverPass;      
 
     private void driverRegButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
         if(driverNameInput.getText().equals("")){
@@ -392,7 +353,17 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill out password");
         }
         else{
-            JOptionPane.showMessageDialog(null, "New Driver registered");
+            driverName = driverNameInput.getText();
+            driverLic = driverLicInput.getText();
+            carInfo = carInfoInput.getText();
+            driverUser = driverUserInput.getText();
+            driverPass = driverPassInput.getText();
+            driverLicInput.setText("");
+            driverNameInput.setText("");
+            driverPassInput.setText("");
+            driverUserInput.setText("");
+            carInfoInput.setText("");
+            JOptionPane.showMessageDialog(null, driverName + " is now register as a driver");
         }
     }                                               
 
@@ -413,9 +384,19 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill out password");
         }
         else{
-            JOptionPane.showMessageDialog(null, "New Restaurant registered");
+            restName = restNameInput.getText();
+            restAddy = addyInput.getText();
+            restNum = restNumInput.getText();
+            restUser = restUserInput.getText();
+            restPass = restPassInput.getText();
+            restNameInput.setText("");
+            restNumInput.setText("");
+            restPassInput.setText("");
+            restUserInput.setText("");
+            addyInput.setText("");
+            JOptionPane.showMessageDialog(null, "The restaurant " + restName + " is now registered");
         }
-    }                                             
+    }                                    
 
     /**
      * @param args the command line arguments
