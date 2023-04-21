@@ -28,6 +28,10 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput = new javax.swing.JTextField();
         recordDeliveryButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
+        pickUpButtonY = new javax.swing.JButton();
+        pickUpButtonN = new javax.swing.JButton();
+        pickUpPrompt = new javax.swing.JLabel();
+        pickUpInput = new javax.swing.JTextField();
         //other tabs for driver to view
         deliveryHist = new javax.swing.JPanel();
         logOut = new javax.swing.JPanel();
@@ -56,19 +60,65 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
 
+        //pickUpConfirm UI
+
+        pickUpButtonY.setText("Yes");
+        pickUpButtonY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickUpButtonYActionPerformed(evt);
+            }
+        });
+
+        pickUpButtonN.setText("No");
+        pickUpButtonN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickUpButtonNActionPerformed(evt);
+            }
+        });
+
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pick-up confirmation tab
 
+        //font and txt size of record delivery
+        pickUpPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        pickUpPrompt.setText("Has the order been picked up?");
+
         //horizontal and vertical layouts of pick-up confirmation tab
-        javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
-        pickUpConfirm.setLayout(pickUpConfirmLayout);
-        pickUpConfirmLayout.setHorizontalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+        javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickUpConfirm);
+        pickUpConfirm.setLayout(pickUpLayout);
+        pickUpLayout.setHorizontalGroup(
+            pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pickUpLayout.createSequentialGroup()
+                .addContainerGap(126, Short.MAX_VALUE)
+                .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pickUpLayout.createSequentialGroup()
+                        .addComponent(pickUpPrompt)
+                        )
+                        .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pickUpLayout.createSequentialGroup()
+                                .addComponent(pickUpButtonY)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pickUpButtonN)))))
+                .addGap(149, 149, 149))
+        ;
+        pickUpLayout.setVerticalGroup(
+            pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pickUpLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pickUpPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                
+                .addGap(12, 12, 12)
+                
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pickUpButtonY)
+                    .addComponent(pickUpButtonN))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
-        pickUpConfirmLayout.setVerticalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
-        );
+
+
+        // end of pickupconfirm ui
 
         driverOptionTabs.addTab("Pick-up Confirmation", pickUpConfirm); //names the tab "pick-up confirmation"
 
@@ -170,6 +220,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         driverOptionTabs.addTab("Record Delivery", recordDelivery); //names the tab "record delivery"
 
+        deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); //set background color for delivery history tab
         deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); //set background color for delivery history tab
 
         //horizontal and vertical layouts for delivery history tab
@@ -283,6 +334,14 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         estTimeInput.setText("");
     }
 
+    private void pickUpButtonYActionPerformed(java.awt.event.ActionEvent evt){
+        JOptionPane.showMessageDialog(null, "Pick up confirmed.");
+    }
+
+    private void pickUpButtonNActionPerformed(java.awt.event.ActionEvent evt){
+        JOptionPane.showMessageDialog(null, "Non pick up confirmed.");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +369,10 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
     private javax.swing.JPanel pickUpConfirm;
+    private javax.swing.JButton pickUpButtonY;
+    private javax.swing.JButton pickUpButtonN;
+    private javax.swing.JLabel pickUpPrompt;
+    private javax.swing.JTextField pickUpInput;
     private javax.swing.JPanel recordDelivery;
     private javax.swing.JButton recordDeliveryButton;
     private javax.swing.JPanel viewInfo;
