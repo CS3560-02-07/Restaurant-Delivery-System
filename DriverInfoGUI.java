@@ -256,24 +256,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
     public String actualTime, distTravelled, estTime;
     
-    private void actualTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        actualTime = actualTimeInput.getText();
-    }                                               
-
-    private void distTravInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        distTravelled = distTravInput.getText();
-    }                                             
-
-    private void estTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        estTime = estTimeInput.getText();
-    }                                            
-
-    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        actualTimeInput.setText("");
-        distTravInput.setText("");
-        estTimeInput.setText("");
-    }                                           
-
     private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         if(actualTimeInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out actual time");
@@ -285,9 +267,21 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill out estimated time");
         }
         else{
+            actualTime = actualTimeInput.getText();
+            distTravelled = distTravInput.getText();
+            estTime = estTimeInput.getText();
+            actualTimeInput.setText("");
+            distTravInput.setText("");
+            estTimeInput.setText("");
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
-    }                                                    
+    }
+    
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt){
+        actualTimeInput.setText("");
+        distTravInput.setText("");
+        estTimeInput.setText("");
+    }
 
     /**
      * @param args the command line arguments
