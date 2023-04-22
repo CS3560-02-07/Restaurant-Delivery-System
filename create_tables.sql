@@ -4,7 +4,7 @@ CREATE DATABASE delivery_system;
 USE delivery_system;
 
 CREATE TABLE customer(
-	customerID INT AUTO_INCREMENT,
+	customerID INT NOT NULL AUTO_INCREMENT,
     f_name VARCHAR(50),
     l_name VARCHAR(50),
     address VARCHAR(150),
@@ -22,7 +22,7 @@ CREATE TABLE restaurant(
 );
 
 CREATE TABLE orders(
-	order_num INT,
+	order_num INT AUTO_INCREMENT,
     customerID INT,
     restaurantID INT,
     total_cost DECIMAL(9,2),
@@ -65,3 +65,15 @@ CREATE TABLE refund(
     FOREIGN KEY(delivery_num) REFERENCES delivery(delivery_num),
     PRIMARY KEY(delivery_num)
 );
+
+/*
+CREATE TABLE driver_payment(
+	pay_id INT AUTO_INCREMENT,
+	pay_rate DECIMAL(9,2),
+    total_payment DECIMAL(9,2),
+    delivery_num INT,
+    FOREIGN KEY(delivery_num) REFERENCES delivery(delivery_num),
+    PRIMARY KEY(pay_id, delivery_num)
+    -- PRIMARY KEY(pay_id)
+);
+*/
