@@ -132,12 +132,19 @@ public class LoginPageGUI extends javax.swing.JFrame {
             driver.setVisible(true);
             setVisible(false);
         }
+        try{
+            //open connection
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+
+        }
+        
     }                                           
 
     private void passInputActionPerformed(java.awt.event.ActionEvent evt) {                                          
     }                                         
 
-    private void userInputActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void userInputActionPerformed(java.awt.event.ActionEvent evt) {                          
     }                                         
 
     //actions for register button
