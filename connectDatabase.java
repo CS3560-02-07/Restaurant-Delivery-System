@@ -2,10 +2,12 @@ import java.sql.*;
 
 public class connectDatabase {
     public static void main(String[] args){
+        //Login info for mysql
         String url = "jdbc:mysql://localhost:3306/delivery_system";
         String username = "root";
         String password = "3560";
 
+        //establish connection
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -15,6 +17,7 @@ public class connectDatabase {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");
 
+            //retrieve data from database
             while (resultSet.next()){
                 System.out.println(resultSet.getInt(1) + " " + 
                 resultSet.getString(2) + " " + resultSet.getString(3));
@@ -22,6 +25,7 @@ public class connectDatabase {
 
             connection.close();
         }
+        //catch exceptions
         catch(Exception e){
             System.out.println(e);
         }

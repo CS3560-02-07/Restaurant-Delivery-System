@@ -3,6 +3,7 @@ CREATE DATABASE delivery_system;
 
 USE delivery_system;
 
+-- Defining each table and its attributes
 CREATE TABLE customer(
 	customerID INT NOT NULL AUTO_INCREMENT,
     f_name VARCHAR(50),

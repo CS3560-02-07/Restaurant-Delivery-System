@@ -1,5 +1,6 @@
 USE delivery_system;
 
+-- Inserting mock data into tables
 INSERT INTO customer 
 VALUES (NULL, 'Ally', 'Ly', '5200 Wheeler Ave, La Verne, CA 91750', '3444', '1231231231'),
 	(NULL, 'Carlos', 'Rodriguez', '1225 N Grand Ave, Walnut, CA 91789', '1111', '1111111111');
