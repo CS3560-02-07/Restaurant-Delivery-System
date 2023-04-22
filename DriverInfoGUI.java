@@ -2,6 +2,7 @@ import javax.swing.JOptionPane;
 
 public class DriverInfoGUI extends javax.swing.JFrame {
 
+    //variables to save user input
     public String actual;
     public String estimate;
     public int dist;
@@ -289,9 +290,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill out estimated time");
         }
         else{
+            //save user input
             actual = actualTimeInput.getText();
             estimate = estTimeInput.getText();
             dist = Integer.parseInt(distTravInput.getText());
+            //print user input
             System.out.println(actual + " " + estimate + " " + dist);
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
