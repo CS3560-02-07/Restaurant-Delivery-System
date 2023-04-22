@@ -409,6 +409,38 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         });
     }
 
+    private void restNameInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        restName = restNameInput.getText();
+    }                                             
+
+    private void addyInputActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        restAddy = addyInput.getText();
+    }                                         
+
+    private void restNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        restNum = restNumInput.getText();
+    }                         
+    
+    private void driverNameInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        driverName = driverNameInput.getText();
+    }                                               
+
+    private void driverLicInputActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        driverLic = driverLicInput.getText();
+    }                                              
+
+    private void carInfoInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        carInfo = carInfoInput.getText();
+    }                                            
+
+    private void driverUserInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        driverUser = driverUserInput.getText();
+    }                                               
+
+    private void driverPassInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        driverPass = driverPassInput.getText();
+    }                                         
+
     // Variables declaration - do not modify                     
     private javax.swing.JTextField addyInput;
     private javax.swing.JTextField carInfoInput;
