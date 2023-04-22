@@ -439,7 +439,15 @@ public class RegisterFormGUI extends javax.swing.JFrame {
 
     private void driverPassInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
         driverPass = driverPassInput.getText();
-    }                                         
+    }                            
+    
+    private void restUserInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        restUser = restUserInput.getText();
+    }                                             
+
+    private void restPassInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        restPass = restPassInput.getText();
+    }               
 
     // Variables declaration - do not modify                     
     private javax.swing.JTextField addyInput;
