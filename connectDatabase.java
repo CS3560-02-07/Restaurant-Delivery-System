@@ -30,4 +30,20 @@ public class connectDatabase {
             System.out.println(e);
         }
     }
+    //breaking up the method
+    public static Connection getConnection() {
+        String url = "jdbc:mysql://localhost:3306/delivery_system";
+        String username = "root";
+        String password = "3560";
+        Connection connection;
+
+        try{
+            connection = DriverManager.getConnection(url, username, password);
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+
+        return connection;
+    }
 }
