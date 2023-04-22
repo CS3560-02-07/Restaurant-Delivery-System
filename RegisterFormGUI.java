@@ -69,7 +69,6 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         restNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restNameInputActionPerformed(evt);
-                //restNameIn = restNameInput.getText();
             }
         });
 
@@ -385,7 +384,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         }
         else{
             restName = restNameInput.getText();
-            restAddy = addyInput.getText();
+            restAddy = addyInput.getText(); 
             restNum = restNumInput.getText();
             restUser = restUserInput.getText();
             restPass = restPassInput.getText();
