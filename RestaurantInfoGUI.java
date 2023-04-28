@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     /**
@@ -192,7 +194,23 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         LoginPageGUI login = new LoginPageGUI();
         setVisible(false);
         login.setVisible(true);
-    }                                            
+    }
+    
+    //action for request delivery button
+    private void reqDelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        if(custOrderNumInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill out customer order number");
+        }
+        else if(timeDelReqInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill out time of delivery request");
+        }
+        else if(driverIDInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill out driver ID");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "New Delivery Requested");
+        }
+    }
 
     /**
      * @param args the command line arguments
