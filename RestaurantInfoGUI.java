@@ -86,6 +86,11 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         driverIDPrompt.setText("Driver ID:");
 
         reqDelButton.setText("Request Delivery");
+        reqDelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reqDelButtonActionPerformed(evt);
+            }
+        });
 
         //horizontal and vertical layouts of request delivery tab
         javax.swing.GroupLayout reqDeliveryLayout = new javax.swing.GroupLayout(reqDelivery);
