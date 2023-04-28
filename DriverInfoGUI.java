@@ -20,8 +20,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //create tabs
         driverInfoTab = new javax.swing.JTabbedPane();
         driverOptionTabs = new javax.swing.JTabbedPane();
-        //tabs for driver to view
+        //driver view info tab + table
         viewInfo = new javax.swing.JPanel();
+        driverViewInfoScrollPane = new javax.swing.JScrollPane();
+        driverViewInfoTable = new javax.swing.JTable();
+        custOrder = new javax.swing.JPanel();
         pickUpConfirm = new javax.swing.JPanel();
         recordDelivery = new javax.swing.JPanel();
         //record delivery labels (text on screen), text boxes for user input, and buttons
@@ -47,16 +50,34 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color of view info tab
 
+        //adds JTable
+        driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Larry", "Honda Civic", "22222222"},
+                {null, null, null}
+            },
+            new String [] {
+                "Driver Name", "Car Info", "License Number"
+            }
+        ));
+        driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
+
         //horizontal and vertical layouts of view info tab
         javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
         viewInfo.setLayout(viewInfoLayout);
         viewInfoLayout.setHorizontalGroup(
             viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGroup(viewInfoLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         viewInfoLayout.setVerticalGroup(
             viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGroup(viewInfoLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
@@ -316,11 +337,14 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JTextField actualTimeInput;
     private javax.swing.JLabel actualTimePrompt;
     private javax.swing.JButton clearButton;
+    private javax.swing.JPanel custOrder;
     private javax.swing.JPanel deliveryHist;
     private javax.swing.JTextField distTravInput;
     private javax.swing.JLabel distTravPrompt;
     private javax.swing.JTabbedPane driverInfoTab;
     private javax.swing.JTabbedPane driverOptionTabs;
+    private javax.swing.JScrollPane driverViewInfoScrollPane;
+    private javax.swing.JTable driverViewInfoTable;
     private javax.swing.JTextField estTimeInput;
     private javax.swing.JLabel estTimePrompt;
     private javax.swing.JPanel logOut;
