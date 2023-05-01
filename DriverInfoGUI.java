@@ -36,6 +36,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput = new javax.swing.JTextField();
         recordDeliveryButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
+        pickUpButtonY = new javax.swing.JButton();
+        pickUpButtonN = new javax.swing.JButton();
+        pickUpPrompt = new javax.swing.JLabel();
         //other tabs for driver to view
         deliveryHist = new javax.swing.JPanel();
         logOut = new javax.swing.JPanel();
@@ -81,20 +84,57 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+        
+       //pickUpConfirm UI
+       pickUpButtonY.setText("Yes");
+       pickUpButtonY.addActionListener(new java.awt.event.ActionListener() {
+           public void actionPerformed(java.awt.event.ActionEvent evt) {
+               pickUpButtonYActionPerformed(evt);
+           }
+       });
+       pickUpButtonN.setText("No");
+       pickUpButtonN.addActionListener(new java.awt.event.ActionListener() {
+           public void actionPerformed(java.awt.event.ActionEvent evt) {
+               pickUpButtonNActionPerformed(evt);
+           }
+       });
 
-        pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pick-up confirmation tab
+       //horizontal and vertical layouts of pick-up confirmation tab
 
-        //horizontal and vertical layouts of pick-up confirmation tab
-        javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
-        pickUpConfirm.setLayout(pickUpConfirmLayout);
-        pickUpConfirmLayout.setHorizontalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
-        );
-        pickUpConfirmLayout.setVerticalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
-        );
+       pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pick-up confirmation tab
+
+       javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickUpConfirm);
+       pickUpConfirm.setLayout(pickUpLayout);
+       //font and txt size of record delivery
+       pickUpPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+       pickUpPrompt.setText("Has the order been picked up?");
+
+       pickUpLayout.setHorizontalGroup(
+           pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+           .addGroup(pickUpLayout.createSequentialGroup()
+               .addGap(200, 200, 200)
+               .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                   .addGroup(pickUpLayout.createSequentialGroup()
+                       .addComponent(pickUpButtonY)
+                       .addGap(31, 31, 31)
+                       .addComponent(pickUpButtonN))
+                   .addComponent(pickUpPrompt))
+               .addContainerGap(113, Short.MAX_VALUE))
+       );
+       pickUpLayout.setVerticalGroup(
+           pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+           .addGroup(pickUpLayout.createSequentialGroup()
+               .addGap(68, 68, 68)
+               .addComponent(pickUpPrompt)
+               .addGap(18, 18, 18)
+               .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                   .addComponent(pickUpButtonY)
+                   .addComponent(pickUpButtonN))
+               .addContainerGap(175, Short.MAX_VALUE))
+       );
+
+
+       // end of pickupconfirm ui
 
         driverOptionTabs.addTab("Pick-up Confirmation", pickUpConfirm); //names the tab "pick-up confirmation"
 
@@ -319,7 +359,19 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             System.out.println(actual + " " + estimate + " " + dist);
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
-    }                                                    
+    }                
+    
+    public Boolean pickUpStatus;
+
+    private void pickUpButtonYActionPerformed(java.awt.event.ActionEvent evt){
+        pickUpStatus = true;
+        JOptionPane.showMessageDialog(null, "Pick up confirmed.");
+    }
+
+    private void pickUpButtonNActionPerformed(java.awt.event.ActionEvent evt){
+        pickUpStatus = false;
+        JOptionPane.showMessageDialog(null, "Non pick up confirmed.");
+    }
 
     /**
      * @param args the command line arguments
@@ -351,6 +403,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
     private javax.swing.JPanel pickUpConfirm;
+    private javax.swing.JButton pickUpButtonY;
+    private javax.swing.JButton pickUpButtonN;
+    private javax.swing.JLabel pickUpPrompt;
     private javax.swing.JPanel recordDelivery;
     private javax.swing.JButton recordDeliveryButton;
     private javax.swing.JPanel viewInfo;
