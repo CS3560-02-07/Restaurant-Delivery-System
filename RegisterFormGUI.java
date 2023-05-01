@@ -331,7 +331,8 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         setVisible(false);
     }           
     
-    //variable delcaration to save user input                          
+    //variable delcaration to save user input
+    public int restID, driverID;                          
     public String restName, restAddy, restNum, restUser, restPass;
     public String driverName, driverLic, carInfo, driverUser, driverPass;      
 
@@ -388,12 +389,15 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             restNum = restNumInput.getText();
             restUser = restUserInput.getText();
             restPass = restPassInput.getText();
+
+            restID = connectDatabase.insertRestaurant(restName, restAddy, restNum, restUser, restPass);
+            
             restNameInput.setText("");
             restNumInput.setText("");
             restPassInput.setText("");
             restUserInput.setText("");
             addyInput.setText("");
-            JOptionPane.showMessageDialog(null, "The restaurant " + restName + " is now registered");
+            JOptionPane.showMessageDialog(null, "The restaurant " + restName + " is now registered with ID " + restID);
         }
     }                                    
 

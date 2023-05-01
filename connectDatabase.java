@@ -1,6 +1,39 @@
 import java.sql.*;
 
 public class connectDatabase {
+
+    public static int insertRestaurant(String name, String address, String phone, String user, String pass){
+        //Connection conn = getConnection();
+        int restID = -1; 
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            String query = "INSERT INTO restaurant VALUES (NULL, '" + name + "', '" + address + "', '" + 
+                            phone + "', '" + user + "', '" + pass + "')";
+
+            System.out.println(query);
+
+            state.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet results = state.getGeneratedKeys();
+            if (results.next()){
+                restID = results.getInt(1);
+            }
+            //restID = results.getInt(1);
+
+            System.out.println("added with id " + restID);
+
+            state.close();
+            conn.close();
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+
+        return restID;
+
+    }
+
     public static void main(String[] args){
         //Login info for mysql
         String url = "jdbc:mysql://localhost:3306/delivery_system";
@@ -31,7 +64,7 @@ public class connectDatabase {
         }
     }
     //breaking up the method
-    public static Connection getConnection() {
+    private static Connection getConnection() {
         String url = "jdbc:mysql://localhost:3306/delivery_system";
         String username = "root";
         String password = "3560";

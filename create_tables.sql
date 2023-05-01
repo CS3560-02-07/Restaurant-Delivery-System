@@ -19,6 +19,8 @@ CREATE TABLE restaurant(
     restaurant_name VARCHAR(50),
     restaurant_address VARCHAR(150),
     restaurant_phone VARCHAR(10),
+    username VARCHAR(20),
+    pass VARCHAR(20),
     PRIMARY KEY(restaurantID)
 );
 
@@ -37,6 +39,8 @@ CREATE TABLE driver(
 	driver_name VARCHAR(50),
     car_info VARCHAR(150),
     license_num VARCHAR(8),
+    username VARCHAR(20),
+    pass VARCHAR(20),
     PRIMARY KEY(driverID)
 );
 
@@ -53,8 +57,8 @@ CREATE TABLE pickup_confirmation(
 CREATE TABLE delivery(
 	driverID INT,
     delivery_num INT AUTO_INCREMENT,
-    estimated_time TIME, 
-    time_stamp TIME,
+    estimated_time INT, 
+    actual_time INT,
 	distance INT(4),
     FOREIGN KEY(driverID) REFERENCES driver(driverID),
     PRIMARY KEY(delivery_num)
