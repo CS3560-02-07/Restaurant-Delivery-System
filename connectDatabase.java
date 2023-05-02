@@ -2,6 +2,7 @@ import java.sql.*;
 
 public class connectDatabase {
 
+    //Insert a new entry into restaurant table
     public static int insertRestaurant(String name, String address, String phone, String user, String pass){
         //Connection conn = getConnection();
         int restID = -1; 
@@ -34,6 +35,56 @@ public class connectDatabase {
 
     }
 
+    //Check if login information is valid and exists within the database
+    public static boolean checkLogin(String user, String pass){
+        //boolean valid = false;
+ 
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            String query1 = "SELECT username FROM restaurant";
+            String query2 = "SELECT ";
+
+            ResultSet restResults = state.executeQuery("SELECT username FROM restaurant");
+
+            //Check restaurant table
+            while(restResults.next()){
+                if (restResults.getString(1).equals(user)){
+                    System.out.println(restResults.getString(1));
+                    ResultSet restPassResults = state.executeQuery("SELECT pass FROM restaurant WHERE username = '" + user + "'");
+                    if (restPassResults.next()){
+                        System.out.println(restPassResults.getString(1));
+                        if (restPassResults.getString(1).equals(pass)){
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            ResultSet driveResults = state.executeQuery("SELECT username FROM driver");
+
+            //Check driver table
+            while(driveResults.next()){
+                if (driveResults.getString(1).equals(user)){
+                    ResultSet drivePassResults = state.executeQuery("SELECT pass FROM driver WHERE username = '" + user + "'");
+                    if (drivePassResults.next()){
+                        if(drivePassResults.getString(1).equals(pass)){
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            state.close();
+            conn.close();
+
+            return false;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+    }
     public static void main(String[] args){
         //Login info for mysql
         String url = "jdbc:mysql://localhost:3306/delivery_system";

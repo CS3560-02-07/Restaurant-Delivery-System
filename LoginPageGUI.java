@@ -122,6 +122,11 @@ public class LoginPageGUI extends javax.swing.JFrame {
         else if(passInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out password");
         }
+        else if(connectDatabase.checkLogin(userInput.getText(), passInput.getText())){
+            RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
+            restaurant.setVisible(true);
+            setVisible(false);
+        }
         else if(userInput.getText().equals("abcRestaurant") && passInput.getText().equals("lmaoxd")){
             RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
             restaurant.setVisible(true);
@@ -131,6 +136,9 @@ public class LoginPageGUI extends javax.swing.JFrame {
             DriverInfoGUI driver = new DriverInfoGUI();
             driver.setVisible(true);
             setVisible(false);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.");
         }
         try{
             //open connection
