@@ -358,12 +358,15 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             carInfo = carInfoInput.getText();
             driverUser = driverUserInput.getText();
             driverPass = driverPassInput.getText();
+            //Insert driver into database
+            driverID = connectDatabase.insertDriver(driverName, driverLic, carInfo, driverUser, driverPass);
+
             driverLicInput.setText("");
             driverNameInput.setText("");
             driverPassInput.setText("");
             driverUserInput.setText("");
             carInfoInput.setText("");
-            JOptionPane.showMessageDialog(null, driverName + " is now register as a driver");
+            JOptionPane.showMessageDialog(null, driverName + " is now register as a driver with ID " + driverID);
         }
     }                                               
 
@@ -389,7 +392,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
             restNum = restNumInput.getText();
             restUser = restUserInput.getText();
             restPass = restPassInput.getText();
-
+            //Insert into restaurant database
             restID = connectDatabase.insertRestaurant(restName, restAddy, restNum, restUser, restPass);
             
             restNameInput.setText("");

@@ -35,6 +35,39 @@ public class connectDatabase {
 
     }
 
+    //Insert a new entry into driver table
+    public static int insertDriver(String name, String car, String license, String user, String pass){
+        //Connection conn = getConnection();
+        int DriveID = -1; 
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            String query = "INSERT INTO driver VALUES (NULL, '" + name + "', '" + car + "', '" + 
+                            license + "', '" + user + "', '" + pass + "')";
+
+            System.out.println(query);
+
+            state.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet results = state.getGeneratedKeys();
+            if (results.next()){
+                DriveID = results.getInt(1);
+            }
+            //restID = results.getInt(1);
+
+            System.out.println("added with id " + DriveID);
+
+            state.close();
+            conn.close();
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+
+        return DriveID;
+
+    }
+
     //Check if login information is valid and exists within the database
     public static String checkLogin(String user, String pass){
         //boolean valid = false;

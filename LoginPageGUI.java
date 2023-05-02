@@ -140,6 +140,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
             setVisible(false);
         }
         else {
+            //Check if inputted username and password is in the database, as well as if they are a restaurant or driver
             String status = connectDatabase.checkLogin(userInput.getText(), passInput.getText());
             if (status.equals("Restaurant")){
                 RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
