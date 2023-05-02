@@ -99,16 +99,15 @@ public class DriverInfoGUI extends javax.swing.JFrame {
            }
        });
 
-       //horizontal and vertical layouts of pick-up confirmation tab
-
        pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pick-up confirmation tab
-
-       javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickUpConfirm);
-       pickUpConfirm.setLayout(pickUpLayout);
+      
        //font and txt size of record delivery
-       pickUpPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+       pickUpPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
        pickUpPrompt.setText("Has the order been picked up?");
 
+       //horizontal and vertical layouts of pick-up confirmation tab
+       javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickUpConfirm);
+       pickUpConfirm.setLayout(pickUpLayout);
        pickUpLayout.setHorizontalGroup(
            pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
            .addGroup(pickUpLayout.createSequentialGroup()
@@ -131,10 +130,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                    .addComponent(pickUpButtonY)
                    .addComponent(pickUpButtonN))
                .addContainerGap(175, Short.MAX_VALUE))
-       );
-
-
-       // end of pickupconfirm ui
+       ); // end of pickupconfirm ui
 
         driverOptionTabs.addTab("Pick-up Confirmation", pickUpConfirm); //names the tab "pick-up confirmation"
 
