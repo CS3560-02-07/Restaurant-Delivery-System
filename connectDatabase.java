@@ -36,15 +36,12 @@ public class connectDatabase {
     }
 
     //Check if login information is valid and exists within the database
-    public static boolean checkLogin(String user, String pass){
+    public static String checkLogin(String user, String pass){
         //boolean valid = false;
- 
+        //String status;
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
-
-            String query1 = "SELECT username FROM restaurant";
-            String query2 = "SELECT ";
 
             ResultSet restResults = state.executeQuery("SELECT username FROM restaurant");
 
@@ -56,7 +53,8 @@ public class connectDatabase {
                     if (restPassResults.next()){
                         System.out.println(restPassResults.getString(1));
                         if (restPassResults.getString(1).equals(pass)){
-                            return true;
+                            //return true;
+                            return "Restaurant";
                         }
                     }
                 }
@@ -70,7 +68,7 @@ public class connectDatabase {
                     ResultSet drivePassResults = state.executeQuery("SELECT pass FROM driver WHERE username = '" + user + "'");
                     if (drivePassResults.next()){
                         if(drivePassResults.getString(1).equals(pass)){
-                            return true;
+                            return "Driver";
                         }
                     }
                 }
@@ -79,7 +77,7 @@ public class connectDatabase {
             state.close();
             conn.close();
 
-            return false;
+            return "None";
         }
         catch(Exception e){
             throw new IllegalStateException("Failed to connect.", e);
