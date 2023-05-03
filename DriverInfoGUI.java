@@ -56,16 +56,20 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color of view info tab
 
-        //adds driver view info JTable
-        driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Larry", "Honda Civic", "22222222"},
-                {null, null, null}
-            },
-            new String [] {
-                "Driver Name", "Car Info", "License Number"
-            }
+        //database connection to show driver info
+        String[] driverInf = connectDatabase.getDriver();
+        //adds driver view info JTable 
+        if (!driverInf[0].equals("")){ //if name string is not empty
+            driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+            {driverInf[0], driverInf[1], driverInf[2]},
+            {null, null, null}
+        },
+        new String [] {
+            "Driver Name", "Car Info", "License Number"
+        }
         ));
+        }  
         driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
 
         //horizontal and vertical layouts of view info tab

@@ -116,6 +116,37 @@ public class connectDatabase {
             throw new IllegalStateException("Failed to connect.", e);
         }
     }
+    
+    //gets driverInfo for viewInfo for the DriverInfoGUI
+    public static String[] getDriver(){
+        try{
+            String[] driverInf = new String[3]; //returns array with name, car info, license
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            //Check driver table
+            ResultSet restResults = state.executeQuery("SELECT driver_name FROM driver");
+            if(restResults.next()){
+                driverInf[0]=(restResults.getString(1));    //returns name info
+            }
+            ResultSet restPassResults = state.executeQuery("SELECT car_info FROM driver");
+            if(restPassResults.next()){
+                driverInf[1]=(restPassResults.getString(1));    //returns car info   
+            }
+            ResultSet rest2Result = state.executeQuery("SELECT license_num FROM driver");
+            if(rest2Result.next()){
+                driverInf[2]=(rest2Result.getString(1));       //returns license info
+            }
+
+            state.close();
+            conn.close();
+
+            return driverInf;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+    }
     public static void main(String[] args){
         //Login info for mysql
         String url = "jdbc:mysql://localhost:3306/delivery_system";
@@ -156,7 +187,7 @@ public class connectDatabase {
             connection = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e){
-            throw new IllegalStateException("Failed to connect.", e);
+            throw new IllegalStateException("Failed to connectdamn.", e);
         }
 
         return connection;
