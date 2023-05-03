@@ -187,7 +187,7 @@ public class connectDatabase {
             connection = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e){
-            throw new IllegalStateException("Failed to connectdamn.", e);
+            throw new IllegalStateException("Failed to connect.", e);
         }
 
         return connection;
