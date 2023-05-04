@@ -19,6 +19,8 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         viewInfo = new javax.swing.JPanel();
         restViewInfoScrollPane = new javax.swing.JScrollPane();
         restViewInfoTable = new javax.swing.JTable();
+        //customer order tab
+        custOrder = new javax.swing.JPanel();    
         //request delivery labels (text on screen), text boxes, and button
         reqDelivery = new javax.swing.JPanel();
         custOrderNumPrompt = new javax.swing.JLabel();
@@ -72,6 +74,22 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         );
 
         restOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+
+        custOrder.setBackground(new java.awt.Color(199, 234, 245)); //set background color of "customer order" tab
+
+        //horizontal and vertical layouts of customer order tab
+        javax.swing.GroupLayout custOrderLayout = new javax.swing.GroupLayout(custOrder);
+        custOrder.setLayout(custOrderLayout);
+        custOrderLayout.setHorizontalGroup(
+            custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 643, Short.MAX_VALUE)
+        );
+        custOrderLayout.setVerticalGroup(
+            custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 317, Short.MAX_VALUE)
+        );
+
+        restOptionTabs.addTab("Customer Order", custOrder); //names the tab "customer order"
 
         reqDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of request delivery tab
 
@@ -230,6 +248,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    private javax.swing.JPanel custOrder;
     private javax.swing.JTextField custOrderNumInput;
     private javax.swing.JLabel custOrderNumPrompt;
     private javax.swing.JTextField driverIDInput;

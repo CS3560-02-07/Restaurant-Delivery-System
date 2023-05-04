@@ -26,7 +26,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         viewInfo = new javax.swing.JPanel();
         driverViewInfoScrollPane = new javax.swing.JScrollPane();
         driverViewInfoTable = new javax.swing.JTable();
-        custOrder = new javax.swing.JPanel();
         pickUpConfirm = new javax.swing.JPanel();
         recordDelivery = new javax.swing.JPanel();
         //record delivery labels (text on screen), text boxes for user input, and buttons
@@ -93,21 +92,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
-        
-        custOrder.setBackground(new java.awt.Color(199, 234, 245));
-
-        javax.swing.GroupLayout custOrderLayout = new javax.swing.GroupLayout(custOrder);
-        custOrder.setLayout(custOrderLayout);
-        custOrderLayout.setHorizontalGroup(
-            custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
-        );
-        custOrderLayout.setVerticalGroup(
-            custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
-        );
-
-        driverOptionTabs.addTab("Customer Order", custOrder);
 
         //pickUpConfirm UI
         pickUpButtonY.setText("Yes");
@@ -438,7 +422,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JTextField actualTimeInput;
     private javax.swing.JLabel actualTimePrompt;
     private javax.swing.JButton clearButton;
-    private javax.swing.JPanel custOrder;
     private javax.swing.JScrollPane delHistScrollPane;
     private javax.swing.JTable delHistTable;
     private javax.swing.JPanel deliveryHist;
