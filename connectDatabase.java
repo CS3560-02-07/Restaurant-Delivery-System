@@ -118,30 +118,41 @@ public class connectDatabase {
     }
     
     //gets driverInfo for viewInfo for the DriverInfoGUI
-    public static String[] getDriver(){
+    public static String[] getDriver(String user){
         try{
             String[] driverInf = new String[3]; //returns array with name, car info, license
             Connection conn = getConnection();
             Statement state = conn.createStatement();
+            //gets username from driver table
+            ResultSet driveResults = state.executeQuery("SELECT username FROM driver WHERE username = '" + user + "'"); 
 
-            //Check driver table
-            ResultSet restResults = state.executeQuery("SELECT driver_name FROM driver");
-            if(restResults.next()){
-                driverInf[0]=(restResults.getString(1));    //returns name info
+            while(driveResults.next()){ //iterates through usernames until correct one is found
+                if (driveResults.getString(1).equals(user)){
+                    //gets the driver's name from the correct column in table
+                    ResultSet drivePassResults = state.executeQuery("SELECT driver_name FROM driver WHERE username = '" + user + "'");
+                    //sets array[0] equal to the driver's name
+                    if(drivePassResults.next()){
+                        driverInf[0]=(drivePassResults.getString(1));      
+                    }
+                    //gets the driver's car info from the correct column in table
+                    drivePassResults = state.executeQuery("SELECT car_info FROM driver WHERE username = '" + user + "'");
+                    //sets array[1] equal to the driver's car info
+                    if(drivePassResults.next()){
+                        driverInf[1]=(drivePassResults.getString(1));     
+                    }
+                    //gets the driver's license number from the correct column in table
+                    drivePassResults = state.executeQuery("SELECT license_num FROM driver WHERE username = '" + user + "'");
+                    //sets array[2] equal to the driver's license num
+                    if(drivePassResults.next()){
+                        driverInf[2]=(drivePassResults.getString(1));    
+                    }                
+                }
+                state.close();
+                conn.close();
+                return driverInf; //returns array with results   
             }
-            ResultSet restPassResults = state.executeQuery("SELECT car_info FROM driver");
-            if(restPassResults.next()){
-                driverInf[1]=(restPassResults.getString(1));    //returns car info   
-            }
-            ResultSet rest2Result = state.executeQuery("SELECT license_num FROM driver");
-            if(rest2Result.next()){
-                driverInf[2]=(rest2Result.getString(1));       //returns license info
-            }
+            return driverInf;   //returns array with results if empty         
 
-            state.close();
-            conn.close();
-
-            return driverInf;
         }
         catch(Exception e){
             throw new IllegalStateException("Failed to connect.", e);

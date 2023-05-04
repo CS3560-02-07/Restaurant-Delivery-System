@@ -5,14 +5,7 @@ public class Driver{
     private String carInfo; // "Year Make Model" 
     private String driversLicense;
     private ArrayList<Delivery> history;
-
-    public Driver(int driverID, String name, String carInfo, String driversLicense, ArrayList<Delivery> history){   
-        this.driverID = driverID;
-        this.name = name;
-        this.carInfo = carInfo;
-        this.driversLicense = driversLicense;
-        this.history = history;
-    }
+    private String userName;
 
     public void setDriverID(int newDriverID){   //sets the driver's ID number
         driverID = newDriverID;

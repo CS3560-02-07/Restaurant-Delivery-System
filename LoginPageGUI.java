@@ -135,7 +135,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
             setVisible(false);
         }
         else if(userInput.getText().equals("abcRestDriver") && passInput.getText().equals("lolgg")){
-            DriverInfoGUI driver = new DriverInfoGUI();
+            DriverInfoGUI driver = new DriverInfoGUI(userInput.getText());
             driver.setVisible(true);
             setVisible(false);
         }
@@ -148,7 +148,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
                 setVisible(false);
             }
             else if (status.equals("Driver")){
-                DriverInfoGUI driver = new DriverInfoGUI();
+                DriverInfoGUI driver = new DriverInfoGUI(userInput.getText());  //gets username input and uses it as argument into DriverInfoGUI
                 driver.setVisible(true);
                 setVisible(false);
             }

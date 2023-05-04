@@ -6,11 +6,13 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     public String actual;
     public String estimate;
     public int dist;
+    private String userName;
 
     /**
      * Creates new form RestaurantInfo
      */
-    public DriverInfoGUI() {
+    public DriverInfoGUI(String userName) {
+        this.userName=userName;
         initComponents();
     }
     
@@ -57,7 +59,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color of view info tab
 
         //database connection to show driver info
-        String[] driverInf = connectDatabase.getDriver();
+        String[] driverInf = connectDatabase.getDriver(userName);
         //adds driver view info JTable 
         if (!driverInf[0].equals("")){ //if name string is not empty
             driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -427,7 +429,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DriverInfoGUI().setVisible(true);
+                new DriverInfoGUI("test").setVisible(true);
             }
         });
     }
