@@ -130,7 +130,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
         }
         */
         else if(userInput.getText().equals("abcRestaurant") && passInput.getText().equals("lmaoxd")){
-            RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
+            RestaurantInfoGUI restaurant = new RestaurantInfoGUI(userInput.getText());
             restaurant.setVisible(true);
             setVisible(false);
         }
@@ -143,7 +143,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
             //Check if inputted username and password is in the database, as well as if they are a restaurant or driver
             String status = connectDatabase.checkLogin(userInput.getText(), passInput.getText());
             if (status.equals("Restaurant")){
-                RestaurantInfoGUI restaurant = new RestaurantInfoGUI();
+                RestaurantInfoGUI restaurant = new RestaurantInfoGUI(userInput.getText());
                 restaurant.setVisible(true);
                 setVisible(false);
             }

@@ -2,10 +2,15 @@ import javax.swing.JOptionPane;
 
 public class RestaurantInfoGUI extends javax.swing.JFrame {
 
+    //variable to save login session
+    private String userName;
+
+
     /**
      * Creates new form RestaurantInfo
      */
-    public RestaurantInfoGUI() {
+       public RestaurantInfoGUI(String userName) {
+        this.userName=userName;
         initComponents();
     }
     
@@ -43,17 +48,22 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
         viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color for view info tab
 
-        //adds JTable
-        restViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"JJ Boba", "3560 West Temple St. Pomona, CA", "9098968318"},
-                {null, null, null}
-            },
-            new String [] {
-                "Restaurant Name", "Address", "Phone Number"
-            }
+        //database connection to show driver info
+        String[] restInfo = connectDatabase.getRest(userName); //restaurant info array
+
+        //adds restaurant view info JTable 
+        if (!restInfo[0].equals("")){ //if name string is not empty
+            restViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+            {restInfo[0], restInfo[1], restInfo[2]},
+            {null, null, null}
+        },
+        new String [] {
+            "Restaurant Name", "Address", "Phone Number"
+        }
         ));
-        restViewInfoScrollPane.setViewportView(restViewInfoTable); 
+        }  
+        restViewInfoScrollPane.setViewportView(restViewInfoTable);
 
         //horizontal and vertical layouts of view info tab
         javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
@@ -242,7 +252,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RestaurantInfoGUI().setVisible(true);
+                new RestaurantInfoGUI("test").setVisible(true);
             }
         });
     }
