@@ -26,15 +26,6 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         restViewInfoTable = new javax.swing.JTable();
         //customer order tab
         custOrder = new javax.swing.JPanel();    
-        //request delivery labels (text on screen), text boxes, and button
-        reqDelivery = new javax.swing.JPanel();
-        custOrderNumPrompt = new javax.swing.JLabel();
-        timeDelReqPrompt = new javax.swing.JLabel();
-        driverIDPrompt = new javax.swing.JLabel();
-        custOrderNumInput = new javax.swing.JTextField();
-        timeDelReqInput = new javax.swing.JTextField();
-        driverIDInput = new javax.swing.JTextField();
-        reqDelButton = new javax.swing.JButton();
         //logout tab
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
@@ -100,66 +91,6 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         );
 
         restOptionTabs.addTab("Customer Order", custOrder); //names the tab "customer order"
-
-        reqDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of request delivery tab
-
-        //set font style and size for labels on request delivery tab
-        custOrderNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        custOrderNumPrompt.setText("Customer Order Number:");
-
-        timeDelReqPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        timeDelReqPrompt.setText("Time of Delivery Request:");
-
-        driverIDPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        driverIDPrompt.setText("Driver ID:");
-
-        reqDelButton.setText("Request Delivery");
-        reqDelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reqDelButtonActionPerformed(evt);
-            }
-        });
-
-        //horizontal and vertical layouts of request delivery tab
-        javax.swing.GroupLayout reqDeliveryLayout = new javax.swing.GroupLayout(reqDelivery);
-        reqDelivery.setLayout(reqDeliveryLayout);
-        reqDeliveryLayout.setHorizontalGroup(
-            reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reqDeliveryLayout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
-                .addGroup(reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(custOrderNumPrompt, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(timeDelReqPrompt, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(driverIDPrompt, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(reqDelButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                    .addComponent(custOrderNumInput)
-                    .addComponent(timeDelReqInput)
-                    .addComponent(driverIDInput))
-                .addGap(204, 204, 204))
-        );
-        reqDeliveryLayout.setVerticalGroup(
-            reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reqDeliveryLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(custOrderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(custOrderNumPrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(timeDelReqInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeDelReqPrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(reqDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(driverIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(driverIDPrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reqDelButton)
-                .addContainerGap(121, Short.MAX_VALUE))
-        );
-
-        restOptionTabs.addTab("Request Delivery", reqDelivery); //names the tab "request delivery"
 
         logOut.setBackground(new java.awt.Color(199, 234, 245)); //sets background color of log out tab
 
@@ -228,22 +159,6 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         setVisible(false);
         login.setVisible(true);
     }
-    
-    //action for request delivery button
-    private void reqDelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        if(custOrderNumInput.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out customer order number");
-        }
-        else if(timeDelReqInput.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out time of delivery request");
-        }
-        else if(driverIDInput.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out driver ID");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "New Delivery Requested");
-        }
-    }
 
     /**
      * @param args the command line arguments
@@ -259,21 +174,13 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel custOrder;
-    private javax.swing.JTextField custOrderNumInput;
-    private javax.swing.JLabel custOrderNumPrompt;
-    private javax.swing.JTextField driverIDInput;
-    private javax.swing.JLabel driverIDPrompt;
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
-    private javax.swing.JButton reqDelButton;
-    private javax.swing.JPanel reqDelivery;
     private javax.swing.JTabbedPane restInfoTab;
     private javax.swing.JTabbedPane restOptionTabs;
     private javax.swing.JScrollPane restViewInfoScrollPane;
     private javax.swing.JTable restViewInfoTable;
-    private javax.swing.JTextField timeDelReqInput;
-    private javax.swing.JLabel timeDelReqPrompt;
     private javax.swing.JPanel viewInfo;
     // End of variables declaration                   
 }
