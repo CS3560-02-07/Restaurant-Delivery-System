@@ -27,8 +27,12 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         driverViewInfoScrollPane = new javax.swing.JScrollPane();
         driverViewInfoTable = new javax.swing.JTable();
         pickUpConfirm = new javax.swing.JPanel();
-        recordDelivery = new javax.swing.JPanel();
+        //pending orders tab
+        pendingOrders = new javax.swing.JPanel();
+        pendingOrderScrollPanel = new javax.swing.JScrollPane();
+        pendingOrderTable = new javax.swing.JTable();      
         //record delivery labels (text on screen), text boxes for user input, and buttons
+        recordDelivery = new javax.swing.JPanel();
         estTimePrompt = new javax.swing.JLabel();
         actualTimePrompt = new javax.swing.JLabel();
         distTravPrompt = new javax.swing.JLabel();
@@ -141,6 +145,38 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         ); // end of pickupconfirm ui
 
         driverOptionTabs.addTab("Pick-up Confirmation", pickUpConfirm); //names the tab "pick-up confirmation"
+
+        pendingOrders.setBackground(new java.awt.Color(199, 234, 245));
+
+        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", "", "", null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Restaurant", "Order Number", "Customer", "Address", "Phone Number"
+            }
+        ));
+        pendingOrderScrollPanel.setViewportView(pendingOrderTable);
+
+        javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
+        pendingOrders.setLayout(pendingOrdersLayout);
+        pendingOrdersLayout.setHorizontalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+        pendingOrdersLayout.setVerticalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        driverOptionTabs.addTab("Pending Orders", pendingOrders);
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
@@ -436,6 +472,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
+    private javax.swing.JScrollPane pendingOrderScrollPanel;
+    private javax.swing.JTable pendingOrderTable;
+    private javax.swing.JPanel pendingOrders;
     private javax.swing.JPanel pickUpConfirm;
     private javax.swing.JButton pickUpButtonY;
     private javax.swing.JButton pickUpButtonN;
