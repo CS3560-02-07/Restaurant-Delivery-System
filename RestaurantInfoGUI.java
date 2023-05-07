@@ -29,6 +29,8 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         custOrderScrollPane = new javax.swing.JScrollPane();
         custOrderTable = new javax.swing.JTable();
         custOrder = new javax.swing.JPanel();    
+        confirmOrderButton = new javax.swing.JButton();    
+
         //logout tab
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
@@ -220,9 +222,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel custOrder;
-    private javax.swing.JPanel custOrder;
     private javax.swing.JScrollPane custOrderScrollPane;
     private javax.swing.JTable custOrderTable;
+    private javax.swing.JButton confirmOrderButton;
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
