@@ -25,6 +25,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         restViewInfoScrollPane = new javax.swing.JScrollPane();
         restViewInfoTable = new javax.swing.JTable();
         //customer order tab
+        custOrder = new javax.swing.JPanel();
+        custOrderScrollPane = new javax.swing.JScrollPane();
+        custOrderTable = new javax.swing.JTable();
         custOrder = new javax.swing.JPanel();    
         //logout tab
         logOut = new javax.swing.JPanel();
@@ -78,16 +81,54 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
         custOrder.setBackground(new java.awt.Color(199, 234, 245)); //set background color of "customer order" tab
 
+        //adds customer order JTable
+        custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "Test", "Test", "Test", "Test", "Test"},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Select", "Restaurant", "Order Number", "From", "Destination", "Total Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        custOrderScrollPane.setViewportView(custOrderTable);
+
+        //creates confirm order button
+        confirmOrderButton.setText("Confirm Order");
+        confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmOrderButtonActionPerformed(evt);
+            }
+        });
+
         //horizontal and vertical layouts of customer order tab
         javax.swing.GroupLayout custOrderLayout = new javax.swing.GroupLayout(custOrder);
         custOrder.setLayout(custOrderLayout);
         custOrderLayout.setHorizontalGroup(
             custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGroup(custOrderLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmOrderButton)
+                    .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         custOrderLayout.setVerticalGroup(
             custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, custOrderLayout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(confirmOrderButton)
+                .addGap(23, 23, 23))
         );
 
         restOptionTabs.addTab("Customer Order", custOrder); //names the tab "customer order"
@@ -160,6 +201,11 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         login.setVisible(true);
     }
 
+    //action for confirm order button
+    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        //this doesn't do anything yet 
+    }  
+
     /**
      * @param args the command line arguments
      */
@@ -174,6 +220,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel custOrder;
+    private javax.swing.JPanel custOrder;
+    private javax.swing.JScrollPane custOrderScrollPane;
+    private javax.swing.JTable custOrderTable;
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
