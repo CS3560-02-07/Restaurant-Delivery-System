@@ -26,11 +26,14 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         viewInfo = new javax.swing.JPanel();
         driverViewInfoScrollPane = new javax.swing.JScrollPane();
         driverViewInfoTable = new javax.swing.JTable();
-        pickUpConfirm = new javax.swing.JPanel();
         //pending orders tab
         pendingOrders = new javax.swing.JPanel();
         pendingOrderScrollPanel = new javax.swing.JScrollPane();
         pendingOrderTable = new javax.swing.JTable();      
+        //pickup tab
+        pickup = new javax.swing.JPanel();
+        pickupScrollPanel = new javax.swing.JScrollPane();
+        pickupTable = new javax.swing.JTable();     
         //record delivery labels (text on screen), text boxes for user input, and buttons
         recordDelivery = new javax.swing.JPanel();
         estTimePrompt = new javax.swing.JLabel();
@@ -41,10 +44,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput = new javax.swing.JTextField();
         recordDeliveryButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
-        //pick-up confirmation label (text on screen) and buttons
-        pickUpButtonY = new javax.swing.JButton();
-        pickUpButtonN = new javax.swing.JButton();
-        pickUpPrompt = new javax.swing.JLabel();
         //delivery history tab + table
         deliveryHist = new javax.swing.JPanel();
         delHistScrollPane = new javax.swing.JScrollPane();
@@ -76,75 +75,42 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         ));
         }  
         driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
-
+        
+        ///////////////////////////////////////
         //horizontal and vertical layouts of view info tab
-        javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
-        viewInfo.setLayout(viewInfoLayout);
-        viewInfoLayout.setHorizontalGroup(
-            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewInfoLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-        viewInfoLayout.setVerticalGroup(
-            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewInfoLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+        pickup.setBackground(new java.awt.Color(199, 234, 245));
 
-        driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
-
-        //pickUpConfirm UI
-        pickUpButtonY.setText("Yes");
-        pickUpButtonY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pickUpButtonYActionPerformed(evt);
+        pickupTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", "", "", null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Restaurant", "Customer", "From", "To", "Phone Number"
             }
-        });
-        pickUpButtonN.setText("No");
-        pickUpButtonN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pickUpButtonNActionPerformed(evt);
-            }
-        });
+        ));
+        pickupScrollPanel.setViewportView(pickupTable);
 
-        pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pick-up confirmation tab
-      
-        //font and txt size of record delivery
-        pickUpPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
-        pickUpPrompt.setText("Has the order been picked up?");
-
-        //horizontal and vertical layouts of pick-up confirmation tab
-        javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickUpConfirm);
-        pickUpConfirm.setLayout(pickUpLayout);
+        javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickup);
+        pickup.setLayout(pickUpLayout);
         pickUpLayout.setHorizontalGroup(
             pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pickUpLayout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(pickUpLayout.createSequentialGroup()
-                        .addComponent(pickUpButtonY)
-                        .addGap(31, 31, 31)
-                        .addComponent(pickUpButtonN))
-                    .addComponent(pickUpPrompt))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addGap(94, 94, 94)
+                .addComponent(pickupScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         pickUpLayout.setVerticalGroup(
             pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pickUpLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(pickUpPrompt)
-                .addGap(18, 18, 18)
-                .addGroup(pickUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pickUpButtonY)
-                    .addComponent(pickUpButtonN))
-                .addContainerGap(175, Short.MAX_VALUE))
-        ); // end of pickupconfirm ui
+                .addGap(37, 37, 37)
+                .addComponent(pickupScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
 
-        driverOptionTabs.addTab("Pick-up Confirmation", pickUpConfirm); //names the tab "pick-up confirmation"
+        driverOptionTabs.addTab("Pickup Confirmation", pickup);
+        //names the tab "pick-up confirmation"
+        ///////////////////////////////////////
 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245));
 
@@ -176,7 +142,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        driverOptionTabs.addTab("Pending Orders", pendingOrders);
+        driverOptionTabs.addTab("Pending Order", pendingOrders);
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
@@ -475,10 +441,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane pendingOrderScrollPanel;
     private javax.swing.JTable pendingOrderTable;
     private javax.swing.JPanel pendingOrders;
-    private javax.swing.JPanel pickUpConfirm;
-    private javax.swing.JButton pickUpButtonY;
-    private javax.swing.JButton pickUpButtonN;
-    private javax.swing.JLabel pickUpPrompt;
+    private javax.swing.JScrollPane pickupScrollPanel;
+    private javax.swing.JTable pickupTable;
+    private javax.swing.JPanel pickup;
     private javax.swing.JPanel recordDelivery;
     private javax.swing.JButton recordDeliveryButton;
     private javax.swing.JPanel viewInfo;
