@@ -312,7 +312,7 @@ public class connectDatabase {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             //gets all rows that have been confirmed by restaurant
-            ResultSet rs = state.executeQuery("SELECT customerID, restaurantID FROM orders WHERE confirmed = TRUE");
+            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID FROM orders WHERE confirmed = TRUE");
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
             int numColumns = rsmd.getColumnCount();
@@ -327,7 +327,7 @@ public class connectDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //converts from arraylist to 2d array and returns
+        //converts from arraylist to 2d array and returns in each row: order_num, customerID, restaurantID
         int numRows = rows.size();
         int numColumns = rows.get(0).length;
         results = new int[numRows][numColumns];

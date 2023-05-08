@@ -84,27 +84,28 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //adds restaurant view info JTable 
         if (confirmedOrders != null){ //if name string is not empty
             //confirms will hold all necessary information from respective customer/restaurant
-            String[][] confirms = new String[confirmedOrders.length][5]; //although arrays are bigger, only need these 5 items
-            String[] tempArr = new String[5];   //returns f_name, l_name, address, credit_card, phone_number
+            String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
+            String[] tempArr = new String[6];   //returns order_num, f_name, l_name, address, credit_card, phone_number
             String[] tempArr2 = new String[3];  //returns resname, address, phone
             for(int i=0; i<confirmedOrders.length; i++){    //places all necessary strings into confirms
-                tempArr = connectDatabase.getCust(confirmedOrders[i][0]);
-                tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][1]);  
+                tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
+                tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);  
+                confirms[i][0]=String.valueOf(confirmedOrders[i][0]);
                 for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
                 if(j==0){
-                    confirms[i][j] = tempArr2[0];
+                    confirms[i][1] = tempArr2[0];
                 }
                 if(j==1){
-                    confirms[i][j] = tempArr[0];
+                    confirms[i][2] = tempArr[0];
                 }
                 if(j==2){
-                    confirms[i][j] = tempArr2[1];
+                    confirms[i][3] = tempArr2[1];
                 }
                 if(j==3){
-                    confirms[i][j] = tempArr[2];
+                    confirms[i][4] = tempArr[2];
                 }
                 if(j==4){
-                    confirms[i][j] = tempArr[4];
+                    confirms[i][5] = tempArr[4];
                 }
                 }
             }
@@ -113,7 +114,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         pickupTable.setModel(new javax.swing.table.DefaultTableModel(
             confirms,   //displays confirms array with all confirmed orders
             new String [] {
-                "Restaurant", "Customer", "From", "To", "Phone Number"
+                "Order #","Restaurant", "Customer", "From", "To", "Phone Number"
             }
         ));
         }
