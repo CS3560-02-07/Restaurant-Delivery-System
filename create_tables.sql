@@ -29,6 +29,7 @@ CREATE TABLE orders(
     customerID INT,
     restaurantID INT,
     total_cost DECIMAL(9,2),
+    confirmed BOOLEAN, 
     FOREIGN KEY(customerID) REFERENCES customer(customerID),
     FOREIGN KEY(restaurantID) REFERENCES restaurant(restaurantID),
     PRIMARY KEY(order_num, customerID, restaurantID)

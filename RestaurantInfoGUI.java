@@ -7,7 +7,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     //variable to save login session
     private String userName;
-    
+
     /**
      * Creates new form RestaurantInfo
      */

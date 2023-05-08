@@ -80,15 +80,31 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //horizontal and vertical layouts of view info tab
         pickup.setBackground(new java.awt.Color(199, 234, 245));
 
+        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
+        //adds restaurant view info JTable 
+        if (confirmedOrders != null){ //if name string is not empty
+            int rows = confirmedOrders.length;
         pickupTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", null, null},
+                {"yes", "", "", null, null},
                 {null, null, null, null, null}
             },
             new String [] {
                 "Restaurant", "Customer", "From", "To", "Phone Number"
             }
         ));
+        }
+        else{
+            pickupTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {"", "", "", null, null},
+                    {null, null, null, null, null}
+                },
+                new String [] {
+                    "Restaurant", "Customer", "From", "To", "Phone Number"
+                }
+            ));
+        }
         pickupScrollPanel.setViewportView(pickupTable);
 
         javax.swing.GroupLayout pickUpLayout = new javax.swing.GroupLayout(pickup);
@@ -335,7 +351,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         pack();
-    }                        
+    }                      
 
     //actions for buttons and input text boxes
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
