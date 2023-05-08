@@ -75,13 +75,28 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         ));
         }  
         driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
-        
-        ///////////////////////////////////////
+        javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
+        viewInfo.setLayout(viewInfoLayout);
+        viewInfoLayout.setHorizontalGroup(
+            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewInfoLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+        viewInfoLayout.setVerticalGroup(
+            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewInfoLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
         //horizontal and vertical layouts of view info tab
         pickup.setBackground(new java.awt.Color(199, 234, 245));
 
         int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
-        //adds restaurant view info JTable 
         if (confirmedOrders != null){ //if name string is not empty
             //confirms will hold all necessary information from respective customer/restaurant
             String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
@@ -150,17 +165,17 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         driverOptionTabs.addTab("Pickup Confirmation", pickup);
         //names the tab "pick-up confirmation"
-        ///////////////////////////////////////
 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245));
 
+        
         pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"", "", "", null, null},
                 {null, null, null, null, null}
             },
             new String [] {
-                "Restaurant", "Order Number", "Customer", "Address", "Phone Number"
+                "Order number", "Restaurant", "Customer", "Address", "Phone Number"
             }
         ));
         pendingOrderScrollPanel.setViewportView(pendingOrderTable);
