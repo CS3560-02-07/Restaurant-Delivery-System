@@ -1,11 +1,13 @@
 import javax.swing.JOptionPane;
+import javax.swing.table.*;
+import javax.swing.event.*;
+import javax.swing.*;
 
 public class RestaurantInfoGUI extends javax.swing.JFrame {
 
     //variable to save login session
     private String userName;
-
-
+    
     /**
      * Creates new form RestaurantInfo
      */
@@ -30,7 +32,6 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         custOrderTable = new javax.swing.JTable();
         custOrder = new javax.swing.JPanel();    
         confirmOrderButton = new javax.swing.JButton();    
-
         //logout tab
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
@@ -86,9 +87,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         //adds customer order JTable
         custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Test", "Test", "Test", "Test", "Test"},
-                {null, null, null, null, null, null}
-            },
+                {null, "Graziano's pizza", "2", "2521 S Vicentia", "Cal Poly Pomona", "$15"},
+                {null, null, null, null, null, null},
+                        },
             new String [] {
                 "Select", "Restaurant", "Order Number", "From", "Destination", "Total Price"
             }
@@ -103,6 +104,30 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         });
         custOrderScrollPane.setViewportView(custOrderTable);
 
+        TableColumn booleanColumn = custOrderTable.getColumnModel().getColumn(1);
+        // Set the cell editor to a checkbox
+        booleanColumn.setCellEditor(new DefaultCellEditor(new JCheckBox()));
+        
+// Add a TableModelListener to listen for changes to the boolean value
+custOrderTable.getModel().addTableModelListener(new TableModelListener() {
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        // Check if the changed column is the boolean column
+        if (e.getColumn() == 1) {
+            // Get the value of the boolean column in the changed row
+            boolean value = (Boolean) custOrderTable.getModel().getValueAt(e.getFirstRow(), 0);
+
+            // Update the button based on the boolean value
+            if (value) {
+                System.out.println("checked");
+                //confirmOrderButton.setText("");
+            } else {
+                System.out.println("unchecked");
+                //confirmOrderButton.setText("Unchecked");
+            }
+        }
+    }
+});
         //creates confirm order button
         confirmOrderButton.setText("Confirm Order");
         confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
