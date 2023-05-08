@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class connectDatabase {
+    //Variables to keep track of user 
+    public static String userStatus;
+    public static int ID;
 
     // Insert a new entry into restaurant table
     public static int insertRestaurant(String name, String address, String phone, String user, String pass) {
@@ -83,11 +86,13 @@ public class connectDatabase {
                 if (restResults.getString(1).equals(user)) {
                     System.out.println(restResults.getString(1));
                     ResultSet restPassResults = state
-                            .executeQuery("SELECT pass FROM restaurant WHERE username = '" + user + "'");
+                            .executeQuery("SELECT pass, restaurantID FROM restaurant WHERE username = '" + user + "'");
                     if (restPassResults.next()) {
                         System.out.println(restPassResults.getString(1));
                         if (restPassResults.getString(1).equals(pass)) {
                             // return true;
+                            setID(restPassResults.getInt(2));
+                            System.out.println(ID);
                             return "Restaurant";
                         }
                     }
@@ -100,9 +105,11 @@ public class connectDatabase {
             while (driveResults.next()) {
                 if (driveResults.getString(1).equals(user)) {
                     ResultSet drivePassResults = state
-                            .executeQuery("SELECT pass FROM driver WHERE username = '" + user + "'");
+                            .executeQuery("SELECT pass, driverID FROM driver WHERE username = '" + user + "'");
                     if (drivePassResults.next()) {
                         if (drivePassResults.getString(1).equals(pass)) {
+                            setID(drivePassResults.getInt(2));
+                            System.out.println(ID);
                             return "Driver";
                         }
                     }
@@ -338,6 +345,23 @@ public class connectDatabase {
         }
 
         return results;
+    }
+
+
+    public static String getStatus(){
+        return userStatus;
+    }
+
+    public static int getID(){
+        return ID;
+    }
+
+    public static void setStatus(String newStatus){
+        userStatus = newStatus;
+    }
+
+    public static void setID(int newID){
+        ID = newID;
     }
 
     public static void main(String[] args) {
