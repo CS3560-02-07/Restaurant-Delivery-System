@@ -207,6 +207,103 @@ public class connectDatabase {
         }
     }
 
+    // gets custInfo for the driverInfoGUI
+    public static String[] getRestUsingKey(int restaurantID) {
+        try {
+            String[] driverInf = new String[3]; // returns array with name, address, phone number
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            // gets restaurantID from rest table
+             ResultSet driveResults = state
+                    .executeQuery("SELECT restaurantID FROM restaurant WHERE restaurantID = " + restaurantID);
+
+            while (driveResults.next()) { 
+                if (driveResults.getInt(1) == restaurantID) {
+                    ResultSet drivePassResults = state
+                            .executeQuery("SELECT restaurant_name FROM restaurant WHERE restaurantID = " + restaurantID);
+                    // sets array[0] equal to the rest's name
+                    if (drivePassResults.next()) {
+                        driverInf[0] = (drivePassResults.getString(1));
+                    }
+                    drivePassResults = state
+                            .executeQuery("SELECT restaurant_address FROM restaurant WHERE restaurantID = " + restaurantID);
+                    // sets array[1] equal to the rest's address
+                    if (drivePassResults.next()) {
+                        driverInf[1] = (drivePassResults.getString(1));
+                    }
+                    drivePassResults = state
+                            .executeQuery("SELECT restaurant_phone FROM restaurant WHERE restaurantID = " + restaurantID);
+                    // sets array[2] equal to the rest's phone
+                    if (drivePassResults.next()) {
+                        driverInf[2] = (drivePassResults.getString(1));
+                    }
+                }
+                state.close();
+                conn.close();
+                return driverInf; // returns array with results
+            }
+            return driverInf; // returns array with results if empty
+
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+    }
+
+    // gets custInfo for the driverInfoGUI
+    public static String[] getCust(int customerID) {    
+        try {
+            String[] driverInf = new String[5]; // returns array with f_name, l_name, address, credit_card, phone_number
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            // gets customerID from driver table
+            ResultSet driveResults = state
+                    .executeQuery("SELECT customerID FROM customer WHERE customerID = " + customerID);
+
+            while (driveResults.next()) { 
+                if (driveResults.getInt(1) == customerID) {
+                    ResultSet drivePassResults = state
+                            .executeQuery("SELECT f_name FROM customer WHERE customerID = " + customerID);
+                    // sets array[0] equal to the f_name
+                    if (drivePassResults.next()) {
+                        driverInf[0] = (drivePassResults.getString(1));
+                    }
+                    drivePassResults = state
+                            .executeQuery("SELECT l_name FROM customer WHERE customerID = " + customerID);
+                    // sets array[1] equal to the l_name
+                    if (drivePassResults.next()) {
+                        driverInf[1] = (drivePassResults.getString(1));
+                    }
+                    drivePassResults = state
+                            .executeQuery("SELECT address FROM customer WHERE customerID = " + customerID);
+                    // sets array[2] equal to the address
+                    if (drivePassResults.next()) {
+                        driverInf[2] = (drivePassResults.getString(1));
+                    }
+                    // gets the driver's license number from the correct column in table
+                    drivePassResults = state
+                            .executeQuery("SELECT credit_card FROM customer WHERE customerID = " + customerID);
+                    // sets array[3] equal to the credit_card
+                    if (drivePassResults.next()) {
+                        driverInf[3] = (drivePassResults.getString(1));
+                    }
+                    drivePassResults = state
+                            .executeQuery("SELECT phone_number FROM customer WHERE customerID = " + customerID);
+                    // sets array[4] equal to the phone_number
+                    if (drivePassResults.next()) {
+                        driverInf[4] = (drivePassResults.getString(1));
+                    }
+                }
+                state.close();
+                conn.close();
+                return driverInf; // returns array with results
+            }
+            return driverInf; // returns array with results if empty
+
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+    }
+
     // gets confirmed order for the DriverInfoGUI
     public static int[][] getConfirmedOrders() {
         List<int[]> rows = new ArrayList<>();
