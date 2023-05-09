@@ -126,33 +126,33 @@ public class connectDatabase {
     }
 
     // gets driverInfo for viewInfo for the DriverInfoGUI
-    public static String[] getDriver(String user) {
+    public static String[] getDriver(int DriveID) {
         try {
             String[] driverInf = new String[3]; // returns array with name, car info, license
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             // gets username from driver table
-            ResultSet driveResults = state.executeQuery("SELECT username FROM driver WHERE username = '" + user + "'");
+            ResultSet driveResults = state.executeQuery("SELECT driverID FROM driver WHERE driverID = '" + DriveID + "'");
 
             while (driveResults.next()) { // iterates through usernames until correct one is found
-                if (driveResults.getString(1).equals(user)) {
+                if (driveResults.getInt(1) == DriveID) {
                     // gets the driver's name from the correct column in table
                     ResultSet drivePassResults = state
-                            .executeQuery("SELECT driver_name FROM driver WHERE username = '" + user + "'");
+                            .executeQuery("SELECT driver_name FROM driver WHERE driverID = '" + DriveID + "'");
                     // sets array[0] equal to the driver's name
                     if (drivePassResults.next()) {
                         driverInf[0] = (drivePassResults.getString(1));
                     }
                     // gets the driver's car info from the correct column in table
                     drivePassResults = state
-                            .executeQuery("SELECT car_info FROM driver WHERE username = '" + user + "'");
+                            .executeQuery("SELECT car_info FROM driver WHERE driverID = '" + DriveID + "'");
                     // sets array[1] equal to the driver's car info
                     if (drivePassResults.next()) {
                         driverInf[1] = (drivePassResults.getString(1));
                     }
                     // gets the driver's license number from the correct column in table
                     drivePassResults = state
-                            .executeQuery("SELECT license_num FROM driver WHERE username = '" + user + "'");
+                            .executeQuery("SELECT license_num FROM driver WHERE driverID = '" + DriveID + "'");
                     // sets array[2] equal to the driver's license num
                     if (drivePassResults.next()) {
                         driverInf[2] = (drivePassResults.getString(1));

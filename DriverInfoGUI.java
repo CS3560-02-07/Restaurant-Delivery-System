@@ -61,7 +61,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color of view info tab
 
         //database connection to show driver info
-        String[] driverInf = connectDatabase.getDriver(userName);
+        String[] driverInf = connectDatabase.getDriver(connectDatabase.getID());
         //adds driver view info JTable 
         if (!driverInf[0].equals("")){ //if name string is not empty
             driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
