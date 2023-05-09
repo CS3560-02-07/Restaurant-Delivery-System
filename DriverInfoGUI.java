@@ -30,6 +30,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         pickUpConfirm = new javax.swing.JPanel();
         pickUpScrollPane = new javax.swing.JScrollPane();
         pickUpTable = new javax.swing.JTable();
+        orderPickUpPrompt = new javax.swing.JLabel();
+        orderPickUpInput = new javax.swing.JTextField();
+        confirmPickUpButton = new javax.swing.JButton();
         //pending orders tab
         pendingOrders = new javax.swing.JPanel();
         pendingOrderScrollPanel = new javax.swing.JScrollPane();
@@ -146,6 +149,23 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             pickUpTable.getColumnModel().getColumn(4).setPreferredWidth(170);
         }
 
+        orderPickUpPrompt.setText("Enter Order Number to be picked-up: "); //order # pickup prompt
+
+        //order pickup input text box
+        orderPickUpInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderPickUpInputActionPerformed(evt);
+            }
+        });
+
+        //confirm pick-up button 
+        confirmPickUpButton.setText("Confirm Pick-Up");
+        confirmPickUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmPickUpButtonActionPerformed(evt);
+            }
+        });
+
         //horizontal and vertical layout of pick-up confirmation tab
         javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
         pickUpConfirm.setLayout(pickUpConfirmLayout);
@@ -153,15 +173,28 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pickUpConfirmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pickUpScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addGroup(pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pickUpScrollPane)
+                    .addGroup(pickUpConfirmLayout.createSequentialGroup()
+                        .addComponent(orderPickUpPrompt)
+                        .addGap(3, 3, 3)
+                        .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(confirmPickUpButton)
+                        .addGap(0, 161, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pickUpConfirmLayout.setVerticalGroup(
             pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pickUpConfirmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pickUpScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(pickUpScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmPickUpButton)
+                    .addComponent(orderPickUpPrompt)
+                    .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
@@ -455,18 +488,16 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             System.out.println(actual + " " + estimate + " " + dist);
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
-    }                
+    } 
     
-    public Boolean pickUpStatus;
+    //lets user input into the text box
+    private void orderPickUpInputActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        
+    }                                                
 
-    private void pickUpButtonYActionPerformed(java.awt.event.ActionEvent evt){
-        pickUpStatus = true;
-        JOptionPane.showMessageDialog(null, "Pick up confirmed.");
-    }
-
-    private void pickUpButtonNActionPerformed(java.awt.event.ActionEvent evt){
-        pickUpStatus = false;
-        JOptionPane.showMessageDialog(null, "Non pick up confirmed.");
+    //action for confirm pick-up button
+    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        //this button doesn't work yet
     }
 
     /**
