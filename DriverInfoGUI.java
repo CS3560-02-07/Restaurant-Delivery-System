@@ -103,46 +103,57 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
 
-        // int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
-        // if (confirmedOrders != null){ //if name string is not empty
-        //     //confirms will hold all necessary information from respective customer/restaurant
-        //     String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
-        //     String[] tempArr = new String[6];   //returns order_num, f_name, l_name, address, credit_card, phone_number
-        //     String[] tempArr2 = new String[3];  //returns resname, address, phone
-        //     for(int i=0; i<confirmedOrders.length; i++){    //places all necessary strings into confirms
-        //         tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
-        //         tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);  
-        //         confirms[i][0]=String.valueOf(confirmedOrders[i][0]);
-        //         for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
-        //         if(j==0){
-        //             confirms[i][1] = tempArr2[0];
-        //         }
-        //         if(j==1){
-        //             confirms[i][2] = tempArr[0];
-        //         }
-        //         if(j==2){
-        //             confirms[i][3] = tempArr2[1];
-        //         }
-        //         if(j==3){
-        //             confirms[i][4] = tempArr[2];
-        //         }
-        //         if(j==4){
-        //             confirms[i][5] = tempArr[4];
-        //         }
-        //         }
-        //     }
+        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
+        if (confirmedOrders != null){ //if name string is not empty
+             //confirms will hold all necessary information from respective customer/restaurant
+             String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
+             String[] tempArr = new String[6];   //returns order_num, f_name, l_name, address, credit_card, phone_number
+             String[] tempArr2 = new String[3];  //returns resname, address, phone
+            for(int i=0; i<confirmedOrders.length; i++){    //places all necessary strings into confirms
+                 tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
+                 tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);  
+                 confirms[i][0]=String.valueOf(confirmedOrders[i][0]);
+                 for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
+                 if(j==0){
+                     confirms[i][1] = tempArr2[0];
+                 }
+                 if(j==1){
+                     confirms[i][2] = tempArr[0];
+                 }
+                 if(j==2){
+                     confirms[i][3] = tempArr2[1];
+                 }
+                 if(j==3){
+                     confirms[i][4] = tempArr[2];
+                 }
+                 if(j==4){
+                     confirms[i][5] = tempArr[4];
+                 }
+                 }
+             }
+
             
         //pick-up confirmation JTable
         pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, "In n Out", null, "3102 D St, La Verne, CA 91750", null, null},
-                {null, null, null, null, null, null}
-            },
+                confirms,
             new String [] {
                 "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
             }
         ));
+    }
+    else{
+        pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Restaurant", "Customer", "From", "To", "Phone Number"
+            }
+        ));
+    }
         pickUpScrollPane.setViewportView(pickUpTable);
+
         //sets "from" and "to" column width to be larger
         if (pickUpTable.getColumnModel().getColumnCount() > 0) {
             pickUpTable.getColumnModel().getColumn(3).setPreferredWidth(170);
@@ -200,6 +211,53 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
+        //////////////////////////////////////////////////////////////////////test
+        //pick-up confirmation JTable
+        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
+        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", "", "", "5200 Wheele Ave La Verne CA 91750", null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Order Number", "Restaurant", "Customer", "From", "To", "Phone #"
+            }
+        ));
+        pendingOrderScrollPanel.setViewportView(pendingOrderTable);
+
+        //sets "from" and "to" column width to be larger
+        if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
+            pendingOrderTable.getColumnModel().getColumn(3).setPreferredWidth(170);
+            pendingOrderTable.getColumnModel().getColumn(4).setPreferredWidth(170);
+        }
+
+        //horizontal and vertical layout of pick-up confirmation tab
+        javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
+        pendingOrders.setLayout(pendingOrdersLayout);
+        pendingOrdersLayout.setHorizontalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pendingOrderScrollPanel)
+                    ))
+        );
+        pendingOrdersLayout.setVerticalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                )
+        );
+
+        driverOptionTabs.addTab("Pending Orders", pendingOrders);
+        //names the tab "pick-up confirmation"
+    
+        /////////////////////////////test
+
+
+        /* 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
 
         //adds pending table JTable
@@ -237,6 +295,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         driverOptionTabs.addTab("Pending Order", pendingOrders);
+        */
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
@@ -440,7 +499,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        pack();
+        pack(); 
     }                      
 
     //actions for buttons and input text boxes
@@ -519,9 +578,22 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //lets user input into the text box
     }                                                
 
-    //action for confirm pick-up button
-    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        //this button doesn't work yet
+    //action for confirm pick-up button. Sets the driverID of the textbox equal to the driver's ID
+    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {      
+        //if the text is empty or has just space(s)
+        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().equals("\\s+")){
+            JOptionPane.showMessageDialog(null, "No Order number entered.");
+        }
+        else{
+            if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))){
+                JOptionPane.showMessageDialog(null, "Order number " + orderPickUpInput.getText() + " has been confirmed.");
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid order number.");
+
+            }
+        }                                                 
     }
 
     /**

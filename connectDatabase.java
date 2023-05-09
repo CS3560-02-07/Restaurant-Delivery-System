@@ -335,6 +335,9 @@ public class connectDatabase {
             e.printStackTrace();
         }
         //converts from arraylist to 2d array and returns in each row: order_num, customerID, restaurantID
+        if(rows.size()==0){
+            return null;
+        }
         int numRows = rows.size();
         int numColumns = rows.get(0).length;
         results = new int[numRows][numColumns];
@@ -373,6 +376,25 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                return true;
+            }
+
+            return false;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("failed to connect. ", e);
+        }
+    }
+    
+    //updating order according to driverID such that driver_ID is equal to whatever value
+    public static boolean setOrderDriver(int driverID, int order_num){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT driverID FROM orders WHERE order_num = " + order_num);
+            if (results.next()){
+                state.executeUpdate("UPDATE orders SET driverID = " + driverID + " WHERE order_num = " + order_num);
                 return true;
             }
 
