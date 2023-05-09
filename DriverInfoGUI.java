@@ -516,6 +516,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JTextField actualTimeInput;
     private javax.swing.JLabel actualTimePrompt;
     private javax.swing.JButton clearButton;
+    private javax.swing.JButton confirmPickUpButton;
     private javax.swing.JScrollPane delHistScrollPane;
     private javax.swing.JTable delHistTable;
     private javax.swing.JPanel deliveryHist;
@@ -530,6 +531,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
+    private javax.swing.JTextField orderPickUpInput;
+    private javax.swing.JLabel orderPickUpPrompt;
     private javax.swing.JScrollPane pendingOrderScrollPanel;
     private javax.swing.JTable pendingOrderTable;
     private javax.swing.JPanel pendingOrders;
