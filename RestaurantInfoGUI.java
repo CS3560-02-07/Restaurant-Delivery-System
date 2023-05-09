@@ -96,18 +96,27 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                                             // tab
 
                 // adds customer order JTable
-                custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                String[][] restOrders = connectDatabase.getRestOrders(connectDatabase.getID());
+                if (!restOrders[0][0].equals("")){
+                    custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                restOrders,
+                                new String[] {
+                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
+                                                "Total Price($)"
+                                }));
+                }
+                else{
+                    custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
                                 new Object[][] {
-                                                { "1", "Daisy", "Mae", "3102 D St, La Verne, CA 91750", "999999999",
-                                                                "999999999" },
                                                 { null, null, null, null, null, null }
                                 },
                                 new String[] {
-                                                "Order #", "First Name", "Last Name", "From", "Phone #",
+                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
                                                 "Total Price($)"
                                 }));
+                }
                 custOrderScrollPane.setViewportView(custOrderTable);
-                // makes "from" column larger
+                // makes "address" column larger
                 if (custOrderTable.getColumnModel().getColumnCount() > 0) {
                         custOrderTable.getColumnModel().getColumn(3).setPreferredWidth(160);
                 }

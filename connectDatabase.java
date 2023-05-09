@@ -350,18 +350,21 @@ public class connectDatabase {
         return results;
     }
 
+    //Get the current unconfirmed orders for the restaurant
     public static String[][] getRestOrders(int restID){
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
-            String[] tableInfo;
 
             ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 0");
-            ResultSetMetaData info = results.getMetaData();
-            int columnNum = info.getColumnCount();
+
             List<Integer> custIDs = new ArrayList<Integer>();
             while (results.next()){
                 custIDs.add(results.getInt(1));
+            }
+
+            if (custIDs.size() == 0){
+                return new String[][] {{""}};
             }
 
             String answer[][] = new String[custIDs.size()][6];
@@ -371,7 +374,7 @@ public class connectDatabase {
             int j = 0;
             while (results.next()){
                 answer[j][0] = String.valueOf(results.getInt(1));
-                answer[j][4] = String.valueOf(results.getDouble(2));
+                answer[j][5] = String.valueOf(results.getDouble(2));
                 j++;
             }
 
@@ -382,10 +385,12 @@ public class connectDatabase {
                     answer[i][1] = results.getString(1);
                     answer[i][2] = results.getString(2);
                     answer[i][3] = results.getString(3);
-                    answer[i][5] = results.getString(4);
+                    answer[i][4] = results.getString(4);
 
                 }
             }
+            state.close();
+            conn.close();
             return answer;
         }
         catch(Exception e){
@@ -402,9 +407,13 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                state.close();
+                conn.close();
                 return true;
             }
 
+            state.close();
+            conn.close();
             return false;
         }
         catch(Exception e){
