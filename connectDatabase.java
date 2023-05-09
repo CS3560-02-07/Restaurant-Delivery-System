@@ -350,12 +350,36 @@ public class connectDatabase {
         return results;
     }
 
-    public static String[] getRestOrders(int restID){
+    //Get the current unconfirmed orders for the restaurant
+    public static String[][] getRestOrders(int restID){
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
-            String[] tableInfo;
-            ResultSet results = state.executeQuery("SELECT customerID, confirmed FROM orders WHERE restaurantID = " + String.valueOf(restID));
+
+            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 0");
+
+            List<Integer> custIDs = new ArrayList<Integer>();
+            while (results.next()){
+                custIDs.add(results.getInt(1));
+            }
+
+            if (custIDs.size() == 0){
+                return new String[][] {{""}};
+            }
+
+            String answer[][] = new String[custIDs.size()][6];
+
+            results = state.executeQuery("SELECT order_num, total_cost FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 0");
+
+            int j = 0;
+            while (results.next()){
+                answer[j][0] = String.valueOf(results.getInt(1));
+                answer[j][5] = String.valueOf(results.getDouble(2));
+                j++;
+            }
+
+            for (int i = 0; i < custIDs.size(); i++){
+                results = state.executeQuery("SELECT f_name, l_name, address, phone_number FROM customer WHERE customerID = " + String.valueOf(custIDs.get(i)));
                 
                 while (results.next()){
                     answer[i][1] = results.getString(1);
@@ -364,7 +388,10 @@ public class connectDatabase {
                     answer[i][4] = results.getString(4);
 
                 }
-             results = state.executeQuery("SELECT f_name, l_name, address, phone_number FROM customer WHERE order")
+            }
+            state.close();
+            conn.close();
+            return answer;
         }
         catch(Exception e){
             throw new IllegalStateException("Failed to connect. ", e);
@@ -380,15 +407,20 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                state.close();
+                conn.close();
                 return true;
             }
 
+            state.close();
+            conn.close();
             return false;
         }
         catch(Exception e){
             throw new IllegalStateException("failed to connect. ", e);
         }
     }
+    
     
     //updating order according to driverID such that driver_ID is equal to whatever value
     public static boolean setOrderDriver(int driverID, int order_num){
