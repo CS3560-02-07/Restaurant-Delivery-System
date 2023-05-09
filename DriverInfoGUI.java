@@ -144,7 +144,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     else{
         pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "In n Out", null, "3102 D St, La Verne, CA 91750", null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -211,6 +211,53 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
+        //////////////////////////////////////////////////////////////////////test
+        //pick-up confirmation JTable
+        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
+        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", "", "", "5200 Wheele Ave La Verne CA 91750", null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Order Number", "Restaurant", "Customer", "From", "To", "Phone #"
+            }
+        ));
+        pendingOrderScrollPanel.setViewportView(pendingOrderTable);
+
+        //sets "from" and "to" column width to be larger
+        if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
+            pendingOrderTable.getColumnModel().getColumn(3).setPreferredWidth(170);
+            pendingOrderTable.getColumnModel().getColumn(4).setPreferredWidth(170);
+        }
+
+        //horizontal and vertical layout of pick-up confirmation tab
+        javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
+        pendingOrders.setLayout(pendingOrdersLayout);
+        pendingOrdersLayout.setHorizontalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pendingOrderScrollPanel)
+                    ))
+        );
+        pendingOrdersLayout.setVerticalGroup(
+            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                )
+        );
+
+        driverOptionTabs.addTab("Pending Orders", pendingOrders);
+        //names the tab "pick-up confirmation"
+    
+        /////////////////////////////test
+
+
+        /* 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
 
         //adds pending table JTable
@@ -248,6 +295,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         driverOptionTabs.addTab("Pending Order", pendingOrders);
+        */
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
@@ -539,6 +587,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         else{
             if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))){
                 JOptionPane.showMessageDialog(null, "Order number " + orderPickUpInput.getText() + " has been confirmed.");
+
             }
             else{
                 JOptionPane.showMessageDialog(null, "Invalid order number.");
