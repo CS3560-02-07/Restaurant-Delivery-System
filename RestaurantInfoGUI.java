@@ -93,7 +93,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 {null, null, null, null, null},
             },
             new String [] {
-                "Order Number", "Restaurant", "From", "Destination", "Total Price"
+                "Order Number", "Customer Name", "Customer Address", "Phone #", "Total Price"
             }
         ));
         custOrderScrollPane.setViewportView(custOrderTable);
