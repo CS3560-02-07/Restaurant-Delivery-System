@@ -9,10 +9,7 @@ INSERT INTO restaurant
 VALUES (NULL, 'JJ Boba', '3560 WEST TEMPLE STE A Pomona, CA 91768', '9098968318', 'JJBoba', '1234');
     
 INSERT INTO orders
-VALUES (NULL, 1, 1, 19.99, 1);
+VALUES (NULL, 1, 1, NULL, 19.99, 1);
 
 INSERT INTO driver
 VALUES (NULL, 'Laurence Timothy Manalo Garcia', 'Honda Civic', '22222222', 'Laurence', '1234');
-
-INSERT INTO pickup_confirmation
-VALUES (NULL, 1, 1, 1)
