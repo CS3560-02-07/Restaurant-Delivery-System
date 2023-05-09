@@ -350,7 +350,7 @@ public class connectDatabase {
         return results;
     }
 
-    //confirms orders in database
+    //confirms orders in database for the restaurantInfoGUI
     public static boolean setOrderConf(int ID){
         try{
             Connection conn = getConnection();
@@ -359,6 +359,25 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                return true;
+            }
+
+            return false;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("failed to connect. ", e);
+        }
+    }
+    
+    //updating order according to driverID such that driver_ID is equal to whatever value
+    public static boolean setOrderDriver(int driverID, int order_num){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT driverID FROM orders WHERE order_num = " + order_num);
+            if (results.next()){
+                state.executeUpdate("UPDATE orders SET driverID = " + driverID + " WHERE order_num = " + order_num);
                 return true;
             }
 
