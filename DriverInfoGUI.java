@@ -451,7 +451,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     }                                            
 
     //gets user input for order number, actual time, estimated time, and distance travelled
-    public String orderNum, actualTime, ,estTime, distTravelled;
+    public String orderNum, actualTime, estTime, distTravelled;
     
     private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
         orderNum = orderNumInput.getText();
