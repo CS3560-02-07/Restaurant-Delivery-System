@@ -31,7 +31,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         custOrderScrollPane = new javax.swing.JScrollPane();
         custOrderTable = new javax.swing.JTable();
         custOrder = new javax.swing.JPanel();    
-        confirmOrderButton = new javax.swing.JButton();    
+        confirmOrderButton = new javax.swing.JButton();
+        orderNumPrompt = new javax.swing.JLabel();
+        orderNumInput = new javax.swing.JTextField();    
         //logout tab
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
@@ -87,52 +89,53 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         //adds customer order JTable
         custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Graziano's pizza", "2", "2521 S Vicentia", "Cal Poly Pomona", "$15"},
-                {null, null, null, null, null, null},
-                        },
+                {"2", "Graziano's pizza", "2521 S Vicentia", "Cal Poly Pomona", "$15"},
+                {null, null, null, null, null},
+            },
             new String [] {
-                "Select", "Restaurant", "Order Number", "From", "Destination", "Total Price"
+                "Order Number", "Restaurant", "From", "Destination", "Total Price"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         custOrderScrollPane.setViewportView(custOrderTable);
 
         TableColumn booleanColumn = custOrderTable.getColumnModel().getColumn(1);
         // Set the cell editor to a checkbox
         booleanColumn.setCellEditor(new DefaultCellEditor(new JCheckBox()));
         
-// Add a TableModelListener to listen for changes to the boolean value
-custOrderTable.getModel().addTableModelListener(new TableModelListener() {
-    @Override
-    public void tableChanged(TableModelEvent e) {
-        // Check if the changed column is the boolean column
-        if (e.getColumn() == 1) {
-            // Get the value of the boolean column in the changed row
-            boolean value = (Boolean) custOrderTable.getModel().getValueAt(e.getFirstRow(), 0);
+        // Add a TableModelListener to listen for changes to the boolean value
+        custOrderTable.getModel().addTableModelListener(new TableModelListener() {
+        @Override
+            public void tableChanged(TableModelEvent e) {
+                // Check if the changed column is the boolean column
+                if (e.getColumn() == 1) {
+                    // Get the value of the boolean column in the changed row
+                    boolean value = (Boolean) custOrderTable.getModel().getValueAt(e.getFirstRow(), 0);
 
-            // Update the button based on the boolean value
-            if (value) {
-                System.out.println("checked");
-                //confirmOrderButton.setText("");
-            } else {
-                System.out.println("unchecked");
-                //confirmOrderButton.setText("Unchecked");
-            }
-        }
-    }
-});
+                    // Update the button based on the boolean value
+                    if (value) {
+                        System.out.println("checked");
+                        //confirmOrderButton.setText("");
+                    } else {
+                        System.out.println("unchecked");
+                        //confirmOrderButton.setText("Unchecked");
+                    }
+                }
+            }  
+        });
+
         //creates confirm order button
         confirmOrderButton.setText("Confirm Order");
         confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmOrderButtonActionPerformed(evt);
+            }
+        });
+
+        orderNumPrompt.setText("Enter Order Number to be Delivered: ");
+
+        orderNumInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderNumInputActionPerformed(evt);
             }
         });
 
@@ -144,8 +147,13 @@ custOrderTable.getModel().addTableModelListener(new TableModelListener() {
             .addGroup(custOrderLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(confirmOrderButton)
-                    .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(custOrderLayout.createSequentialGroup()
+                        .addComponent(orderNumPrompt)
+                        .addGap(3, 3, 3)
+                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(confirmOrderButton)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         custOrderLayout.setVerticalGroup(
@@ -154,7 +162,10 @@ custOrderTable.getModel().addTableModelListener(new TableModelListener() {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmOrderButton)
+                .addGroup(custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmOrderButton)
+                    .addComponent(orderNumPrompt)
+                    .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
 
@@ -233,6 +244,10 @@ custOrderTable.getModel().addTableModelListener(new TableModelListener() {
         //this doesn't do anything yet 
     }  
 
+    private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    } 
+
     /**
      * @param args the command line arguments
      */
@@ -253,6 +268,8 @@ custOrderTable.getModel().addTableModelListener(new TableModelListener() {
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
+    private javax.swing.JTextField orderNumInput;
+    private javax.swing.JLabel orderNumPrompt;
     private javax.swing.JTabbedPane restInfoTab;
     private javax.swing.JTabbedPane restOptionTabs;
     private javax.swing.JScrollPane restViewInfoScrollPane;
