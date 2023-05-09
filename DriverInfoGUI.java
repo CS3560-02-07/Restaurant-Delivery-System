@@ -75,6 +75,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         ));
         }  
         driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
+        
+        //horizontal and vertical layouts of view info tab
         javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
         viewInfo.setLayout(viewInfoLayout);
         viewInfoLayout.setHorizontalGroup(
@@ -166,35 +168,40 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         driverOptionTabs.addTab("Pickup Confirmation", pickup);
         //names the tab "pick-up confirmation"
 
-        pendingOrders.setBackground(new java.awt.Color(199, 234, 245));
+        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
 
-        
+        //adds pending table JTable
         pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", null, null},
+                {"", "", "", "5200 Wheele Ave La Verne CA 91750", null},
                 {null, null, null, null, null}
             },
             new String [] {
-                "Order number", "Restaurant", "Customer", "Address", "Phone Number"
+                "Restaurant", "Order Number", "Customer", "Address", "Phone Number"
             }
         ));
         pendingOrderScrollPanel.setViewportView(pendingOrderTable);
+        //sets the address column width to be larger
+        if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
+            pendingOrderTable.getColumnModel().getColumn(3).setPreferredWidth(200);
+        }
 
+        //horizontal and vertical layouts of pending order tab
         javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
         pendingOrders.setLayout(pendingOrdersLayout);
         pendingOrdersLayout.setHorizontalGroup(
             pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pendingOrdersLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pendingOrdersLayout.setVerticalGroup(
             pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pendingOrdersLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pendingOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         driverOptionTabs.addTab("Pending Order", pendingOrders);
