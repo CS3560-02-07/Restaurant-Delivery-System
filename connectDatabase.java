@@ -312,14 +312,14 @@ public class connectDatabase {
     }
 
     // gets confirmed order for the DriverInfoGUI
-    public static int[][] getConfirmedOrders() {
+    public static int[][] getConfirmedOrders() {    //returns order_num, customerID, restaurantID
         List<int[]> rows = new ArrayList<>();
         int results[][];
         try {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             //gets all rows that have been confirmed by restaurant
-            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID FROM orders WHERE confirmed = TRUE");
+            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
             int numColumns = rsmd.getColumnCount();
