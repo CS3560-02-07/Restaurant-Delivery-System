@@ -40,7 +40,7 @@ public class connectDatabase {
     }
 
     // Insert a new entry into driver table
-    public static int insertDriver(String name, String car, String license, String user, String pass) {
+    public static int insertDriver(String name, String license, String car,  String user, String pass) {
         // Connection conn = getConnection();
         int DriveID = -1;
         try {
