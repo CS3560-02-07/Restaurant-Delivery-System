@@ -8,6 +8,59 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     public int dist;
     private String userName;
 
+    //here so that once the button in ConfirmedOrders is pushed it will go to Pending orders and this is called to update
+    public void updatePendingList(){
+        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(); //returns order_num, customerID, restaurantID, driverID
+        if (pendingOrdList != null){ //if exists
+             //confirms will hold all necessary information from respective customer/restaurant
+             String[][] pendings = new String[pendingOrdList.length][6]; //although arrays are bigger, only need these 5 items
+             String[] tempArr3 = new String[6];   
+             String[] tempArr4 = new String[3];  //returns resname, address, phone
+            for(int i=0; i<pendingOrdList.length; i++){    //places all necessary strings into confirms
+                tempArr3 = connectDatabase.getCust(pendingOrdList[i][1]);//returns order_num, f_name, l_name, address, credit_card, phone_number
+                tempArr4 = connectDatabase.getRestUsingKey(pendingOrdList[i][2]); //returns resname, address, phone
+                if(pendingOrdList[i][3]!=0){
+                pendings[i][0]=String.valueOf(pendingOrdList[i][0]);
+                for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
+                    if(j==0){
+                        pendings[i][1] = tempArr4[0];
+                    }
+                    if(j==1){
+                        pendings[i][2] = tempArr3[0];
+                    }
+                    if(j==2){
+                        pendings[i][3] = tempArr4[1];
+                    }
+                    if(j==3){
+                        pendings[i][4] = tempArr3[2];
+                    }
+                    if(j==4){
+                        pendings[i][5] = tempArr3[4];
+                    }
+                 }
+                }
+                 
+             }
+        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
+            pendings,
+            new String [] {
+                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+            }
+        ));
+        }
+        else{
+            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
+                new Object [][] {
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
+                },
+            new String [] {
+                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+            }
+        ));
+        }
+    }
+
     /**
      * Creates new form RestaurantInfo
      */
@@ -211,18 +264,62 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
-        //////////////////////////////////////////////////////////////////////test
-        //pick-up confirmation JTable
+        //so I can create a method that will check and display all pending orders for the driver
+        //after the button is pressed, I can call the method. The method too will be called here 
+    
+
+        //adds pending table JTable
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
-        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"", "", "", "5200 Wheele Ave La Verne CA 91750", null, null},
-                {null, null, null, null, null, null}
-            },
+        
+        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(); //returns order_num, customerID, restaurantID, driverID
+        if (pendingOrdList != null){ //if exists
+             //confirms will hold all necessary information from respective customer/restaurant
+             String[][] pendings = new String[pendingOrdList.length][6]; //although arrays are bigger, only need these 5 items
+             String[] tempArr3 = new String[6];   
+             String[] tempArr4 = new String[3];  //returns resname, address, phone
+            for(int i=0; i<pendingOrdList.length; i++){    //places all necessary strings into confirms
+                tempArr3 = connectDatabase.getCust(pendingOrdList[i][1]);//returns order_num, f_name, l_name, address, credit_card, phone_number
+                tempArr4 = connectDatabase.getRestUsingKey(pendingOrdList[i][2]); //returns resname, address, phone
+                if(pendingOrdList[i][3]!=0){
+                pendings[i][0]=String.valueOf(pendingOrdList[i][0]);
+                for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
+                    if(j==0){
+                        pendings[i][1] = tempArr4[0];
+                    }
+                    if(j==1){
+                        pendings[i][2] = tempArr3[0];
+                    }
+                    if(j==2){
+                        pendings[i][3] = tempArr4[1];
+                    }
+                    if(j==3){
+                        pendings[i][4] = tempArr3[2];
+                    }
+                    if(j==4){
+                        pendings[i][5] = tempArr3[4];
+                    }
+                 }
+                }
+                 
+             }
+        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
+            pendings,
             new String [] {
-                "Order Number", "Restaurant", "Customer", "From", "To", "Phone #"
+                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
             }
         ));
+        }
+        else{
+            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
+                new Object [][] {
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
+                },
+            new String [] {
+                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+            }
+        ));
+        }
         pendingOrderScrollPanel.setViewportView(pendingOrderTable);
 
         //sets "from" and "to" column width to be larger
@@ -231,7 +328,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             pendingOrderTable.getColumnModel().getColumn(4).setPreferredWidth(170);
         }
 
-        //horizontal and vertical layout of pick-up confirmation tab
+        //horizontal and vertical layouts of pending order tab
         javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
         pendingOrders.setLayout(pendingOrdersLayout);
         pendingOrdersLayout.setHorizontalGroup(
@@ -251,51 +348,9 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 )
         );
 
-        driverOptionTabs.addTab("Pending Orders", pendingOrders);
-        //names the tab "pick-up confirmation"
-    
-        /////////////////////////////test
-
-
-        /* 
-        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
-
-        //adds pending table JTable
-        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"", "", "", "5200 Wheele Ave La Verne CA 91750", null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Restaurant", "Order Number", "Customer", "Address", "Phone Number"
-            }
-        ));
-        pendingOrderScrollPanel.setViewportView(pendingOrderTable);
-        //sets the address column width to be larger
-        if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
-            pendingOrderTable.getColumnModel().getColumn(3).setPreferredWidth(200);
-        }
-
-        //horizontal and vertical layouts of pending order tab
-        javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
-        pendingOrders.setLayout(pendingOrdersLayout);
-        pendingOrdersLayout.setHorizontalGroup(
-            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pendingOrdersLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pendingOrdersLayout.setVerticalGroup(
-            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pendingOrdersLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        driverOptionTabs.addTab("Pending Order", pendingOrders);
-        */
+        //names the tab "pending orders"
+        driverOptionTabs.addTab("Pending Orders", pendingOrders); 
+        //driverOptionTabs.addTab("Pending Orders", pendingOrders);
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
@@ -581,22 +636,26 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     //action for confirm pick-up button. Sets the driverID of the textbox equal to the driver's ID
     private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {      
         //if the text is empty or has just space(s)
-        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().equals("\\s+")){
+        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().matches("\\s+")){
             JOptionPane.showMessageDialog(null, "No Order number entered.");
         }
         else{
             if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))){
                 JOptionPane.showMessageDialog(null, "Order number " + orderPickUpInput.getText() + " has been confirmed.");
-
+                //updates pending list and checks which ones have drivers 
+                updatePendingList();
+                //updates the tab
+                pendingOrders.repaint();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Invalid order number.");
 
             }
+
         }                                                 
     }
 
-    /**
+    /**f
      * @param args the command line arguments
      */
     public static void main(String args[]) {
