@@ -30,8 +30,8 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         custOrder = new javax.swing.JPanel();
         custOrderScrollPane = new javax.swing.JScrollPane();
         custOrderTable = new javax.swing.JTable();
-        orderDeliveryPrompt = new javax.swing.JLabel();
-        orderDeliveryInput = new javax.swing.JTextField();
+        orderNumPrompt = new javax.swing.JLabel();
+        orderNumInput = new javax.swing.JTextField();
         confirmOrderButton = new javax.swing.JButton();
         // pending order tab
         pendingOrder = new javax.swing.JPanel();
@@ -106,12 +106,12 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
             custOrderTable.getColumnModel().getColumn(4).setPreferredWidth(160);
         }
 
-        orderDeliveryPrompt.setText("Enter Order Number to be delivered: "); // order number to be delivered prompt
+        orderNumPrompt.setText("Enter Order Number to be delivered: ");
 
-        // lets user input info into text box
-        orderDeliveryInput.addActionListener(new java.awt.event.ActionListener() {
+        // let's user input text
+        orderNumInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderDeliveryInputActionPerformed(evt);
+                orderNumInputActionPerformed(evt);
             }
         });
 
@@ -133,11 +133,10 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                 .addGroup(custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(custOrderScrollPane)
                                         .addGroup(custOrderLayout.createSequentialGroup()
-                                                .addComponent(orderDeliveryPrompt)
+                                                .addComponent(orderNumPrompt)
                                                 .addGap(3, 3, 3)
-                                                .addComponent(orderDeliveryInput,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 112,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(confirmOrderButton)
                                                 .addGap(0, 196, Short.MAX_VALUE)))
@@ -149,13 +148,13 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                 .addComponent(custOrderScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(custOrderLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(confirmOrderButton)
-                                        .addComponent(orderDeliveryPrompt)
-                                        .addComponent(orderDeliveryInput, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(
+                                        custOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(confirmOrderButton)
+                                                .addComponent(orderNumPrompt)
+                                                .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(24, Short.MAX_VALUE)));
 
         restOptionTabs.addTab("Customer Order", custOrder); // names the tab "customer order"
@@ -279,8 +278,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         // this doesn't do anything yet
     }
 
+    // let's user input text
     private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     /**
@@ -303,8 +303,8 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
-    private javax.swing.JTextField orderDeliveryInput;
-    private javax.swing.JLabel orderDeliveryPrompt;
+    private javax.swing.JTextField orderNumInput;
+    private javax.swing.JLabel orderNumPrompt;
     private javax.swing.JPanel pendingOrder;
     private javax.swing.JScrollPane pendingOrderScrollPanel;
     private javax.swing.JTable pendingOrderTable;
