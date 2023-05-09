@@ -356,10 +356,14 @@ public class connectDatabase {
             Statement state = conn.createStatement();
             String[] tableInfo;
             ResultSet results = state.executeQuery("SELECT customerID, confirmed FROM orders WHERE restaurantID = " + String.valueOf(restID));
-
-            if (results.next()){
                 
-            }
+                while (results.next()){
+                    answer[i][1] = results.getString(1);
+                    answer[i][2] = results.getString(2);
+                    answer[i][3] = results.getString(3);
+                    answer[i][4] = results.getString(4);
+
+                }
              results = state.executeQuery("SELECT f_name, l_name, address, phone_number FROM customer WHERE order")
         }
         catch(Exception e){
