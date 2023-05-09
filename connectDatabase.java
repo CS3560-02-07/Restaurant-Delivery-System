@@ -170,34 +170,34 @@ public class connectDatabase {
     }
 
     // gets restInfo for viewInfo for the RestaurantInfoGUI
-    public static String[] getRest(String user) {
+    public static String[] getRest(int restID) {
         try {
             String[] driverInf = new String[3]; // returns array with name, address, phone number
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             // gets username from driver table
             ResultSet driveResults = state
-                    .executeQuery("SELECT username FROM restaurant WHERE username = '" + user + "'");
+                    .executeQuery("SELECT restaurantID FROM restaurant WHERE restaurantID = '" + restID + "'");
 
             while (driveResults.next()) { // iterates through usernames until correct one is found
-                if (driveResults.getString(1).equals(user)) {
+                if (driveResults.getInt(1) == restID) {
                     // gets the driver's name from the correct column in table
                     ResultSet drivePassResults = state
-                            .executeQuery("SELECT restaurant_name FROM restaurant WHERE username = '" + user + "'");
+                            .executeQuery("SELECT restaurant_name FROM restaurant WHERE restaurantID = '" + restID + "'");
                     // sets array[0] equal to the driver's name
                     if (drivePassResults.next()) {
                         driverInf[0] = (drivePassResults.getString(1));
                     }
                     // gets the driver's car info from the correct column in table
                     drivePassResults = state
-                            .executeQuery("SELECT restaurant_address FROM restaurant WHERE username = '" + user + "'");
+                            .executeQuery("SELECT restaurant_address FROM restaurant WHERE restaurantID = '" + restID + "'");
                     // sets array[1] equal to the driver's car info
                     if (drivePassResults.next()) {
                         driverInf[1] = (drivePassResults.getString(1));
                     }
                     // gets the driver's license number from the correct column in table
                     drivePassResults = state
-                            .executeQuery("SELECT restaurant_phone FROM restaurant WHERE username = '" + user + "'");
+                            .executeQuery("SELECT restaurant_phone FROM restaurant WHERE restaurantID = '" + restID + "'");
                     // sets array[2] equal to the driver's license num
                     if (drivePassResults.next()) {
                         driverInf[2] = (drivePassResults.getString(1));
