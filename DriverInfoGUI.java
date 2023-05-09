@@ -104,10 +104,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
         if (confirmedOrders != null){ //if name string is not empty
              //confirms will hold all necessary information from respective customer/restaurant
-             String[][] confirms=new String[2][5];
-             if(confirmedOrders.length!=1){
-                confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items            
-             }
+             String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
              String[] tempArr = new String[6];   //returns order_num, f_name, l_name, address, credit_card, phone_number
              String[] tempArr2 = new String[3];  //returns resname, address, phone
             for(int i=0; i<confirmedOrders.length; i++){    //places all necessary strings into confirms
@@ -130,12 +127,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                  if(j==4){
                      confirms[i][5] = tempArr[4];
                  }
-                 }
-
-                 if(confirmedOrders.length==1){
-                    for(int k=0; k<5; k++){  
-                        confirms[1][k]=null;
-                    }
                  }
              }
 
