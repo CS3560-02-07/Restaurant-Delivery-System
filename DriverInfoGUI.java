@@ -39,9 +39,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         pendingOrderTable = new javax.swing.JTable();          
         //record delivery labels (text on screen), text boxes for user input, and buttons
         recordDelivery = new javax.swing.JPanel();
+        orderNumPrompt = new javax.swing.JLabel();
         estTimePrompt = new javax.swing.JLabel();
         actualTimePrompt = new javax.swing.JLabel();
         distTravPrompt = new javax.swing.JLabel();
+        orderNumInput = new javax.swing.JTextField();
         estTimeInput = new javax.swing.JTextField();
         actualTimeInput = new javax.swing.JTextField();
         distTravInput = new javax.swing.JTextField();
@@ -97,7 +99,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+        driverOptionTabs.addTab("My Info", viewInfo); //names the tab "view info"
 
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
 
@@ -142,7 +144,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     else{
         pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", null, null, null},
+                {null, "In n Out", null, "3102 D St, La Verne, CA 91750", null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -250,16 +252,25 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
         //set font style and size for each label
+        orderNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        orderNumPrompt.setText("Order Number:");
+
         estTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        estTimePrompt.setText("Estimated Time:");
+        estTimePrompt.setText("Estimated Time (min):");
 
         actualTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        actualTimePrompt.setText("Actual Time:");
+        actualTimePrompt.setText("Actual Time (min):");
 
         distTravPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        distTravPrompt.setText("Distance Travelled:");
+        distTravPrompt.setText("Distance Travelled (miles):");
 
         //action set by user(input text boxes and buttons)
+        orderNumInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderNumInputActionPerformed(evt);
+            }
+        });
+
         estTimeInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estTimeInputActionPerformed(evt);
@@ -297,25 +308,24 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         recordDelivery.setLayout(recordDeliveryLayout);
         recordDeliveryLayout.setHorizontalGroup(
             recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, recordDeliveryLayout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
+            .addGroup(recordDeliveryLayout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
                 .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(recordDeliveryLayout.createSequentialGroup()
-                        .addComponent(estTimePrompt)
+                        .addComponent(orderNumPrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(recordDeliveryLayout.createSequentialGroup()
                         .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(recordDeliveryLayout.createSequentialGroup()
-                                .addComponent(actualTimePrompt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, recordDeliveryLayout.createSequentialGroup()
-                                .addComponent(distTravPrompt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
+                            .addComponent(actualTimePrompt)
+                            .addComponent(estTimePrompt)
+                            .addComponent(distTravPrompt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, recordDeliveryLayout.createSequentialGroup()
+                            .addGroup(recordDeliveryLayout.createSequentialGroup()
                                 .addComponent(recordDeliveryButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(clearButton)))))
@@ -326,21 +336,25 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             .addGroup(recordDeliveryLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(estTimePrompt))
+                    .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderNumPrompt))
                 .addGap(12, 12, 12)
                 .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(actualTimePrompt)
-                    .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estTimePrompt)
+                    .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(distTravPrompt))
+                    .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(actualTimePrompt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(distTravPrompt)
+                    .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(recordDeliveryButton)
                     .addComponent(clearButton))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         driverOptionTabs.addTab("Record Delivery", recordDelivery); //names the tab "record delivery"
@@ -350,11 +364,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //adds delivery history JTable
         delHistTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "10", "15", "20"},
-                {null, null, null, null}
+                {"111", "10", "15", "20", "15", "0"},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)"
+                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)", "Refund($)"
             }
         ));
         delHistScrollPane.setViewportView(delHistTable);
@@ -365,16 +379,16 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         deliveryHistLayout.setHorizontalGroup(
             deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addContainerGap())
         );
         deliveryHistLayout.setVerticalGroup(
             deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         driverOptionTabs.addTab("Delivery History", deliveryHist); //names tab "delivery history"
@@ -447,8 +461,17 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         login.setVisible(true);
     }                                            
 
-    public String actualTime, distTravelled, estTime;
+    //gets user input for order number, actual time, estimated time, and distance travelled
+    public String orderNum, actualTime, estTime, distTravelled;
     
+    private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        orderNum = orderNumInput.getText();
+    }
+
+    private void estTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        estTime = estTimeInput.getText();
+    }                                            
+
     private void actualTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
         actualTime = actualTimeInput.getText();
     }                                               
@@ -457,37 +480,41 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravelled = distTravInput.getText();
     }                                             
 
-    private void estTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        estTime = estTimeInput.getText();
-    }                                            
-
     //action for clear button
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        orderNumInput.setText("");
+        estTimeInput.setText("");
         actualTimeInput.setText("");
         distTravInput.setText("");
-        estTimeInput.setText("");
-    }                                           
+        
+    }                                                                                    
 
     //actions for record delivery button
     private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+                if(orderNumInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill out order number");
+        }
+        else if(!orderNumInput.getText().matches("[1-9]")){
+            JOptionPane.showMessageDialog(null, "Invalid order number");
+        }
+        if(estTimeInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill out estimated time");
+        }
+        else if(!estTimeInput.getText().matches("[1-9]")){
+            JOptionPane.showMessageDialog(null, "Invalid estimated time");
+        }
         if(actualTimeInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out actual time");
         }
         else if(!actualTimeInput.getText().matches("[1-9]")){
             JOptionPane.showMessageDialog(null, "Invalid actual time");
         }
-        else if(distTravInput.getText().equals("")){
+        if(distTravInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out distance travelled");
         }
         else if(!distTravInput.getText().matches("[1-9]")){
             JOptionPane.showMessageDialog(null, "Invalid distance travelled");
-        }
-        else if(estTimeInput.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out estimated time");
-        }
-        else if(!estTimeInput.getText().matches("[1-9]")){
-            JOptionPane.showMessageDialog(null, "Invalid estimated time");
-        }
+        }  
         else{
             //save user input
             actual = actualTimeInput.getText();
@@ -499,9 +526,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         }
     } 
     
-    //lets user input into the text box
     private void orderPickUpInputActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        
+        //lets user input into the text box
     }                                                
 
     //action for confirm pick-up button
@@ -540,6 +566,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JPanel logOut;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel logOutPrompt;
+    private javax.swing.JTextField orderNumInput;
+    private javax.swing.JLabel orderNumPrompt;
     private javax.swing.JTextField orderPickUpInput;
     private javax.swing.JLabel orderPickUpPrompt;
     private javax.swing.JScrollPane pendingOrderScrollPanel;

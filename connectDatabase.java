@@ -350,6 +350,24 @@ public class connectDatabase {
         return results;
     }
 
+    //confirms orders in database
+    public static boolean setOrderConf(int ID){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
+            if (results.next()){
+                state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                return true;
+            }
+
+            return false;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("failed to connect. ", e);
+        }
+    }
 
     public static String getStatus(){
         return userStatus;

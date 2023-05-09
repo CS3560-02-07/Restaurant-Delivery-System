@@ -82,7 +82,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        restOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+        restOptionTabs.addTab("My Restaurant", viewInfo); //names the tab "view info"
 
         custOrder.setBackground(new java.awt.Color(199, 234, 245)); //set background color of "customer order" tab
 
@@ -93,35 +93,10 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 {null, null, null, null, null},
             },
             new String [] {
-                "Order Number", "Restaurant", "From", "Destination", "Total Price"
+                "Order Number", "Customer Name", "Customer Address", "Phone #", "Total Price"
             }
         ));
         custOrderScrollPane.setViewportView(custOrderTable);
-
-        TableColumn booleanColumn = custOrderTable.getColumnModel().getColumn(1);
-        // Set the cell editor to a checkbox
-        booleanColumn.setCellEditor(new DefaultCellEditor(new JCheckBox()));
-        
-        // Add a TableModelListener to listen for changes to the boolean value
-        custOrderTable.getModel().addTableModelListener(new TableModelListener() {
-        @Override
-            public void tableChanged(TableModelEvent e) {
-                // Check if the changed column is the boolean column
-                if (e.getColumn() == 1) {
-                    // Get the value of the boolean column in the changed row
-                    boolean value = (Boolean) custOrderTable.getModel().getValueAt(e.getFirstRow(), 0);
-
-                    // Update the button based on the boolean value
-                    if (value) {
-                        System.out.println("checked");
-                        //confirmOrderButton.setText("");
-                    } else {
-                        System.out.println("unchecked");
-                        //confirmOrderButton.setText("Unchecked");
-                    }
-                }
-            }  
-        });
 
         //creates confirm order button
         confirmOrderButton.setText("Confirm Order");
@@ -151,7 +126,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                     .addGroup(custOrderLayout.createSequentialGroup()
                         .addComponent(orderNumPrompt)
                         .addGap(3, 3, 3)
-                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(confirmOrderButton)))
                 .addContainerGap(51, Short.MAX_VALUE))
@@ -168,6 +143,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                     .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
+
 
         restOptionTabs.addTab("Customer Order", custOrder); //names the tab "customer order"
 
@@ -240,7 +216,20 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
     }
 
     //action for confirm order button
-    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {    
+        if (orderNumInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No Order number entered.");
+        }
+        else{
+            if (connectDatabase.setOrderConf(Integer.parseInt(orderNumInput.getText()))){
+                JOptionPane.showMessageDialog(null, "Order number " + orderNumInput.getText() + " has been confirmed.");
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid order number.");
+
+            }
+        }                                               
         //this doesn't do anything yet 
     }  
 
