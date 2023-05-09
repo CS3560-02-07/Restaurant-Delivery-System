@@ -530,9 +530,21 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //lets user input into the text box
     }                                                
 
-    //action for confirm pick-up button
-    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        //this button doesn't work yet
+    //action for confirm pick-up button. Sets the driverID of the textbox equal to the driver's ID
+    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {      
+        //if the text is empty or has just space(s)
+        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().equals("\\s+")){
+            JOptionPane.showMessageDialog(null, "No Order number entered.");
+        }
+        else{
+            if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))){
+                JOptionPane.showMessageDialog(null, "Order number " + orderPickUpInput.getText() + " has been confirmed.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid order number.");
+
+            }
+        }                                                 
     }
 
     /**
