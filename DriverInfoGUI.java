@@ -353,11 +353,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //adds delivery history JTable
         delHistTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "10", "15", "20"},
-                {null, null, null, null}
+                {"111", "10", "15", "20", "15", "0"},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)"
+                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)", "Refund($)"
             }
         ));
         delHistScrollPane.setViewportView(delHistTable);
