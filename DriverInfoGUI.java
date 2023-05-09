@@ -450,7 +450,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         login.setVisible(true);
     }                                            
 
-    public String orderNum, actualTime, distTravelled, estTime;
+    //gets user input for order number, actual time, estimated time, and distance travelled
+    public String orderNum, actualTime, ,estTime, distTravelled;
     
     private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
         orderNum = orderNumInput.getText();
@@ -468,20 +469,14 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravelled = distTravInput.getText();
     }                                             
 
+    //action for clear button
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         orderNumInput.setText("");
         estTimeInput.setText("");
         actualTimeInput.setText("");
         distTravInput.setText("");
         
-    }                                           
-
-    //action for clear button
-    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        actualTimeInput.setText("");
-        distTravInput.setText("");
-        estTimeInput.setText("");
-    }                                           
+    }                                                                                    
 
     //actions for record delivery button
     private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
