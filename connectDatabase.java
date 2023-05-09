@@ -335,6 +335,9 @@ public class connectDatabase {
             e.printStackTrace();
         }
         //converts from arraylist to 2d array and returns in each row: order_num, customerID, restaurantID
+        if(rows.size()==0){
+            return null;
+        }
         int numRows = rows.size();
         int numColumns = rows.get(0).length;
         results = new int[numRows][numColumns];
