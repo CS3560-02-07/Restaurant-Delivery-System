@@ -368,16 +368,16 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         deliveryHistLayout.setHorizontalGroup(
             deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addContainerGap())
         );
         deliveryHistLayout.setVerticalGroup(
             deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         driverOptionTabs.addTab("Delivery History", deliveryHist); //names tab "delivery history"
