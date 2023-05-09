@@ -24,17 +24,6 @@ CREATE TABLE restaurant(
     PRIMARY KEY(restaurantID)
 );
 
-CREATE TABLE orders(
-	order_num INT AUTO_INCREMENT,
-    customerID INT,
-    restaurantID INT,
-    total_cost DECIMAL(9,2),
-    confirmed BOOLEAN, 
-    FOREIGN KEY(customerID) REFERENCES customer(customerID),
-    FOREIGN KEY(restaurantID) REFERENCES restaurant(restaurantID),
-    PRIMARY KEY(order_num, customerID, restaurantID)
-);
-
 CREATE TABLE driver(
 	driverID INT AUTO_INCREMENT,
 	driver_name VARCHAR(50),
@@ -45,6 +34,20 @@ CREATE TABLE driver(
     PRIMARY KEY(driverID)
 );
 
+CREATE TABLE orders(
+	order_num INT AUTO_INCREMENT,
+    customerID INT,
+    restaurantID INT,
+    driverID INT DEFAULT NULL,
+    total_cost DECIMAL(9,2),
+    confirmed BOOLEAN, 
+    FOREIGN KEY(customerID) REFERENCES customer(customerID),
+    FOREIGN KEY(restaurantID) REFERENCES restaurant(restaurantID),
+    FOREIGN KEY (driverID) REFERENCES driver(driverID),
+    PRIMARY KEY(order_num, customerID, restaurantID)
+);
+
+/*
 CREATE TABLE pickup_confirmation(
 	confirm_num INT AUTO_INCREMENT,
 	confirmed BOOLEAN,
@@ -54,7 +57,7 @@ CREATE TABLE pickup_confirmation(
     FOREIGN KEY(driverID) REFERENCES driver(driverID),
     PRIMARY KEY(confirm_num, restaurantID, driverID)
 );
-
+*/
 CREATE TABLE delivery(
 	driverID INT,
     delivery_num INT AUTO_INCREMENT,
