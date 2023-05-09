@@ -82,7 +82,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        restOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+        restOptionTabs.addTab("My Restaurant", viewInfo); //names the tab "view info"
 
         custOrder.setBackground(new java.awt.Color(199, 234, 245)); //set background color of "customer order" tab
 

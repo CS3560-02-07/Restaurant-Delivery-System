@@ -97,7 +97,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        driverOptionTabs.addTab("View Info", viewInfo); //names the tab "view info"
+        driverOptionTabs.addTab("My Info", viewInfo); //names the tab "view info"
 
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
 
