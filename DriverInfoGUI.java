@@ -146,11 +146,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             pickUpTable.getColumnModel().getColumn(4).setPreferredWidth(170);
         }
 
-        //set column size for address to be larger
-        if (pickUpTable.getColumnModel().getColumnCount() > 0) {
-            pickUpTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
         //horizontal and vertical layout of pick-up confirmation tab
         javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
         pickUpConfirm.setLayout(pickUpConfirmLayout);

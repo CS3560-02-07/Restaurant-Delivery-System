@@ -98,6 +98,31 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         ));
         custOrderScrollPane.setViewportView(custOrderTable);
 
+        TableColumn booleanColumn = custOrderTable.getColumnModel().getColumn(1);
+        // Set the cell editor to a checkbox
+        booleanColumn.setCellEditor(new DefaultCellEditor(new JCheckBox()));
+        
+        // Add a TableModelListener to listen for changes to the boolean value
+        custOrderTable.getModel().addTableModelListener(new TableModelListener() {
+        @Override
+            public void tableChanged(TableModelEvent e) {
+                // Check if the changed column is the boolean column
+                if (e.getColumn() == 1) {
+                    // Get the value of the boolean column in the changed row
+                    boolean value = (Boolean) custOrderTable.getModel().getValueAt(e.getFirstRow(), 0);
+
+                    // Update the button based on the boolean value
+                    if (value) {
+                        System.out.println("checked");
+                        //confirmOrderButton.setText("");
+                    } else {
+                        System.out.println("unchecked");
+                        //confirmOrderButton.setText("Unchecked");
+                    }
+                }
+            }  
+        });
+
         //creates confirm order button
         confirmOrderButton.setText("Confirm Order");
         confirmOrderButton.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +151,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                     .addGroup(custOrderLayout.createSequentialGroup()
                         .addComponent(orderNumPrompt)
                         .addGap(3, 3, 3)
-                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(confirmOrderButton)))
                 .addContainerGap(51, Short.MAX_VALUE))
