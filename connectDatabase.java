@@ -350,7 +350,24 @@ public class connectDatabase {
         return results;
     }
 
-    //confirms orders in database for the restaurantInfoGUI
+    public static String[] getRestOrders(int restID){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            String[] tableInfo;
+            ResultSet results = state.executeQuery("SELECT customerID, confirmed FROM orders WHERE restaurantID = " + String.valueOf(restID));
+
+            if (results.next()){
+                
+            }
+             results = state.executeQuery("SELECT f_name, l_name, address, phone_number FROM customer WHERE order")
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect. ", e);
+        }
+    }
+
+    //confirms orders in database
     public static boolean setOrderConf(int ID){
         try{
             Connection conn = getConnection();

@@ -2,7 +2,7 @@ import javax.swing.JOptionPane;
 
 public class DriverInfoGUI extends javax.swing.JFrame {
 
-    //variables to save user input
+    // variables to save user input
     public String actual;
     public String estimate;
     public int dist;
@@ -65,32 +65,33 @@ public class DriverInfoGUI extends javax.swing.JFrame {
      * Creates new form RestaurantInfo
      */
     public DriverInfoGUI(String userName) {
-        this.userName=userName;
+        this.userName = userName;
         initComponents();
     }
-    
-    @SuppressWarnings("unchecked")                         
+
+    @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        //create tabs
+        // create tabs
         driverInfoTab = new javax.swing.JTabbedPane();
         driverOptionTabs = new javax.swing.JTabbedPane();
-        //driver view info tab + table
+        // driver view info tab + table
         viewInfo = new javax.swing.JPanel();
         driverViewInfoScrollPane = new javax.swing.JScrollPane();
         driverViewInfoTable = new javax.swing.JTable();
-        //pick-up confirmation tab
+        // pick-up confirmation tab
         pickUpConfirm = new javax.swing.JPanel();
         pickUpScrollPane = new javax.swing.JScrollPane();
         pickUpTable = new javax.swing.JTable();
         orderPickUpPrompt = new javax.swing.JLabel();
         orderPickUpInput = new javax.swing.JTextField();
         confirmPickUpButton = new javax.swing.JButton();
-        //pending orders tab
+        // pending orders tab
         pendingOrders = new javax.swing.JPanel();
         pendingOrderScrollPanel = new javax.swing.JScrollPane();
-        pendingOrderTable = new javax.swing.JTable();          
-        //record delivery labels (text on screen), text boxes for user input, and buttons
+        pendingOrderTable = new javax.swing.JTable();
+        // record delivery labels (text on screen), text boxes for user input, and
+        // buttons
         recordDelivery = new javax.swing.JPanel();
         orderNumPrompt = new javax.swing.JLabel();
         estTimePrompt = new javax.swing.JLabel();
@@ -102,118 +103,117 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput = new javax.swing.JTextField();
         recordDeliveryButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
-        //delivery history tab + table
+        // delivery history tab + table
         deliveryHist = new javax.swing.JPanel();
         delHistScrollPane = new javax.swing.JScrollPane();
         delHistTable = new javax.swing.JTable();
-        //log-out
+        // log-out
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); //close window application
-        setBackground(new java.awt.Color(166, 216, 233)); //set background color of window
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); // close window application
+        setBackground(new java.awt.Color(166, 216, 233)); // set background color of window
 
-        driverOptionTabs.setBackground(new java.awt.Color(166, 216, 233)); //set background color of driver option tab
+        driverOptionTabs.setBackground(new java.awt.Color(166, 216, 233)); // set background color of driver option tab
 
-        viewInfo.setBackground(new java.awt.Color(199, 234, 245)); //set background color of view info tab
+        viewInfo.setBackground(new java.awt.Color(199, 234, 245)); // set background color of view info tab
 
-        //database connection to show driver info
+        // database connection to show driver info
         String[] driverInf = connectDatabase.getDriver(connectDatabase.getID());
-        //adds driver view info JTable 
-        if (!driverInf[0].equals("")){ //if name string is not empty
+        // adds driver view info JTable
+        if (!driverInf[0].equals("")) { // if name string is not empty
             driverViewInfoTable.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-            {driverInf[0], driverInf[1], driverInf[2]},
-            {null, null, null}
-        },
-        new String [] {
-            "Driver Name", "Car Info", "License Number"
+                    new Object[][] {
+                            { driverInf[0], driverInf[1], driverInf[2] },
+                            { null, null, null }
+                    },
+                    new String[] {
+                            "Driver Name", "Car Info", "License Number"
+                    }));
         }
-        ));
-        }  
         driverViewInfoScrollPane.setViewportView(driverViewInfoTable);
-        
-        //horizontal and vertical layouts of view info tab
+
+        // horizontal and vertical layouts of view info tab
         javax.swing.GroupLayout viewInfoLayout = new javax.swing.GroupLayout(viewInfo);
         viewInfo.setLayout(viewInfoLayout);
         viewInfoLayout.setHorizontalGroup(
-            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewInfoLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
+                viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(viewInfoLayout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(97, Short.MAX_VALUE)));
         viewInfoLayout.setVerticalGroup(
-            viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewInfoLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+                viewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(viewInfoLayout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(driverViewInfoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 240,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(40, Short.MAX_VALUE)));
 
-        driverOptionTabs.addTab("My Info", viewInfo); //names the tab "view info"
+        driverOptionTabs.addTab("My Info", viewInfo); // names the tab "view info"
 
-        pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
+        pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); // set background color of pickup confirmation
+                                                                        // tab
 
-        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); //restaurant info array
-        if (confirmedOrders != null){ //if name string is not empty
-             //confirms will hold all necessary information from respective customer/restaurant
-             String[][] confirms = new String[confirmedOrders.length][6]; //although arrays are bigger, only need these 5 items
-             String[] tempArr = new String[6];   //returns order_num, f_name, l_name, address, credit_card, phone_number
-             String[] tempArr2 = new String[3];  //returns resname, address, phone
-            for(int i=0; i<confirmedOrders.length; i++){    //places all necessary strings into confirms
-                 tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
-                 tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);  
-                 confirms[i][0]=String.valueOf(confirmedOrders[i][0]);
-                 for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
-                 if(j==0){
-                     confirms[i][1] = tempArr2[0];
-                 }
-                 if(j==1){
-                     confirms[i][2] = tempArr[0];
-                 }
-                 if(j==2){
-                     confirms[i][3] = tempArr2[1];
-                 }
-                 if(j==3){
-                     confirms[i][4] = tempArr[2];
-                 }
-                 if(j==4){
-                     confirms[i][5] = tempArr[4];
-                 }
-                 }
-             }
-
-            
-        //pick-up confirmation JTable
-        pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
-                confirms,
-            new String [] {
-                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); // restaurant info array
+        if (confirmedOrders != null) { // if name string is not empty
+            // confirms will hold all necessary information from respective
+            // customer/restaurant
+            String[][] confirms = new String[confirmedOrders.length][6]; // although arrays are bigger, only need these
+                                                                         // 5 items
+            String[] tempArr = new String[6]; // returns order_num, f_name, l_name, address, credit_card, phone_number
+            String[] tempArr2 = new String[3]; // returns resname, address, phone
+            for (int i = 0; i < confirmedOrders.length; i++) { // places all necessary strings into confirms
+                tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
+                tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);
+                confirms[i][0] = String.valueOf(confirmedOrders[i][0]);
+                for (int j = 0; j < 5; j++) { // onlyconfirmed orders will only return 2 columns with ID's of rest and
+                                              // cust
+                    if (j == 0) {
+                        confirms[i][1] = tempArr2[0];
+                    }
+                    if (j == 1) {
+                        confirms[i][2] = tempArr[0];
+                    }
+                    if (j == 2) {
+                        confirms[i][3] = tempArr2[1];
+                    }
+                    if (j == 3) {
+                        confirms[i][4] = tempArr[2];
+                    }
+                    if (j == 4) {
+                        confirms[i][5] = tempArr[4];
+                    }
+                }
             }
-        ));
-    }
-    else{
-        pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Restaurant", "Customer", "From", "To", "Phone Number"
-            }
-        ));
-    }
+
+            // pick-up confirmation JTable
+            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
+                    confirms,
+                    new String[] {
+                            "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+                    }));
+        } else {
+            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][] {
+                            { null, null, null, null, null, null },
+                            { null, null, null, null, null, null }
+                    },
+                    new String[] {
+                            "Restaurant", "Customer", "From", "To", "Phone Number"
+                    }));
+        }
         pickUpScrollPane.setViewportView(pickUpTable);
 
-        //sets "from" and "to" column width to be larger
+        // sets "from" and "to" column width to be larger
         if (pickUpTable.getColumnModel().getColumnCount() > 0) {
             pickUpTable.getColumnModel().getColumn(3).setPreferredWidth(170);
             pickUpTable.getColumnModel().getColumn(4).setPreferredWidth(170);
         }
 
-        orderPickUpPrompt.setText("Enter Order Number to be picked-up: "); //order # pickup prompt
+        orderPickUpPrompt.setText("Enter Order Number to be picked-up: "); // order # pickup prompt
 
         //order pickup input text box
         orderPickUpInput.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +222,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
-        //confirm pick-up button 
+        // confirm pick-up button
         confirmPickUpButton.setText("Confirm Pick-Up");
         confirmPickUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,24 +230,25 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
-        //horizontal and vertical layout of pick-up confirmation tab
+        // horizontal and vertical layout of pick-up confirmation tab
         javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
         pickUpConfirm.setLayout(pickUpConfirmLayout);
         pickUpConfirmLayout.setHorizontalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pickUpConfirmLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pickUpScrollPane)
-                    .addGroup(pickUpConfirmLayout.createSequentialGroup()
-                        .addComponent(orderPickUpPrompt)
-                        .addGap(3, 3, 3)
-                        .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(confirmPickUpButton)
-                        .addGap(0, 161, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+                pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pickUpConfirmLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(pickUpConfirmLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(pickUpScrollPane)
+                                        .addGroup(pickUpConfirmLayout.createSequentialGroup()
+                                                .addComponent(orderPickUpPrompt)
+                                                .addGap(3, 3, 3)
+                                                .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(confirmPickUpButton)
+                                                .addGap(0, 161, Short.MAX_VALUE)))
+                                .addContainerGap()));
         pickUpConfirmLayout.setVerticalGroup(
             pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pickUpConfirmLayout.createSequentialGroup()
@@ -354,7 +355,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
 
-        //set font style and size for each label
+        // set font style and size for each label
         orderNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         orderNumPrompt.setText("Order Number:");
 
@@ -367,7 +368,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         distTravPrompt.setText("Distance Travelled (miles):");
 
-        //action set by user(input text boxes and buttons)
+        // action set by user(input text boxes and buttons)
         orderNumInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 orderNumInputActionPerformed(evt);
@@ -406,103 +407,128 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
-        //horizontal and vertical layouts for record delivery tab
+        // horizontal and vertical layouts for record delivery tab
         javax.swing.GroupLayout recordDeliveryLayout = new javax.swing.GroupLayout(recordDelivery);
         recordDelivery.setLayout(recordDeliveryLayout);
         recordDeliveryLayout.setHorizontalGroup(
-            recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(recordDeliveryLayout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(recordDeliveryLayout.createSequentialGroup()
-                        .addComponent(orderNumPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(recordDeliveryLayout.createSequentialGroup()
-                        .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(actualTimePrompt)
-                            .addComponent(estTimePrompt)
-                            .addComponent(distTravPrompt))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(recordDeliveryLayout.createSequentialGroup()
-                                .addComponent(recordDeliveryButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clearButton)))))
-                .addGap(149, 149, 149))
-        );
+                recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(recordDeliveryLayout.createSequentialGroup()
+                                .addContainerGap(83, Short.MAX_VALUE)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(recordDeliveryLayout.createSequentialGroup()
+                                                .addComponent(orderNumPrompt)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(recordDeliveryLayout.createSequentialGroup()
+                                                .addGroup(recordDeliveryLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(actualTimePrompt)
+                                                        .addComponent(estTimePrompt)
+                                                        .addComponent(distTravPrompt))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(recordDeliveryLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(estTimeInput,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 232,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(actualTimeInput,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 232,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(distTravInput,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 232,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(recordDeliveryLayout.createSequentialGroup()
+                                                                .addComponent(recordDeliveryButton)
+                                                                .addPreferredGap(
+                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        Short.MAX_VALUE)
+                                                                .addComponent(clearButton)))))
+                                .addGap(149, 149, 149)));
         recordDeliveryLayout.setVerticalGroup(
-            recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(recordDeliveryLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(orderNumPrompt))
-                .addGap(12, 12, 12)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estTimePrompt)
-                    .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(actualTimePrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(distTravPrompt)
-                    .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(recordDeliveryButton)
-                    .addComponent(clearButton))
-                .addContainerGap(102, Short.MAX_VALUE))
-        );
+                recordDeliveryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(recordDeliveryLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(orderNumInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(orderNumPrompt))
+                                .addGap(12, 12, 12)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(estTimePrompt)
+                                        .addComponent(estTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12, 12, 12)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(actualTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(actualTimePrompt))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(distTravPrompt)
+                                        .addComponent(distTravInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(recordDeliveryLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(recordDeliveryButton)
+                                        .addComponent(clearButton))
+                                .addContainerGap(102, Short.MAX_VALUE)));
 
-        driverOptionTabs.addTab("Record Delivery", recordDelivery); //names the tab "record delivery"
+        driverOptionTabs.addTab("Record Delivery", recordDelivery); // names the tab "record delivery"
 
-        deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); //set background color for delivery history tab
+        deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); // set background color for delivery history tab
 
-        //adds delivery history JTable
+        // adds delivery history JTable
         delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"111", "10", "15", "20", "15", "0"},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)", "Refund($)"
-            }
-        ));
+                new Object[][] {
+                        { "111", "10", "15", "20", "15", "0" },
+                        { null, null, null, null, null, null }
+                },
+                new String[] {
+                        "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
+                        "Refund($)"
+                }));
         delHistScrollPane.setViewportView(delHistTable);
 
-        //horizontal and vertical layouts for delivery history tab
+        // horizontal and vertical layouts for delivery history tab
         javax.swing.GroupLayout deliveryHistLayout = new javax.swing.GroupLayout(deliveryHist);
         deliveryHist.setLayout(deliveryHistLayout);
         deliveryHistLayout.setHorizontalGroup(
-            deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(deliveryHistLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 631,
+                                        Short.MAX_VALUE)
+                                .addContainerGap()));
         deliveryHistLayout.setVerticalGroup(
-            deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(deliveryHistLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                deliveryHistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(deliveryHistLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(delHistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 305,
+                                        Short.MAX_VALUE)
+                                .addContainerGap()));
 
-        driverOptionTabs.addTab("Delivery History", deliveryHist); //names tab "delivery history"
+        driverOptionTabs.addTab("Delivery History", deliveryHist); // names tab "delivery history"
 
-        logOut.setBackground(new java.awt.Color(199, 234, 245)); //set background for log out tab
+        logOut.setBackground(new java.awt.Color(199, 234, 245)); // set background for log out tab
 
-        //set font style and size for labels on log out tab
-        logOutPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); 
+        // set font style and size for labels on log out tab
+        logOutPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 18));
         logOutPrompt.setText("Would you like to log-out?");
 
-        //action set by user(button)
+        // action set by user(button)
         logOutButton.setText("Log-out");
         logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -510,120 +536,114 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
-        //horizontal and vertical layouts of log out tab
+        // horizontal and vertical layouts of log out tab
         javax.swing.GroupLayout logOutLayout = new javax.swing.GroupLayout(logOut);
         logOut.setLayout(logOutLayout);
         logOutLayout.setHorizontalGroup(
-            logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logOutLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(logOutPrompt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(logOutButton)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
+                logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(logOutLayout.createSequentialGroup()
+                                .addGap(130, 130, 130)
+                                .addComponent(logOutPrompt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(logOutButton)
+                                .addContainerGap(216, Short.MAX_VALUE)));
         logOutLayout.setVerticalGroup(
-            logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logOutLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addGroup(logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logOutPrompt)
-                    .addComponent(logOutButton))
-                .addContainerGap(164, Short.MAX_VALUE))
-        );
+                logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(logOutLayout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addGroup(logOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(logOutPrompt)
+                                        .addComponent(logOutButton))
+                                .addContainerGap(164, Short.MAX_VALUE)));
 
-        driverOptionTabs.addTab("Log-out", logOut); //names tab "log out"
+        driverOptionTabs.addTab("Log-out", logOut); // names tab "log out"
 
-        driverInfoTab.addTab("Driver Information", driverOptionTabs); //names top tab "driver information"
+        driverInfoTab.addTab("Driver Information", driverOptionTabs); // names top tab "driver information"
 
-        //horizontal and vertical layout for driver information tab
+        // horizontal and vertical layout for driver information tab
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(driverInfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(driverInfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 643,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(38, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(driverInfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(driverInfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, 379,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(35, Short.MAX_VALUE)));
 
-        pack(); 
-    }                      
+        pack();
+    }
 
-    //actions for buttons and input text boxes
-    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    // actions for buttons and input text boxes
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {
         LoginPageGUI login = new LoginPageGUI();
         setVisible(false);
         login.setVisible(true);
-    }                                            
+    }
 
-    //gets user input for order number, actual time, estimated time, and distance travelled
+    // gets user input for order number, actual time, estimated time, and distance
+    // travelled
     public String orderNum, actualTime, estTime, distTravelled;
-    
-    private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+
+    private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {
         orderNum = orderNumInput.getText();
     }
 
-    private void estTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void estTimeInputActionPerformed(java.awt.event.ActionEvent evt) {
         estTime = estTimeInput.getText();
-    }                                            
+    }
 
-    private void actualTimeInputActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void actualTimeInputActionPerformed(java.awt.event.ActionEvent evt) {
         actualTime = actualTimeInput.getText();
-    }                                               
+    }
 
-    private void distTravInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void distTravInputActionPerformed(java.awt.event.ActionEvent evt) {
         distTravelled = distTravInput.getText();
-    }                                             
+    }
 
-    //action for clear button
-    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    // action for clear button
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {
         orderNumInput.setText("");
         estTimeInput.setText("");
         actualTimeInput.setText("");
         distTravInput.setText("");
-        
-    }                                                                                    
 
-    //actions for record delivery button
-    private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-                if(orderNumInput.getText().equals("")){
+    }
+
+    // actions for record delivery button
+    private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (orderNumInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill out order number");
-        }
-        else if(!orderNumInput.getText().matches("[1-9]")){
+        } else if (!orderNumInput.getText().matches("[1-9]")) {
             JOptionPane.showMessageDialog(null, "Invalid order number");
         }
-        if(estTimeInput.getText().equals("")){
+        if (estTimeInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill out estimated time");
-        }
-        else if(!estTimeInput.getText().matches("[1-9]")){
+        } else if (!estTimeInput.getText().matches("[1-9]")) {
             JOptionPane.showMessageDialog(null, "Invalid estimated time");
         }
-        if(actualTimeInput.getText().equals("")){
+        if (actualTimeInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill out actual time");
-        }
-        else if(!actualTimeInput.getText().matches("[1-9]")){
+        } else if (!actualTimeInput.getText().matches("[1-9]")) {
             JOptionPane.showMessageDialog(null, "Invalid actual time");
         }
-        if(distTravInput.getText().equals("")){
+        if (distTravInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill out distance travelled");
-        }
-        else if(!distTravInput.getText().matches("[1-9]")){
+        } else if (!distTravInput.getText().matches("[1-9]")) {
             JOptionPane.showMessageDialog(null, "Invalid distance travelled");
-        }  
-        else{
-            //save user input
+        } else {
+            // save user input
             actual = actualTimeInput.getText();
             estimate = estTimeInput.getText();
             dist = Integer.parseInt(distTravInput.getText());
-            //print user input
+            // print user input
             System.out.println(actual + " " + estimate + " " + dist);
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
@@ -667,7 +687,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private javax.swing.JTextField actualTimeInput;
     private javax.swing.JLabel actualTimePrompt;
     private javax.swing.JButton clearButton;
@@ -699,5 +719,5 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     private javax.swing.JPanel recordDelivery;
     private javax.swing.JButton recordDeliveryButton;
     private javax.swing.JPanel viewInfo;
-    // End of variables declaration                   
+    // End of variables declaration
 }
