@@ -163,7 +163,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        driverOptionTabs.addTab("Pickup Confirmation", pickupConfirm);
+        driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
