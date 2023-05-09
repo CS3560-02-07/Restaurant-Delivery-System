@@ -130,7 +130,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //pick-up confirmation JTable
         pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "3102 D St La Verne CA 91750", null, null, null, null},
+                {null, "In n Out", null, "3102 D St, La Verne, CA 91750", null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
@@ -140,6 +140,12 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         ));
         pickUpScrollPane.setViewportView(pickUpTable);
+        //sets "from" and "to" column width to be larger
+        if (pickUpTable.getColumnModel().getColumnCount() > 0) {
+            pickUpTable.getColumnModel().getColumn(3).setPreferredWidth(170);
+            pickUpTable.getColumnModel().getColumn(4).setPreferredWidth(170);
+        }
+
         //set column size for address to be larger
         if (pickUpTable.getColumnModel().getColumnCount() > 0) {
             pickUpTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -163,7 +169,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        driverOptionTabs.addTab("Pickup Confirmation", pickupConfirm);
+        driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pending order tab
