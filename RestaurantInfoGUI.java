@@ -216,7 +216,20 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
     }
 
     //action for confirm order button
-    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void confirmOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {    
+        if (orderNumInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No Order number entered.");
+        }
+        else{
+            if (connectDatabase.setOrderConf(Integer.parseInt(orderNumInput.getText()))){
+                JOptionPane.showMessageDialog(null, "Order number " + orderNumInput.getText() + " has been confirmed.");
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid order number.");
+
+            }
+        }                                               
         //this doesn't do anything yet 
     }  
 
