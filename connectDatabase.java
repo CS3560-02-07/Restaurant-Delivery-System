@@ -581,6 +581,13 @@ public class connectDatabase {
                 answer[j][1] = String.valueOf(results.getInt(2));
                 answer[j][2] = String.valueOf(results.getInt(3));
                 answer[j][3] = String.valueOf(results.getInt(4));
+                answer[j][4] = String.valueOf(5 + (1.5*results.getInt(4)));
+                if (results.getInt(3) >= 1.5 * results.getInt(2)){
+                    answer[j][5] = String.valueOf(answer[j][4]);
+                }
+                else{
+                    answer[j][5] = "0";
+                }
                 j++;
             }
 
