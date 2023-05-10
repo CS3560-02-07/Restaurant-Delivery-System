@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 public class RegisterFormGUI extends javax.swing.JFrame {
     String restNameIn;
@@ -100,7 +101,12 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         restRegButton.setText("Register");
         restRegButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                restRegButtonActionPerformed(evt);
+                try{
+                    restRegButtonActionPerformed(evt);
+                }
+                catch(Exception e){
+                    throw new IllegalStateException("Restaurant registration failed. ", e);
+                }
             }
         });
 
@@ -224,8 +230,13 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         //action set by user(buttons)
         driverRegButton.setText("Register");
         driverRegButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                driverRegButtonActionPerformed(evt);
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                try{
+                    driverRegButtonActionPerformed(evt);
+                }
+                catch(Exception e){
+                    throw new IllegalStateException("Driver registration failed. ", e);
+                }
             }
         });
 
@@ -336,7 +347,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
     public String restName, restAddy, restNum, restUser, restPass;
     public String driverName, driverLic, carInfo, driverUser, driverPass;      
 
-    private void driverRegButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void driverRegButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{                                             
         if(driverNameInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out name");
         }
@@ -348,6 +359,9 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         }
         else if(driverUserInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out username");
+        }
+        else if(connectDatabase.driverValidateUser(driverUserInput.getText())){
+            JOptionPane.showMessageDialog(null, "Username already taken, please enter a different username.");
         }
         else if(driverPassInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out password");
@@ -370,7 +384,7 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         }
     }                                               
 
-    private void restRegButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void restRegButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{                                              
         if(restNameInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out restaurant name");
         }
@@ -382,6 +396,9 @@ public class RegisterFormGUI extends javax.swing.JFrame {
         }
         else if(restUserInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out username");
+        }
+        else if(connectDatabase.restaurantValidateUser(restUserInput.getText())){
+            JOptionPane.showMessageDialog(null, "Username already taken, please enter a different username.");
         }
         else if(restPassInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please fill out password");
