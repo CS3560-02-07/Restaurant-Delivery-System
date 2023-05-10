@@ -549,7 +549,7 @@ public class connectDatabase {
             throw new IllegalStateException("Failed to connect. ", e);
         }
     }
-    
+
     public static String[][] getDeliveryHist(int driverID) {    //returns driverID, delivery_num, estimated_time, actual_time, distance
         
         List<int[]> rows = new ArrayList<>();
@@ -603,9 +603,13 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
+                state.close();
+                conn.close();
                 return true;
             }
 
+            state.close();
+            conn.close();
             return false;
         }
         catch(Exception e){
