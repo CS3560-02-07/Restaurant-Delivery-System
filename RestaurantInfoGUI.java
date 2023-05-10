@@ -311,6 +311,48 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No Order number entered.");
                 } else {
                         if (connectDatabase.setOrderConf(Integer.parseInt(orderNumInput.getText()))) {
+                                //Update UI restaurant orders table
+                                String[][] restOrders = connectDatabase.getRestOrders(connectDatabase.getID());
+                                if (!restOrders[0][0].equals("")){
+                                        custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        restOrders,
+                                        new String[] {
+                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
+                                                "Total Price($)"
+                                        }));
+                                }
+                                else{
+                                        custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        new Object[][] {
+                                                { null, null, null, null, null, null }
+                                        },
+                                        new String[] {
+                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
+                                                "Total Price($)"
+                                        }));
+                                }
+                                custOrderScrollPane.setViewportView(custOrderTable);
+
+                                //Update UI pending orders table
+                                String[][] RestPending = connectDatabase.getRestPending(connectDatabase.getID());
+                                if (!RestPending[0][0].equals("")){
+                                        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        RestPending,
+                                        new String[] {
+                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
+                                        }));
+                                }
+                                else{
+                                        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        new Object[][] {
+                                                { null, null, null, null, null, null }
+                                        },
+                                        new String[] {
+                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
+                                        }));
+                                }
+                                pendingOrderScrollPanel.setViewportView(pendingOrderTable);
+
                                 JOptionPane.showMessageDialog(null,
                                                 "Order number " + orderNumInput.getText() + " has been confirmed.");
 
