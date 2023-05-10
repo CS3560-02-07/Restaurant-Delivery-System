@@ -241,6 +241,27 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                                                     // history tab
 
                 // creat order history JTable
+                String[][] RestHist = connectDatabase.getRestCompleted(connectDatabase.getID());
+                if (!RestHist[0][0].equals("")) {
+                        orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        RestHist,
+                                        new String[] {
+                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
+                                                "Phone Number", "Total Price"
+                                        }));
+                } else {
+                        orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        new Object[][] {
+                                                        { null, null, null, null, null, null }
+                                        },
+                                        new String[] {
+                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
+                                                "Phone Number", "Total Price"
+                                        }));
+                }
+                orderHistScrollPane.setViewportView(orderHistTable);
+
+                /* 
                 orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
                                 new Object[][] {
                                                 { "111", "10", "15", "123 Fake St, Sample City, CA 91750",
@@ -252,6 +273,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                 "Phone Number", "Total Price"
                                 }));
                 orderHistScrollPane.setViewportView(orderHistTable);
+                */
                 // set column for customer address to be larger
                 if (orderHistTable.getColumnModel().getColumnCount() > 0) {
                         orderHistTable.getColumnModel().getColumn(3).setPreferredWidth(170);

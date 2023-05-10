@@ -475,7 +475,7 @@ public class connectDatabase {
 
             String answer[][] = new String[custIDs.size()][6];
 
-            results = state.executeQuery("SELECT order_num, driverID, total_cost FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1");
+            results = state.executeQuery("SELECT order_num, driverID, total_cost FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1 AND completed = 0");
 
             int j = 0;
             while (results.next()){
