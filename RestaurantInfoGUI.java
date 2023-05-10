@@ -249,7 +249,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                 },
                                 new String[] {
                                                 "Order Number", "Customer ID", "Delivery ID", "Customer Address",
-                                                "Phone Number"
+                                                "Phone Number", "Total Price"
                                 }));
                 orderHistScrollPane.setViewportView(orderHistTable);
                 // set column for customer address to be larger

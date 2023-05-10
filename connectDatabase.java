@@ -503,6 +503,53 @@ public class connectDatabase {
         }
     }
 
+    //Get the current completed orders for the restaurant
+    public static String[][] getRestCompleted(int restID){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1 AND completed = 1");
+
+            List<Integer> custIDs = new ArrayList<Integer>();
+            while (results.next()){
+                custIDs.add(results.getInt(1));
+            }
+
+            if (custIDs.size() == 0){
+                return new String[][] {{""}};
+            }
+
+            String answer[][] = new String[custIDs.size()][6];
+
+            results = state.executeQuery("SELECT order_num, customerID, driverID, total_cost FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1 AND completed = 1");
+
+            int j = 0;
+            while (results.next()){
+                answer[j][0] = String.valueOf(results.getInt(1));
+                answer[j][1] = String.valueOf(results.getInt(2));
+                answer[j][2] = String.valueOf(results.getInt(3));
+                answer[j][5] = String.valueOf(results.getDouble(4));
+                j++;
+            }
+
+            for (int i = 0; i < custIDs.size(); i++){
+                results = state.executeQuery("SELECT address, phone_number FROM customer WHERE customerID = " + String.valueOf(custIDs.get(i)));
+                
+                while (results.next()){
+                    answer[i][3] = results.getString(1);
+                    answer[i][4] = results.getString(2);
+                }
+            }
+            state.close();
+            conn.close();
+            return answer;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect. ", e);
+        }
+    }
+
     //confirms orders in database
     public static boolean setOrderConf(int ID){
         try{
