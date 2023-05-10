@@ -315,7 +315,7 @@ public class connectDatabase {
 
     // gets confirmed order for the DriverInfoGUI
     //whether we want the confirmed orders to be pending (true) or non-pending (False)
-    public static int[][] getConfirmedOrders(boolean pendingStatus) {    //returns order_num, customerID, restaurantID
+    public static int[][] getConfirmedOrders(boolean pendingStatus, int driverID) {    //returns order_num, customerID, restaurantID
         List<int[]> rows = new ArrayList<>();
         int results[][];
         try {
@@ -326,7 +326,7 @@ public class connectDatabase {
             ResultSet rs = state.executeQuery
             ("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND driverID is NULL AND completed = FALSE");
             if(pendingStatus==true){
-                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND completed = FALSE");
+                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND completed = FALSE AND driverID = " + "driverID");
             }
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
@@ -555,12 +555,12 @@ public class connectDatabase {
     }
 
     //Get the current completed orders for the restaurant
-    public static String[][] getDriverCompleted(int driveID){
+    public static String[][] getDriverCompleted(){
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
 
-            ResultSet results = state.executeQuery("SELECT * FROM delivery WHERE driverID = " + driveID);
+            ResultSet results = state.executeQuery("SELECT * FROM delivery");
 
             List<Integer> driveIDs = new ArrayList<Integer>();
             while (results.next()){
@@ -573,7 +573,7 @@ public class connectDatabase {
 
             String answer[][] = new String[driveIDs.size()][6];
 
-            results = state.executeQuery("SELECT delivery_num, estimated_time, actual_time, distance FROM delivery WHERE driverID = " + driveID);
+            results = state.executeQuery("SELECT delivery_num, estimated_time, actual_time, distance FROM delivery");
 
             int j = 0;
             while (results.next()){
