@@ -122,9 +122,12 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             for(int i = 0; i<deliveryHistList.length; i++){
                 String[][] temp = new String[deliveryHistList.length][6];
                 for(int j = 0; j<6; j++){
-                    if(j>=4){
-                        temp[i][j] = "0";
+                    if(j==4){
+                        temp[i][j] = "$" + String.valueOf(5 + (1.5*Integer.parseInt(temp[i][j-1])));
                     }
+                    else if(j==5){
+                        temp[i][j] = "0";
+                                        }
                     else{
                         temp[i][j] = deliveryHistList[i][j+1];
                     }
