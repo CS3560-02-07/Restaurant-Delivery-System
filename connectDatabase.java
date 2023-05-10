@@ -312,14 +312,18 @@ public class connectDatabase {
     }
 
     // gets confirmed order for the DriverInfoGUI
-    public static int[][] getConfirmedOrders() {    //returns order_num, customerID, restaurantID
+    //whether we want the confirmed orders to be pending (true) or non-pending (False)
+    public static int[][] getConfirmedOrders(boolean pendingStatus) {    //returns order_num, customerID, restaurantID
         List<int[]> rows = new ArrayList<>();
         int results[][];
         try {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             //gets all rows that have been confirmed by restaurant
-            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
+            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND driverID is NULL");
+            if(pendingStatus==true){
+                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
+            }
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
             int numColumns = rsmd.getColumnCount();

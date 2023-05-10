@@ -10,7 +10,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
     //here so that once the button in ConfirmedOrders is pushed it will go to Pending orders and this is called to update
     public void updatePendingList(){
-        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(); //returns order_num, customerID, restaurantID, driverID
+        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(true); //returns order_num, customerID, restaurantID, driverID
         if (pendingOrdList != null){ //if exists
              //confirms will hold all necessary information from respective customer/restaurant
              String[][] pendings = new String[pendingOrdList.length][6]; //although arrays are bigger, only need these 5 items
@@ -58,6 +58,58 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
             }
         ));
+        }
+    }
+
+    public void updatePickupConfirmationOrders(){
+        //below I input false because we do not want pending confirmed orders, only non-pending confirmed orders
+        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(false); // restaurant info array. 
+        if (confirmedOrders != null) { // if name string is not empty
+            // confirms will hold all necessary information from respective
+            // customer/restaurant
+            String[][] confirms = new String[confirmedOrders.length][6]; // although arrays are bigger, only need these
+                                                                         // 5 items
+            String[] tempArr = new String[6]; // returns order_num, f_name, l_name, address, credit_card, phone_number
+            String[] tempArr2 = new String[3]; // returns resname, address, phone
+            for (int i = 0; i < confirmedOrders.length; i++) { // places all necessary strings into confirms
+                tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
+                tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);
+                confirms[i][0] = String.valueOf(confirmedOrders[i][0]);
+                for (int j = 0; j < 5; j++) { // onlyconfirmed orders will only return 2 columns with ID's of rest and
+                                              // cust
+                    if (j == 0) {
+                        confirms[i][1] = tempArr2[0];
+                    }
+                    if (j == 1) {
+                        confirms[i][2] = tempArr[0];
+                    }
+                    if (j == 2) {
+                        confirms[i][3] = tempArr2[1];
+                    }
+                    if (j == 3) {
+                        confirms[i][4] = tempArr[2];
+                    }
+                    if (j == 4) {
+                        confirms[i][5] = tempArr[4];
+                    }
+                }
+            }
+
+            // pick-up confirmation JTable
+            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
+                    confirms,
+                    new String[] {
+                            "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+                    }));
+        } else {
+            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][] {
+                            { null, null, null, null, null, null },
+                            { null, null, null, null, null, null }
+                    },
+                    new String[] {
+                            "Restaurant", "Customer", "From", "To", "Phone Number"
+                    }));
         }
     }
 
@@ -157,54 +209,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); // set background color of pickup confirmation
                                                                         // tab
 
-        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(); // restaurant info array
-        if (confirmedOrders != null) { // if name string is not empty
-            // confirms will hold all necessary information from respective
-            // customer/restaurant
-            String[][] confirms = new String[confirmedOrders.length][6]; // although arrays are bigger, only need these
-                                                                         // 5 items
-            String[] tempArr = new String[6]; // returns order_num, f_name, l_name, address, credit_card, phone_number
-            String[] tempArr2 = new String[3]; // returns resname, address, phone
-            for (int i = 0; i < confirmedOrders.length; i++) { // places all necessary strings into confirms
-                tempArr = connectDatabase.getCust(confirmedOrders[i][1]);
-                tempArr2 = connectDatabase.getRestUsingKey(confirmedOrders[i][2]);
-                confirms[i][0] = String.valueOf(confirmedOrders[i][0]);
-                for (int j = 0; j < 5; j++) { // onlyconfirmed orders will only return 2 columns with ID's of rest and
-                                              // cust
-                    if (j == 0) {
-                        confirms[i][1] = tempArr2[0];
-                    }
-                    if (j == 1) {
-                        confirms[i][2] = tempArr[0];
-                    }
-                    if (j == 2) {
-                        confirms[i][3] = tempArr2[1];
-                    }
-                    if (j == 3) {
-                        confirms[i][4] = tempArr[2];
-                    }
-                    if (j == 4) {
-                        confirms[i][5] = tempArr[4];
-                    }
-                }
-            }
-
-            // pick-up confirmation JTable
-            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
-                    confirms,
-                    new String[] {
-                            "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
-                    }));
-        } else {
-            pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][] {
-                            { null, null, null, null, null, null },
-                            { null, null, null, null, null, null }
-                    },
-                    new String[] {
-                            "Restaurant", "Customer", "From", "To", "Phone Number"
-                    }));
-        }
+        updatePickupConfirmationOrders();
         pickUpScrollPane.setViewportView(pickUpTable);
 
         // sets "from" and "to" column width to be larger
@@ -271,56 +276,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         //adds pending table JTable
         pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
-        
-        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(); //returns order_num, customerID, restaurantID, driverID
-        if (pendingOrdList != null){ //if exists
-             //confirms will hold all necessary information from respective customer/restaurant
-             String[][] pendings = new String[pendingOrdList.length][6]; //although arrays are bigger, only need these 5 items
-             String[] tempArr3 = new String[6];   
-             String[] tempArr4 = new String[3];  //returns resname, address, phone
-            for(int i=0; i<pendingOrdList.length; i++){    //places all necessary strings into confirms
-                tempArr3 = connectDatabase.getCust(pendingOrdList[i][1]);//returns order_num, f_name, l_name, address, credit_card, phone_number
-                tempArr4 = connectDatabase.getRestUsingKey(pendingOrdList[i][2]); //returns resname, address, phone
-                if(pendingOrdList[i][3]!=0){
-                pendings[i][0]=String.valueOf(pendingOrdList[i][0]);
-                for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
-                    if(j==0){
-                        pendings[i][1] = tempArr4[0];
-                    }
-                    if(j==1){
-                        pendings[i][2] = tempArr3[0];
-                    }
-                    if(j==2){
-                        pendings[i][3] = tempArr4[1];
-                    }
-                    if(j==3){
-                        pendings[i][4] = tempArr3[2];
-                    }
-                    if(j==4){
-                        pendings[i][5] = tempArr3[4];
-                    }
-                 }
-                }
-                 
-             }
-        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
-            pendings,
-            new String [] {
-                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
-            }
-        ));
-        }
-        else{
-            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
-                new Object [][] {
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null}
-                },
-            new String [] {
-                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
-            }
-        ));
-        }
+        updatePendingList();
         pendingOrderScrollPanel.setViewportView(pendingOrderTable);
 
         //sets "from" and "to" column width to be larger
@@ -666,6 +622,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 updatePendingList();
                 //updates the tab
                 pendingOrders.repaint();
+                updatePickupConfirmationOrders();
+                pickUpConfirm.repaint();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Invalid order number.");
