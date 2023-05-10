@@ -392,7 +392,6 @@ public class connectDatabase {
                     answer[i][1] = results.getString(1);
                     answer[i][2] = results.getString(2);
                     answer[i][3] = results.getString(3);
-                    answer[i][5] = results.getString(4);
                     answer[i][4] = results.getString(4);
 
                 }
