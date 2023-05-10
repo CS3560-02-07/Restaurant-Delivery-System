@@ -491,7 +491,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); // set background color for delivery history tab
 
         //updateDeliveryHist();
-        String[][] DriveHist = connectDatabase.getDriverCompleted();
+        String[][] DriveHist = connectDatabase.getDriverCompleted(connectDatabase.getID());
                                 if (!DriveHist[0][0].equals("")) {
                                         delHistTable.setModel(new javax.swing.table.DefaultTableModel(
                                                         DriveHist,
@@ -672,7 +672,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             connectDatabase.insertDelivery(connectDatabase.getID(), Integer.parseInt(estTimeInput.getText()), Integer.parseInt(actualTimeInput.getText()), Integer.parseInt(distTravInput.getText()), Integer.parseInt(orderNumInput.getText()));
             //updateDeliveryHist();
             //deliveryHist.repaint();
-            String[][] DriveHist = connectDatabase.getDriverCompleted();
+            String[][] DriveHist = connectDatabase.getDriverCompleted(connectDatabase.getID());
                                 if (!DriveHist[0][0].equals("")) {
                                         delHistTable.setModel(new javax.swing.table.DefaultTableModel(
                                                         DriveHist,

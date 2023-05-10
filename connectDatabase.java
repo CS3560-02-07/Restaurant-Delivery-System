@@ -555,12 +555,12 @@ public class connectDatabase {
     }
 
     //Get the current completed orders for the restaurant
-    public static String[][] getDriverCompleted(){
+    public static String[][] getDriverCompleted(int driveID){
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
 
-            ResultSet results = state.executeQuery("SELECT * FROM delivery");
+            ResultSet results = state.executeQuery("SELECT * FROM delivery WHERE driverID = " + driveID);
 
             List<Integer> driveIDs = new ArrayList<Integer>();
             while (results.next()){
@@ -573,7 +573,7 @@ public class connectDatabase {
 
             String answer[][] = new String[driveIDs.size()][6];
 
-            results = state.executeQuery("SELECT delivery_num, estimated_time, actual_time, distance FROM delivery");
+            results = state.executeQuery("SELECT delivery_num, estimated_time, actual_time, distance FROM delivery WHERE driverID = " + driveID);
 
             int j = 0;
             while (results.next()){
