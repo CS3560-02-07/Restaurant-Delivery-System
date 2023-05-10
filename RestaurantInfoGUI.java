@@ -37,6 +37,10 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 pendingOrder = new javax.swing.JPanel();
                 pendingOrderScrollPanel = new javax.swing.JScrollPane();
                 pendingOrderTable = new javax.swing.JTable();
+                // order history tab
+                orderHistoryPanel = new javax.swing.JPanel();
+                orderHistScrollPane = new javax.swing.JScrollPane();
+                orderHistTable = new javax.swing.JTable();
                 // logout tab
                 logOut = new javax.swing.JPanel();
                 logOutPrompt = new javax.swing.JLabel();
@@ -97,23 +101,22 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                 // adds customer order JTable
                 String[][] restOrders = connectDatabase.getRestOrders(connectDatabase.getID());
-                if (!restOrders[0][0].equals("")){
-                    custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                restOrders,
-                                new String[] {
-                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
-                                                "Total Price($)"
-                                }));
-                }
-                else{
-                    custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
-                                                { null, null, null, null, null, null }
-                                },
-                                new String[] {
-                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
-                                                "Total Price($)"
-                                }));
+                if (!restOrders[0][0].equals("")) {
+                        custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        restOrders,
+                                        new String[] {
+                                                        "Order #", "First Name", "Last Name", "Address", "Phone #",
+                                                        "Total Price($)"
+                                        }));
+                } else {
+                        custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        new Object[][] {
+                                                        { null, null, null, null, null, null }
+                                        },
+                                        new String[] {
+                                                        "Order #", "First Name", "Last Name", "Address", "Phone #",
+                                                        "Total Price($)"
+                                        }));
                 }
                 custOrderScrollPane.setViewportView(custOrderTable);
                 // makes "address" column larger
@@ -188,21 +191,22 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                 // creates pending order JTable
                 String[][] RestPending = connectDatabase.getRestPending(connectDatabase.getID());
-                if (!RestPending[0][0].equals("")){
-                    pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                RestPending,
-                                new String[] {
-                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
-                                }));
-                }
-                else{
-                    pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
-                                                { null, null, null, null, null, null }
-                                },
-                                new String[] {
-                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
-                                }));
+                if (!RestPending[0][0].equals("")) {
+                        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        RestPending,
+                                        new String[] {
+                                                        "Order #", "Driver ID", "Customer", "Address", "Phone #",
+                                                        "Total Price"
+                                        }));
+                } else {
+                        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                        new Object[][] {
+                                                        { null, null, null, null, null, null }
+                                        },
+                                        new String[] {
+                                                        "Order #", "Driver ID", "Customer", "Address", "Phone #",
+                                                        "Total Price"
+                                        }));
                 }
                 pendingOrderScrollPanel.setViewportView(pendingOrderTable);
                 // makes "address" column larger
@@ -232,6 +236,48 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                                 .addContainerGap()));
 
                 restOptionTabs.addTab("Pending Orders", pendingOrder); // names the tab "pending order"
+
+                orderHistoryPanel.setBackground(new java.awt.Color(199, 234, 245)); // set background color of order
+                                                                                    // history tab
+
+                // creat order history JTable
+                orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                                new Object[][] {
+                                                { "111", "10", "15", "123 Fake St, Sample City, CA 91750",
+                                                                "123123123" },
+                                                { null, null, null, null, null }
+                                },
+                                new String[] {
+                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
+                                                "Phone Number"
+                                }));
+                orderHistScrollPane.setViewportView(orderHistTable);
+                // set column for customer address to be larger
+                if (orderHistTable.getColumnModel().getColumnCount() > 0) {
+                        orderHistTable.getColumnModel().getColumn(3).setPreferredWidth(170);
+                }
+
+                // horizontal and vertical layouts for order history tab
+                javax.swing.GroupLayout orderHistoryPanelLayout = new javax.swing.GroupLayout(orderHistoryPanel);
+                orderHistoryPanel.setLayout(orderHistoryPanelLayout);
+                orderHistoryPanelLayout.setHorizontalGroup(
+                                orderHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(orderHistoryPanelLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addComponent(orderHistScrollPane,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                646, Short.MAX_VALUE)
+                                                                .addContainerGap()));
+                orderHistoryPanelLayout.setVerticalGroup(
+                                orderHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(orderHistoryPanelLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addComponent(orderHistScrollPane,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                305, Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                restOptionTabs.addTab("Order History", orderHistoryPanel); // names the tab order history
 
                 logOut.setBackground(new java.awt.Color(199, 234, 245)); // sets background color of log out tab
 
@@ -311,45 +357,47 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No Order number entered.");
                 } else {
                         if (connectDatabase.setOrderConf(Integer.parseInt(orderNumInput.getText()))) {
-                                //Update UI restaurant orders table
+                                // Update UI restaurant orders table
                                 String[][] restOrders = connectDatabase.getRestOrders(connectDatabase.getID());
-                                if (!restOrders[0][0].equals("")){
+                                if (!restOrders[0][0].equals("")) {
                                         custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                        restOrders,
-                                        new String[] {
-                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
-                                                "Total Price($)"
-                                        }));
-                                }
-                                else{
+                                                        restOrders,
+                                                        new String[] {
+                                                                        "Order #", "First Name", "Last Name", "Address",
+                                                                        "Phone #",
+                                                                        "Total Price($)"
+                                                        }));
+                                } else {
                                         custOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                        new Object[][] {
-                                                { null, null, null, null, null, null }
-                                        },
-                                        new String[] {
-                                                "Order #", "First Name", "Last Name", "Address", "Phone #",
-                                                "Total Price($)"
-                                        }));
+                                                        new Object[][] {
+                                                                        { null, null, null, null, null, null }
+                                                        },
+                                                        new String[] {
+                                                                        "Order #", "First Name", "Last Name", "Address",
+                                                                        "Phone #",
+                                                                        "Total Price($)"
+                                                        }));
                                 }
                                 custOrderScrollPane.setViewportView(custOrderTable);
 
-                                //Update UI pending orders table
+                                // Update UI pending orders table
                                 String[][] RestPending = connectDatabase.getRestPending(connectDatabase.getID());
-                                if (!RestPending[0][0].equals("")){
+                                if (!RestPending[0][0].equals("")) {
                                         pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                        RestPending,
-                                        new String[] {
-                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
-                                        }));
-                                }
-                                else{
+                                                        RestPending,
+                                                        new String[] {
+                                                                        "Order #", "Driver ID", "Customer", "Address",
+                                                                        "Phone #", "Total Price"
+                                                        }));
+                                } else {
                                         pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-                                        new Object[][] {
-                                                { null, null, null, null, null, null }
-                                        },
-                                        new String[] {
-                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
-                                        }));
+                                                        new Object[][] {
+                                                                        { null, null, null, null, null, null }
+                                                        },
+                                                        new String[] {
+                                                                        "Order #", "Driver ID", "Customer", "Address",
+                                                                        "Phone #", "Total Price"
+                                                        }));
                                 }
                                 pendingOrderScrollPanel.setViewportView(pendingOrderTable);
 
@@ -389,6 +437,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         private javax.swing.JPanel logOut;
         private javax.swing.JButton logOutButton;
         private javax.swing.JLabel logOutPrompt;
+        private javax.swing.JScrollPane orderHistScrollPane;
+        private javax.swing.JTable orderHistTable;
+        private javax.swing.JPanel orderHistoryPanel;
         private javax.swing.JTextField orderNumInput;
         private javax.swing.JLabel orderNumPrompt;
         private javax.swing.JPanel pendingOrder;
