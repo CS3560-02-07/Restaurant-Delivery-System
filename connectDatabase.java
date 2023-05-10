@@ -552,6 +552,86 @@ public class connectDatabase {
         }
     }
 
+    //Get the current completed orders for the restaurant
+    public static String[][] getDriverCompleted(){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT * FROM delivery");
+
+            List<Integer> driveIDs = new ArrayList<Integer>();
+            while (results.next()){
+                driveIDs.add(results.getInt(1));
+            }
+
+            if (driveIDs.size() == 0){
+                return new String[][] {{""}};
+            }
+
+            String answer[][] = new String[driveIDs.size()][6];
+
+            results = state.executeQuery("SELECT delivery_num, estimated_time, actual_time, distance FROM delivery");
+
+            int j = 0;
+            while (results.next()){
+                answer[j][0] = String.valueOf(results.getInt(1));
+                answer[j][1] = String.valueOf(results.getInt(2));
+                answer[j][2] = String.valueOf(results.getInt(3));
+                answer[j][3] = String.valueOf(results.getInt(4));
+                j++;
+            }
+
+            /*
+            for (int i = 0; i < custIDs.size(); i++){
+                results = state.executeQuery("SELECT address, phone_number FROM customer WHERE customerID = " + String.valueOf(custIDs.get(i)));
+                
+                while (results.next()){
+                    answer[i][3] = results.getString(1);
+                    answer[i][4] = results.getString(2);
+                }
+            }
+            */
+            state.close();
+            conn.close();
+            return answer;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect. ", e);
+        }
+    }
+
+    //make new delivery
+    public static int insertDelivery(int driveID, int est, int act, int dist, int orderID){
+        int deliveryID = -1;
+        try {
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            String query = "INSERT INTO delivery VALUES (" + String.valueOf(driveID) + ", NULL, " + String.valueOf(est) + ", " + String.valueOf(act) + ", " + String.valueOf(dist) + ")";
+
+            System.out.println(query);
+
+            state.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet results = state.getGeneratedKeys();
+            if (results.next()) {
+                deliveryID = results.getInt(1);
+            }
+            // restID = results.getInt(1);
+
+            System.out.println("added with id " + deliveryID);
+
+            state.executeUpdate("UPDATE orders SET completed = 1 WHERE order_num = " + orderID);
+
+            state.close();
+            conn.close();
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to connect.", e);
+        }
+
+        return deliveryID;
+
+    }
     public static String[][] getDeliveryHist(int driverID) {    //returns driverID, delivery_num, estimated_time, actual_time, distance
         
         List<int[]> rows = new ArrayList<>();
