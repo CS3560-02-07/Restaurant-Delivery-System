@@ -446,16 +446,30 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); // set background color for delivery history tab
 
+        //2d array of delivery history for driver according to driverID
+         //returns driverID, delivery_num, estimated_time, actual_time, distance
+        String[][] deliveryHistList = connectDatabase.getDeliveryHist(connectDatabase.getID());
         // adds delivery history JTable
-        delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { "111", "10", "15", "20", "15", "0" },
-                        { null, null, null, null, null, null }
+        if(deliveryHistList!=null){
+            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+            deliveryHistList,
+            new String[] {
+                    "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
+                    "Refund($)"
+            }));
+        }
+        else{
+            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
                 },
                 new String[] {
                         "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
                         "Refund($)"
-                }));
+                })); 
+        }
+            
         delHistScrollPane.setViewportView(delHistTable);
 
         // horizontal and vertical layouts for delivery history tab
@@ -572,35 +586,47 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput.setText("");
 
     }
-
+    
     // actions for record delivery button
     private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if (orderNumInput.getText().equals("")) {
+        boolean check = true;
+        if (orderNumInput.getText().equals("") || orderNumInput.getText().matches("\\s+")
+        ) {
             JOptionPane.showMessageDialog(null, "Please fill out order number");
-        } else if (!orderNumInput.getText().matches("[1-9]")) {
+            check = false;
+        } else if (orderNumInput.getText().matches("[a-zA-Z]")) {
             JOptionPane.showMessageDialog(null, "Invalid order number");
+            check = false;
         }
-        if (estTimeInput.getText().equals("")) {
+        if (estTimeInput.getText().equals("") || estTimeInput.getText().matches("\\s+")) {
             JOptionPane.showMessageDialog(null, "Please fill out estimated time");
-        } else if (!estTimeInput.getText().matches("[1-9]")) {
+            check = false;
+        } else if (estTimeInput.getText().matches("[a-zA-Z]")) {
             JOptionPane.showMessageDialog(null, "Invalid estimated time");
+            check = false;
         }
-        if (actualTimeInput.getText().equals("")) {
+        if (actualTimeInput.getText().equals("") || actualTimeInput.getText().matches("\\s+")) {
             JOptionPane.showMessageDialog(null, "Please fill out actual time");
-        } else if (!actualTimeInput.getText().matches("[1-9]")) {
+            check = false;
+        } else if (actualTimeInput.getText().matches("[a-zA-Z]")) {
             JOptionPane.showMessageDialog(null, "Invalid actual time");
+            check = false;
         }
-        if (distTravInput.getText().equals("")) {
+        if (distTravInput.getText().equals("") || distTravInput.getText().matches("\\s+")) {
             JOptionPane.showMessageDialog(null, "Please fill out distance travelled");
-        } else if (!distTravInput.getText().matches("[1-9]")) {
+            check = false;
+        } else if (distTravInput.getText().matches("[a-zA-Z]")) {
             JOptionPane.showMessageDialog(null, "Invalid distance travelled");
-        } else {
-            // save user input
-            actual = actualTimeInput.getText();
-            estimate = estTimeInput.getText();
-            dist = Integer.parseInt(distTravInput.getText());
-            // print user input
-            System.out.println(actual + " " + estimate + " " + dist);
+            check = false;
+        } else if(check==true){
+            //plan:
+            connectDatabase.createDelivery(connectDatabase.getID(), Integer.parseInt
+            (estTimeInput.getText()), Integer.parseInt(actualTimeInput.getText()), Integer.parseInt(distTravInput.getText()));
+
+            actualTimeInput.setText("");
+            estTimeInput.setText("");
+            distTravInput.setText("");
+            orderNumInput.setText("");
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
     } 

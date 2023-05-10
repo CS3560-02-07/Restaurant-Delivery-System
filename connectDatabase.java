@@ -453,6 +453,50 @@ public class connectDatabase {
         }
     }
 
+    public static String[][] getDeliveryHist(int driverID) {    //returns driverID, delivery_num, estimated_time, actual_time, distance
+        
+        List<int[]> rows = new ArrayList<>();
+        String results[][];
+        try {
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+            //gets all rows that have been confirmed by restaurant
+            ResultSet rs = state.executeQuery("SELECT driverID, delivery_num, estimated_time, actual_time, distance FROM delivery WHERE driverID = "+driverID+";");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //gets numer of columnsd
+            int numColumns = rsmd.getColumnCount();
+            //converts the returned columns into arraylist rows
+            while (rs.next()) {
+                int[] row = new int[numColumns];
+                for (int col = 1; col <= numColumns; col++) {
+                    row[col - 1] = rs.getInt(col);
+                }
+                rows.add(row);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(rows.size()==0){
+            return null;
+        }
+        int numRows = rows.size();
+        int numColumns = rows.get(0).length + 1;
+        results = new String[numRows][numColumns];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                if(j!=5){
+                    results[i][j] = String.valueOf(rows.get(i)[j]);
+                }
+                else{
+                    results[i][j] = null;
+                }
+            }
+        }
+
+        return results;
+    }
+
     //confirms orders in database
     public static boolean setOrderConf(int ID){
         try{
@@ -490,6 +534,32 @@ public class connectDatabase {
             throw new IllegalStateException("failed to connect. ", e);
         }
     }
+
+    public static boolean createDelivery(int driverID, int estimated_time, int actual_time, int distance){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            int results = state.executeUpdate
+            ("INSERT INTO delivery VALUES (" + driverID + ", NULL, " + estimated_time + ", " + actual_time + ", " + distance + ");");
+            if(results!=0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception e){
+            throw new IllegalStateException("failed to connect. ", e);
+        }
+    }
+    /*driverID INT,
+    delivery_num INT AUTO_INCREMENT,
+    estimated_time INT, 
+    actual_time INT,
+	distance INT(4),
+    FOREIGN KEY(driverID) REFERENCES driver(driverID),
+    PRIMARY KEY(delivery_num) */
 
     public static String getStatus(){
         return userStatus;
