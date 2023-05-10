@@ -398,6 +398,53 @@ public class connectDatabase {
         }
     }
 
+    //Get the current confirmed orders for the restaurant
+    public static String[][] getRestPending(int restID){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1");
+
+            List<Integer> custIDs = new ArrayList<Integer>();
+            while (results.next()){
+                custIDs.add(results.getInt(1));
+            }
+
+            if (custIDs.size() == 0){
+                return new String[][] {{""}};
+            }
+
+            String answer[][] = new String[custIDs.size()][6];
+
+            results = state.executeQuery("SELECT order_num, driverID, total_cost FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1");
+
+            int j = 0;
+            while (results.next()){
+                answer[j][0] = String.valueOf(results.getInt(1));
+                answer[j][1] = String.valueOf(results.getInt(2));
+                answer[j][5] = String.valueOf(results.getDouble(3));
+                j++;
+            }
+
+            for (int i = 0; i < custIDs.size(); i++){
+                results = state.executeQuery("SELECT f_name, address, phone_number FROM customer WHERE customerID = " + String.valueOf(custIDs.get(i)));
+                
+                while (results.next()){
+                    answer[i][2] = results.getString(1);
+                    answer[i][3] = results.getString(2);
+                    answer[i][4] = results.getString(3);
+                }
+            }
+            state.close();
+            conn.close();
+            return answer;
+        }
+        catch(Exception e){
+            throw new IllegalStateException("Failed to connect. ", e);
+        }
+    }
+
     //confirms orders in database
     public static boolean setOrderConf(int ID){
         try{
