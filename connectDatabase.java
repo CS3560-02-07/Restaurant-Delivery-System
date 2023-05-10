@@ -95,6 +95,7 @@ public class connectDatabase {
                             System.out.println(ID);
                             return "Restaurant";
                         }
+                        else return "neither";
                     }
                 }
             }
@@ -112,6 +113,7 @@ public class connectDatabase {
                             System.out.println(ID);
                             return "Driver";
                         }
+                        else return "neither";
                     }
                 }
             }
