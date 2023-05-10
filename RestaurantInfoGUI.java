@@ -187,14 +187,23 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                                                // tab
 
                 // creates pending order JTable
-                pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                String[][] RestPending = connectDatabase.getRestPending(connectDatabase.getID());
+                if (!RestPending[0][0].equals("")){
+                    pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                                RestPending,
+                                new String[] {
+                                                "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
+                                }));
+                }
+                else{
+                    pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
                                 new Object[][] {
-                                                { "", null, "", "5200 Wheele Ave La Verne CA 91750", null, null },
                                                 { null, null, null, null, null, null }
                                 },
                                 new String[] {
                                                 "Order #", "Driver ID", "Customer", "Address", "Phone #", "Total Price"
                                 }));
+                }
                 pendingOrderScrollPanel.setViewportView(pendingOrderTable);
                 // makes "address" column larger
                 if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
