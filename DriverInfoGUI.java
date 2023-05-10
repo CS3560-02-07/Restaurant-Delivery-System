@@ -113,6 +113,32 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         }
     }
 
+    public void updateDeliveryHist(){
+        //2d array of delivery history for driver according to driverID
+         //returns driverID, delivery_num, estimated_time, actual_time, distance
+         String[][] deliveryHistList = connectDatabase.getDeliveryHist(connectDatabase.getID());
+         // adds delivery history JTable
+         if(deliveryHistList!=null){
+             delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+             deliveryHistList,
+             new String[] {
+                     "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
+                     "Refund($)"
+             }));
+         }
+         else{
+             delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                 new Object [][] {
+                     {null, null, null, null, null, null},
+                     {null, null, null, null, null, null}
+                 },
+                 new String[] {
+                         "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
+                         "Refund($)"
+                 })); 
+         }
+    }
+
     /**
      * Creates new form RestaurantInfo
      */
@@ -446,29 +472,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); // set background color for delivery history tab
 
-        //2d array of delivery history for driver according to driverID
-         //returns driverID, delivery_num, estimated_time, actual_time, distance
-        String[][] deliveryHistList = connectDatabase.getDeliveryHist(connectDatabase.getID());
-        // adds delivery history JTable
-        if(deliveryHistList!=null){
-            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-            deliveryHistList,
-            new String[] {
-                    "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
-                    "Refund($)"
-            }));
-        }
-        else{
-            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null}
-                },
-                new String[] {
-                        "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
-                        "Refund($)"
-                })); 
-        }
+        updateDeliveryHist();
             
         delHistScrollPane.setViewportView(delHistTable);
 
@@ -627,6 +631,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             estTimeInput.setText("");
             distTravInput.setText("");
             orderNumInput.setText("");
+            updateDeliveryHist();
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
     } 

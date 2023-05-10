@@ -548,6 +548,7 @@ public class connectDatabase {
         catch(Exception e){
             throw new IllegalStateException("Failed to connect. ", e);
         }
+    }
     public static String[][] getDeliveryHist(int driverID) {    //returns driverID, delivery_num, estimated_time, actual_time, distance
         
         List<int[]> rows = new ArrayList<>();
