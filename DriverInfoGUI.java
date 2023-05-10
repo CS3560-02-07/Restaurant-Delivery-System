@@ -117,6 +117,18 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         //2d array of delivery history for driver according to driverID
          //returns driverID, delivery_num, estimated_time, actual_time, distance
          String[][] deliveryHistList = connectDatabase.getDeliveryHist(connectDatabase.getID());
+         for(int i = 0; i<deliveryHistList.length; i++){
+            String[][] temp = new String[deliveryHistList.length][6];
+            for(int j = 0; j<6; j++){
+                if(j>=4){
+                    temp[i][j] = "0";
+                }
+                else{
+                    temp[i][j] = deliveryHistList[i][j+1];
+                }
+            }
+            deliveryHistList = temp;
+         }
          // adds delivery history JTable
          if(deliveryHistList!=null){
              delHistTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -631,7 +643,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             estTimeInput.setText("");
             distTravInput.setText("");
             orderNumInput.setText("");
+            
             updateDeliveryHist();
+            deliveryHist.repaint();
+            updatePendingList();
+            pendingOrders.repaint();
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
     } 

@@ -320,9 +320,11 @@ public class connectDatabase {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             //gets all rows that have been confirmed by restaurant
-            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND driverID is NULL");
+            //no driver, confirmed but not completed
+            ResultSet rs = state.executeQuery
+            ("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND driverID is NULL AND completed = FALSE");
             if(pendingStatus==true){
-                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
+                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND completed = FALSE");
             }
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
@@ -638,7 +640,7 @@ public class connectDatabase {
             Statement state = conn.createStatement();
 
             int results = state.executeUpdate
-            ("INSERT INTO delivery VALUES (" + driverID + ", NULL, " + estimated_time + ", " + actual_time + ", " + distance + ");");
+            ("INSERT INTO delivery VALUES (" + driverID + ", NULL, " + estimated_time + ", " + actual_time + ", " + distance + "1);");
             if(results!=0){
                 return true;
             }
