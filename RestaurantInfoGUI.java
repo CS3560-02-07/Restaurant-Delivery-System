@@ -246,7 +246,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                         orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
                                         RestHist,
                                         new String[] {
-                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
+                                                "Order Number", "Customer ID", "Driver ID", "Customer Address",
                                                 "Phone Number", "Total Price"
                                         }));
                 } else {
@@ -255,7 +255,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                         { null, null, null, null, null, null }
                                         },
                                         new String[] {
-                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
+                                                "Order Number", "Customer ID", "Driver ID", "Customer Address",
                                                 "Phone Number", "Total Price"
                                         }));
                 }
