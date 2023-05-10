@@ -116,10 +116,10 @@ public class LoginPageGUI extends javax.swing.JFrame {
 
     //actions for login button
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        if(userInput.getText().equals("")){
+        if(userInput.getText().equals("") || userInput.equals("\\s+")){
             JOptionPane.showMessageDialog(null, "Please fill out username");
         }
-        else if(passInput.getText().equals("")){
+        else if(passInput.getText().equals("") || passInput.equals("\\s+")){
             JOptionPane.showMessageDialog(null, "Please fill out password");
         }
         /*
@@ -129,16 +129,6 @@ public class LoginPageGUI extends javax.swing.JFrame {
             setVisible(false);
         }
         */
-        else if(userInput.getText().equals("abcRestaurant") && passInput.getText().equals("lmaoxd")){
-            RestaurantInfoGUI restaurant = new RestaurantInfoGUI(userInput.getText());
-            restaurant.setVisible(true);
-            setVisible(false);
-        }
-        else if(userInput.getText().equals("abcRestDriver") && passInput.getText().equals("lolgg")){
-            DriverInfoGUI driver = new DriverInfoGUI(userInput.getText());
-            driver.setVisible(true);
-            setVisible(false);
-        }
         else {
             //Check if inputted username and password is in the database, as well as if they are a restaurant or driver
             String status = connectDatabase.checkLogin(userInput.getText(), passInput.getText());
