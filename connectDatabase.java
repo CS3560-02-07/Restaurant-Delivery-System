@@ -312,14 +312,18 @@ public class connectDatabase {
     }
 
     // gets confirmed order for the DriverInfoGUI
-    public static int[][] getConfirmedOrders() {    //returns order_num, customerID, restaurantID
+    //whether we want the confirmed orders to be pending (true) or non-pending (False)
+    public static int[][] getConfirmedOrders(boolean pendingStatus) {    //returns order_num, customerID, restaurantID
         List<int[]> rows = new ArrayList<>();
         int results[][];
         try {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
             //gets all rows that have been confirmed by restaurant
-            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
+            ResultSet rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE AND driverID is NULL");
+            if(pendingStatus==true){
+                rs = state.executeQuery("SELECT order_num, customerID, restaurantID, driverID FROM orders WHERE confirmed = TRUE");
+            }
             ResultSetMetaData rsmd = rs.getMetaData();
             //gets numer of columns
             int numColumns = rsmd.getColumnCount();
@@ -350,13 +354,15 @@ public class connectDatabase {
         return results;
     }
 
-    //Get the current unconfirmed orders for the restaurant
     public static String[][] getRestOrders(int restID){
         try{
             Connection conn = getConnection();
             Statement state = conn.createStatement();
+            String[] tableInfo;
 
             ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 0");
+            ResultSetMetaData info = results.getMetaData();
+            int columnNum = info.getColumnCount();
 
             List<Integer> custIDs = new ArrayList<Integer>();
             while (results.next()){
@@ -374,6 +380,7 @@ public class connectDatabase {
             int j = 0;
             while (results.next()){
                 answer[j][0] = String.valueOf(results.getInt(1));
+                answer[j][4] = String.valueOf(results.getDouble(2));
                 answer[j][5] = String.valueOf(results.getDouble(2));
                 j++;
             }
@@ -385,6 +392,7 @@ public class connectDatabase {
                     answer[i][1] = results.getString(1);
                     answer[i][2] = results.getString(2);
                     answer[i][3] = results.getString(3);
+                    answer[i][5] = results.getString(4);
                     answer[i][4] = results.getString(4);
 
                 }
@@ -454,20 +462,15 @@ public class connectDatabase {
             ResultSet results = state.executeQuery("SELECT confirmed FROM orders WHERE order_num = " + ID);
             if (results.next()){
                 state.executeUpdate("UPDATE orders SET confirmed = 1 WHERE order_num = " + ID);
-                state.close();
-                conn.close();
                 return true;
             }
 
-            state.close();
-            conn.close();
             return false;
         }
         catch(Exception e){
             throw new IllegalStateException("failed to connect. ", e);
         }
     }
-    
     
     //updating order according to driverID such that driver_ID is equal to whatever value
     public static boolean setOrderDriver(int driverID, int order_num){
