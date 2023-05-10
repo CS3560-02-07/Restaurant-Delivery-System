@@ -411,7 +411,7 @@ public class connectDatabase {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
 
-            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1");
+            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1 AND completed = 0");
 
             List<Integer> custIDs = new ArrayList<Integer>();
             while (results.next()){
