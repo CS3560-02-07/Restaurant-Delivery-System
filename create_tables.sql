@@ -41,6 +41,7 @@ CREATE TABLE orders(
     driverID INT DEFAULT NULL,
     total_cost DECIMAL(9,2),
     confirmed BOOLEAN, 
+    completed BOOLEAN,
     FOREIGN KEY(customerID) REFERENCES customer(customerID),
     FOREIGN KEY(restaurantID) REFERENCES restaurant(restaurantID),
     FOREIGN KEY (driverID) REFERENCES driver(driverID),
