@@ -644,7 +644,7 @@ public class connectDatabase {
             Statement state = conn.createStatement();
 
             int results = state.executeUpdate
-            ("INSERT INTO delivery VALUES (" + driverID + ", NULL, " + estimated_time + ", " + actual_time + ", " + distance + "1);");
+            ("INSERT INTO DELIVERY VALUES (" + driverID + ", NULL, " + estimated_time + ", " + actual_time + ", " + distance + ");");
             if(results!=0){
                 return true;
             }
@@ -656,6 +656,28 @@ public class connectDatabase {
             throw new IllegalStateException("failed to connect. ", e);
         }
     }
+
+    
+
+    public static boolean setComplete(int order_num){
+        try{
+            Connection conn = getConnection();
+            Statement state = conn.createStatement();
+
+            int results = state.executeUpdate("UPDATE orders SET completed = 1 WHERE order_num = " + order_num + ";");
+
+            if(results!=0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception e){
+            throw new IllegalStateException("failed to connect. ", e);
+        }
+    }
+
     /*driverID INT,
     delivery_num INT AUTO_INCREMENT,
     estimated_time INT, 
