@@ -354,6 +354,57 @@ public class connectDatabase {
         return results;
     }
 
+    public static boolean driverValidateUser(String userInput) throws SQLException {
+        Connection conn = getConnection();
+        boolean exists = false;
+        
+        // Create a statement object to execute SQL queries
+        Statement stmt = conn.createStatement();
+        
+        // Build the SQL query to check if the field exists in the table
+        String query = "SELECT username FROM driver WHERE username = '" + userInput + "'";
+        // Execute the query and get the results
+        ResultSet rs = stmt.executeQuery(query);
+        
+        // Check if the field exists in the table
+        if (rs.next()) {
+            exists = true;
+        }
+        
+        // Close the statement and result set
+        rs.close();
+        stmt.close();
+        
+        // Return the result
+        return exists;
+    }
+
+    public static boolean restaurantValidateUser(String userInput) throws SQLException {
+        Connection conn = getConnection();
+        boolean exists = false;
+        
+        // Create a statement object to execute SQL queries
+        Statement stmt = conn.createStatement();
+        
+        // Build the SQL query to check if the field exists in the table
+        String query = "SELECT username FROM restaurant WHERE username = '" + userInput + "'";
+        // Execute the query and get the results
+        ResultSet rs = stmt.executeQuery(query);
+        
+        // Check if the field exists in the table
+        if (rs.next()) {
+            exists = true;
+        }
+        
+        // Close the statement and result set
+        rs.close();
+        stmt.close();
+        
+        // Return the result
+        return exists;
+    }
+
+
     public static String[][] getRestOrders(int restID){
         try{
             Connection conn = getConnection();
@@ -392,7 +443,6 @@ public class connectDatabase {
                     answer[i][1] = results.getString(1);
                     answer[i][2] = results.getString(2);
                     answer[i][3] = results.getString(3);
-                    answer[i][5] = results.getString(4);
                     answer[i][4] = results.getString(4);
 
                 }
@@ -412,7 +462,7 @@ public class connectDatabase {
             Connection conn = getConnection();
             Statement state = conn.createStatement();
 
-            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1");
+            ResultSet results = state.executeQuery("SELECT customerID FROM orders WHERE restaurantID = " + String.valueOf(restID) + " AND confirmed = 1 AND completed = 0");
 
             List<Integer> custIDs = new ArrayList<Integer>();
             while (results.next()){
