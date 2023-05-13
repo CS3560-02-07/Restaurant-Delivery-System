@@ -56,7 +56,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                 viewInfo.setBackground(new java.awt.Color(199, 234, 245)); // set background color for view info tab
 
-                // database connection to show restaurant info
+                // database connection to show driver info
                 String[] restInfo = connectDatabase.getRest(connectDatabase.getID()); // restaurant info array
 
                 // adds restaurant view info JTable

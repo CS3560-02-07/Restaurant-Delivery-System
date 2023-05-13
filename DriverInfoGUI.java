@@ -311,7 +311,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        driverOptionTabs.addTab("Order Confirmation", pickUpConfirm);
+        driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
         //names the tab "pick-up confirmation"
 
         //so I can create a method that will check and display all pending orders for the driver
@@ -350,7 +350,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         );
 
         //names the tab "pending orders"
-        driverOptionTabs.addTab("My Orders", pendingOrders); 
+        driverOptionTabs.addTab("Pending Orders", pendingOrders); 
         //driverOptionTabs.addTab("Pending Orders", pendingOrders);
 
         recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
