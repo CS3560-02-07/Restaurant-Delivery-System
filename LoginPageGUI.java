@@ -51,7 +51,7 @@ public class LoginPageGUI extends javax.swing.JFrame {
             }
         });
 
-        // initialize buttons to use
+        // action set by user (buttons)
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
