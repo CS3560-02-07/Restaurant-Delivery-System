@@ -8,62 +8,67 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     public int dist;
     private String userName;
 
-    //here so that once the button in ConfirmedOrders is pushed it will go to Pending orders and this is called to update
-    public void updatePendingList(){
-        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(true); //returns order_num, customerID, restaurantID, driverID
-        if (pendingOrdList != null){ //if exists
-             //confirms will hold all necessary information from respective customer/restaurant
-             String[][] pendings = new String[pendingOrdList.length][6]; //although arrays are bigger, only need these 5 items
-             String[] tempArr3 = new String[6];   
-             String[] tempArr4 = new String[3];  //returns resname, address, phone
-            for(int i=0; i<pendingOrdList.length; i++){    //places all necessary strings into confirms
-                tempArr3 = connectDatabase.getCust(pendingOrdList[i][1]);//returns order_num, f_name, l_name, address, credit_card, phone_number
-                tempArr4 = connectDatabase.getRestUsingKey(pendingOrdList[i][2]); //returns resname, address, phone
-                if(pendingOrdList[i][3]!=0){
-                pendings[i][0]=String.valueOf(pendingOrdList[i][0]);
-                for(int j=0; j<5; j++){ //onlyconfirmed orders will only return 2 columns with ID's of rest and cust
-                    if(j==0){
-                        pendings[i][1] = tempArr4[0];
+    // here so that once the button in ConfirmedOrders is pushed it will go to
+    // Pending orders and this is called to update
+    public void updatePendingList() {
+        int[][] pendingOrdList = connectDatabase.getConfirmedOrders(true); // returns order_num, customerID,
+                                                                           // restaurantID, driverID
+        if (pendingOrdList != null) { // if exists
+            // confirms will hold all necessary information from respective
+            // customer/restaurant
+            String[][] pendings = new String[pendingOrdList.length][6]; // although arrays are bigger, only need these 5
+                                                                        // items
+            String[] tempArr3 = new String[6];
+            String[] tempArr4 = new String[3]; // returns resname, address, phone
+            for (int i = 0; i < pendingOrdList.length; i++) { // places all necessary strings into confirms
+                tempArr3 = connectDatabase.getCust(pendingOrdList[i][1]);// returns order_num, f_name, l_name, address,
+                                                                         // credit_card, phone_number
+                tempArr4 = connectDatabase.getRestUsingKey(pendingOrdList[i][2]); // returns resname, address, phone
+                if (pendingOrdList[i][3] != 0) {
+                    pendings[i][0] = String.valueOf(pendingOrdList[i][0]);
+                    for (int j = 0; j < 5; j++) { // onlyconfirmed orders will only return 2 columns with ID's of rest
+                                                  // and cust
+                        if (j == 0) {
+                            pendings[i][1] = tempArr4[0];
+                        }
+                        if (j == 1) {
+                            pendings[i][2] = tempArr3[0];
+                        }
+                        if (j == 2) {
+                            pendings[i][3] = tempArr4[1];
+                        }
+                        if (j == 3) {
+                            pendings[i][4] = tempArr3[2];
+                        }
+                        if (j == 4) {
+                            pendings[i][5] = tempArr3[4];
+                        }
                     }
-                    if(j==1){
-                        pendings[i][2] = tempArr3[0];
-                    }
-                    if(j==2){
-                        pendings[i][3] = tempArr4[1];
-                    }
-                    if(j==3){
-                        pendings[i][4] = tempArr3[2];
-                    }
-                    if(j==4){
-                        pendings[i][5] = tempArr3[4];
-                    }
-                 }
                 }
-                 
-             }
-        pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
-            pendings,
-            new String [] {
-                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+
             }
-        ));
-        }
-        else{
-            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel( 
-                new Object [][] {
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null}
-                },
-            new String [] {
-                "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
-            }
-        ));
+            // pending order JTable
+            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                    pendings,
+                    new String[] {
+                            "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+                    }));
+        } else {
+            pendingOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][] {
+                            { null, null, null, null, null, null },
+                            { null, null, null, null, null, null }
+                    },
+                    new String[] {
+                            "Order #", "Restaurant", "Customer", "From", "To", "Phone #"
+                    }));
         }
     }
 
-    public void updatePickupConfirmationOrders(){
-        //below I input false because we do not want pending confirmed orders, only non-pending confirmed orders
-        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(false); // restaurant info array. 
+    public void updatePickupConfirmationOrders() {
+        // below I input false because we do not want pending confirmed orders, only
+        // non-pending confirmed orders
+        int[][] confirmedOrders = connectDatabase.getConfirmedOrders(false); // restaurant info array.
         if (confirmedOrders != null) { // if name string is not empty
             // confirms will hold all necessary information from respective
             // customer/restaurant
@@ -95,7 +100,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                 }
             }
 
-            // pick-up confirmation JTable
+            // pickup confirmation JTable
             pickUpTable.setModel(new javax.swing.table.DefaultTableModel(
                     confirms,
                     new String[] {
@@ -113,50 +118,6 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         }
     }
 
-    /*
-    public void updateDeliveryHist(){
-        //2d array of delivery history for driver according to driverID
-         //returns driverID, delivery_num, estimated_time, actual_time, distance
-         String[][] deliveryHistList = connectDatabase.getDeliveryHist(connectDatabase.getID());
-         // adds delivery history JTable
-         if(deliveryHistList!=null){
-            for(int i = 0; i<deliveryHistList.length; i++){
-                String[][] temp = new String[deliveryHistList.length][6];
-                for(int j = 0; j<6; j++){
-                    if(j==4){
-                        temp[i][j] = "$" + String.valueOf(5 + (1.5*Integer.parseInt(temp[i][j-1])));
-                    }
-                    else if(j==5){
-                        temp[i][j] = "0";
-                                        }
-                    else{
-                        temp[i][j] = deliveryHistList[i][j+1];
-                    }
-                }
-                deliveryHistList = temp;
-             }
-             delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-             deliveryHistList,
-             new String[] {
-                     "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
-                     "Refund($)"
-             }));
-         }
-         else{
-             delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                 new Object [][] {
-                     {null, null, null, null, null, null},
-                     {null, null, null, null, null, null}
-                 },
-                 new String[] {
-                         "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)", "Total Pay($)",
-                         "Refund($)"
-                 })); 
-         }
-    }
-
-    */
-
     /**
      * Creates new form RestaurantInfo
      */
@@ -171,23 +132,22 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         // create tabs
         driverInfoTab = new javax.swing.JTabbedPane();
         driverOptionTabs = new javax.swing.JTabbedPane();
-        // driver view info tab + table
+        // driver my info tab
         viewInfo = new javax.swing.JPanel();
         driverViewInfoScrollPane = new javax.swing.JScrollPane();
-        driverViewInfoTable = new javax.swing.JTable();
+        driverViewInfoTable = new javax.swing.JTable(); // JTable for driver information
         // pick-up confirmation tab
         pickUpConfirm = new javax.swing.JPanel();
         pickUpScrollPane = new javax.swing.JScrollPane();
-        pickUpTable = new javax.swing.JTable();
+        pickUpTable = new javax.swing.JTable(); // JTable for pickup confirmation information
         orderPickUpPrompt = new javax.swing.JLabel();
         orderPickUpInput = new javax.swing.JTextField();
         confirmPickUpButton = new javax.swing.JButton();
         // pending orders tab
         pendingOrders = new javax.swing.JPanel();
         pendingOrderScrollPanel = new javax.swing.JScrollPane();
-        pendingOrderTable = new javax.swing.JTable();
-        // record delivery labels (text on screen), text boxes for user input, and
-        // buttons
+        pendingOrderTable = new javax.swing.JTable(); // JTable for pending order table
+        // record delivery tab
         recordDelivery = new javax.swing.JPanel();
         orderNumPrompt = new javax.swing.JLabel();
         estTimePrompt = new javax.swing.JLabel();
@@ -202,8 +162,8 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         // delivery history tab + table
         deliveryHist = new javax.swing.JPanel();
         delHistScrollPane = new javax.swing.JScrollPane();
-        delHistTable = new javax.swing.JTable();
-        // log-out
+        delHistTable = new javax.swing.JTable(); // JTable for delivery history information
+        // logout tab
         logOut = new javax.swing.JPanel();
         logOutPrompt = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
@@ -253,10 +213,10 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         pickUpConfirm.setBackground(new java.awt.Color(199, 234, 245)); // set background color of pickup confirmation
                                                                         // tab
 
-        updatePickupConfirmationOrders();
+        updatePickupConfirmationOrders(); // calls method to update pickup confirmation
         pickUpScrollPane.setViewportView(pickUpTable);
 
-        // sets "from" and "to" column width to be larger
+        // sets "from" and "to" column width to be larger for pickup confirmation table
         if (pickUpTable.getColumnModel().getColumnCount() > 0) {
             pickUpTable.getColumnModel().getColumn(3).setPreferredWidth(170);
             pickUpTable.getColumnModel().getColumn(4).setPreferredWidth(170);
@@ -264,14 +224,14 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         orderPickUpPrompt.setText("Enter Order Number to be picked-up: "); // order # pickup prompt
 
-        //order pickup input text box
+        // order pickup input text box
         orderPickUpInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 orderPickUpInputActionPerformed(evt);
             }
         });
 
-        // confirm pick-up button
+        // confirm pickup button
         confirmPickUpButton.setText("Confirm Pick-Up");
         confirmPickUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +239,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
-        // horizontal and vertical layout of pick-up confirmation tab
+        // horizontal and vertical layout of pickup confirmation tab
         javax.swing.GroupLayout pickUpConfirmLayout = new javax.swing.GroupLayout(pickUpConfirm);
         pickUpConfirm.setLayout(pickUpConfirmLayout);
         pickUpConfirmLayout.setHorizontalGroup(
@@ -299,76 +259,71 @@ public class DriverInfoGUI extends javax.swing.JFrame {
                                                 .addGap(0, 161, Short.MAX_VALUE)))
                                 .addContainerGap()));
         pickUpConfirmLayout.setVerticalGroup(
-            pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pickUpConfirmLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pickUpScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmPickUpButton)
-                    .addComponent(orderPickUpPrompt)
-                    .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+                pickUpConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pickUpConfirmLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(pickUpScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pickUpConfirmLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(confirmPickUpButton)
+                                        .addComponent(orderPickUpPrompt)
+                                        .addComponent(orderPickUpInput, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(24, Short.MAX_VALUE)));
 
-        driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm);
-        //names the tab "pick-up confirmation"
+        driverOptionTabs.addTab("Pickup Confirmation", pickUpConfirm); // names the tab "pickup confirmation"
 
-        //so I can create a method that will check and display all pending orders for the driver
-        //after the button is pressed, I can call the method. The method too will be called here 
-    
-
-        //adds pending table JTable
-        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); //set background color of pickup confirmation tab
-        updatePendingList();
+        // adds pending orders JTable
+        pendingOrders.setBackground(new java.awt.Color(199, 234, 245)); // set background color of pickup confirmation
+                                                                        // tab
+        updatePendingList(); // calls method to update the pending orders table
         pendingOrderScrollPanel.setViewportView(pendingOrderTable);
 
-        //sets "from" and "to" column width to be larger
+        // sets "from" and "to" column width to be larger for pending orders table
         if (pendingOrderTable.getColumnModel().getColumnCount() > 0) {
             pendingOrderTable.getColumnModel().getColumn(3).setPreferredWidth(170);
             pendingOrderTable.getColumnModel().getColumn(4).setPreferredWidth(170);
         }
 
-        //horizontal and vertical layouts of pending order tab
+        // horizontal and vertical layouts of pending orders tab
         javax.swing.GroupLayout pendingOrdersLayout = new javax.swing.GroupLayout(pendingOrders);
         pendingOrders.setLayout(pendingOrdersLayout);
         pendingOrdersLayout.setHorizontalGroup(
-            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pendingOrdersLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pendingOrderScrollPanel)
-                    ))
-        );
+                pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pendingOrdersLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(pendingOrdersLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(pendingOrderScrollPanel))));
         pendingOrdersLayout.setVerticalGroup(
-            pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pendingOrdersLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                )
-        );
+                pendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pendingOrdersLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(pendingOrderScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 258,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)));
 
-        //names the tab "pending orders"
-        driverOptionTabs.addTab("Pending Orders", pendingOrders); 
-        //driverOptionTabs.addTab("Pending Orders", pendingOrders);
+        driverOptionTabs.addTab("Pending Orders", pendingOrders); // names the tab "pending orders"
 
-        recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); //set background color of record delivery tab
+        recordDelivery.setBackground(new java.awt.Color(199, 234, 245)); // set background color of record delivery tab
 
         // set font style and size for each label
-        orderNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        orderNumPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
         orderNumPrompt.setText("Order Number:");
 
-        estTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        estTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
         estTimePrompt.setText("Estimated Time (min):");
 
-        actualTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        actualTimePrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
         actualTimePrompt.setText("Actual Time (min):");
 
-        distTravPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        distTravPrompt.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
         distTravPrompt.setText("Distance Travelled (miles):");
 
-        // action set by user(input text boxes and buttons)
+        // action set by user(input text boxes)
         orderNumInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 orderNumInputActionPerformed(evt);
@@ -393,6 +348,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
             }
         });
 
+        // action set by user(buttons)
         recordDeliveryButton.setText("Record Delivery");
         recordDeliveryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,26 +446,26 @@ public class DriverInfoGUI extends javax.swing.JFrame {
 
         deliveryHist.setBackground(new java.awt.Color(199, 234, 245)); // set background color for delivery history tab
 
-        //updateDeliveryHist();
+        // connect delivery history JTable to the database to get information
         String[][] DriveHist = connectDatabase.getDriverCompleted(connectDatabase.getID());
-                                if (!DriveHist[0][0].equals("")) {
-                                        delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                                                        DriveHist,
-                                                        new String[] {
-                                                                        "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
-                                                                        "Total Pay($)", "Refund($)"
-                                                        }));
-                                } else {
-                                        delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                                                        new Object[][] {
-                                                                        { null, null, null, null, null, null }
-                                                        },
-                                                        new String[] {
-                                                            "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
-                                                            "Total Pay($)", "Refund($)"
-                                                        }));
-                                }
-            
+        if (!DriveHist[0][0].equals("")) {
+            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                    DriveHist,
+                    new String[] {
+                            "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
+                            "Total Pay($)", "Refund($)"
+                    }));
+        } else {
+            delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][] {
+                            { null, null, null, null, null, null }
+                    },
+                    new String[] {
+                            "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
+                            "Total Pay($)", "Refund($)"
+                    }));
+        }
+
         delHistScrollPane.setViewportView(delHistTable);
 
         // horizontal and vertical layouts for delivery history tab
@@ -602,6 +558,7 @@ public class DriverInfoGUI extends javax.swing.JFrame {
     // travelled
     public String orderNum, actualTime, estTime, distTravelled;
 
+    // lets user input information into the text boxes
     private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {
         orderNum = orderNumInput.getText();
     }
@@ -626,12 +583,11 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         distTravInput.setText("");
 
     }
-    
+
     // actions for record delivery button
     private void recordDeliveryButtonActionPerformed(java.awt.event.ActionEvent evt) {
         boolean check = true;
-        if (orderNumInput.getText().equals("") || orderNumInput.getText().matches("\\s+")
-        ) {
+        if (orderNumInput.getText().equals("") || orderNumInput.getText().matches("\\s+")) {
             JOptionPane.showMessageDialog(null, "Please fill out order number");
             check = false;
         } else if (orderNumInput.getText().matches("[a-zA-Z]")) {
@@ -658,78 +614,70 @@ public class DriverInfoGUI extends javax.swing.JFrame {
         } else if (distTravInput.getText().matches("[a-zA-Z]")) {
             JOptionPane.showMessageDialog(null, "Invalid distance travelled");
             check = false;
-        } else if(check==true){
-            //plan:
-            
-            //connectDatabase.createDelivery(connectDatabase.getID(), Integer.parseInt
-            //(estTimeInput.getText()), Integer.parseInt(actualTimeInput.getText()), Integer.parseInt(distTravInput.getText()));
-            //connectDatabase.setComplete(Integer.parseInt(orderNumInput.getText()));
-            //actualTimeInput.setText("");
-            //estTimeInput.setText("");
-            //distTravInput.setText("");
-            //orderNumInput.setText("");
-            
-            connectDatabase.insertDelivery(connectDatabase.getID(), Integer.parseInt(estTimeInput.getText()), Integer.parseInt(actualTimeInput.getText()), Integer.parseInt(distTravInput.getText()), Integer.parseInt(orderNumInput.getText()));
-            //updateDeliveryHist();
-            //deliveryHist.repaint();
+        } else if (check == true) {
+            // connects to database and successfully records the delivery and displays the
+            // information in the delivery history JTable
+            connectDatabase.insertDelivery(connectDatabase.getID(), Integer.parseInt(estTimeInput.getText()),
+                    Integer.parseInt(actualTimeInput.getText()), Integer.parseInt(distTravInput.getText()),
+                    Integer.parseInt(orderNumInput.getText()));
             String[][] DriveHist = connectDatabase.getDriverCompleted(connectDatabase.getID());
-                                if (!DriveHist[0][0].equals("")) {
-                                        delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                                                        DriveHist,
-                                                        new String[] {
-                                                                        "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
-                                                                        "Total Pay($)", "Refund($)"
-                                                        }));
-                                } else {
-                                        delHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                                                        new Object[][] {
-                                                                        { null, null, null, null, null, null }
-                                                        },
-                                                        new String[] {
-                                                            "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
-                                                            "Total Pay($)", "Refund($)"
-                                                        }));
-                                }
-                                delHistScrollPane.setViewportView(delHistTable);
-                                actualTimeInput.setText("");
-                                estTimeInput.setText("");
-                                distTravInput.setText("");
-                                orderNumInput.setText("");
+            if (!DriveHist[0][0].equals("")) {
+                delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                        DriveHist,
+                        new String[] {
+                                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
+                                "Total Pay($)", "Refund($)"
+                        }));
+            } else {
+                delHistTable.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][] {
+                                { null, null, null, null, null, null }
+                        },
+                        new String[] {
+                                "Delivery Number", "Est. Time (mins)", "Actual Time (mins)", "Distance (miles)",
+                                "Total Pay($)", "Refund($)"
+                        }));
+            }
+            delHistScrollPane.setViewportView(delHistTable);
+            actualTimeInput.setText("");
+            estTimeInput.setText("");
+            distTravInput.setText("");
+            orderNumInput.setText("");
             updatePendingList();
             pendingOrders.repaint();
             JOptionPane.showMessageDialog(null, "New Delivery Recorded");
         }
-    } 
-    
-    private void orderPickUpInputActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        //lets user input into the text box
-    }                                                
+    }
 
-    //action for confirm pick-up button. Sets the driverID of the textbox equal to the driver's ID
-    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {      
-        //if the text is empty or has just space(s)
-        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().matches("\\s+")){
+    // lets user input information into text boxes
+    private void orderPickUpInputActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
+    // action for confirm pick-up button. Sets the driverID of the textbox equal to
+    // the driver's ID
+    private void confirmPickUpButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // if the text is empty or has just space(s)
+        if (orderPickUpInput.getText().equals("") || orderPickUpInput.getText().matches("\\s+")) {
             JOptionPane.showMessageDialog(null, "No Order number entered.");
-        }
-        else{
-            if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))){
-                JOptionPane.showMessageDialog(null, "Order number " + orderPickUpInput.getText() + " has been confirmed.");
-                //updates pending list and checks which ones have drivers 
+        } else {
+            if (connectDatabase.setOrderDriver(connectDatabase.getID(), Integer.parseInt(orderPickUpInput.getText()))) {
+                JOptionPane.showMessageDialog(null,
+                        "Order number " + orderPickUpInput.getText() + " has been confirmed.");
+                // updates pending list and checks which ones have drivers
                 updatePendingList();
-                //updates the tab
+                // updates the tab
                 pendingOrders.repaint();
                 updatePickupConfirmationOrders();
                 pickUpConfirm.repaint();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Invalid order number.");
 
             }
 
-        }                                                 
+        }
     }
 
-    /**f
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {

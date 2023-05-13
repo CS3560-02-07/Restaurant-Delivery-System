@@ -19,28 +19,28 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
         @SuppressWarnings("unchecked")
         private void initComponents() {
 
-                // create tabs
+                // create tabbed pane
                 restInfoTab = new javax.swing.JTabbedPane();
                 restOptionTabs = new javax.swing.JTabbedPane();
-                // restaurant view info tab + table
+                // restaurant my info tab
                 viewInfo = new javax.swing.JPanel();
                 restViewInfoScrollPane = new javax.swing.JScrollPane();
-                restViewInfoTable = new javax.swing.JTable();
+                restViewInfoTable = new javax.swing.JTable(); // Jtable for restaurant information
                 // customer order tab
                 custOrder = new javax.swing.JPanel();
                 custOrderScrollPane = new javax.swing.JScrollPane();
-                custOrderTable = new javax.swing.JTable();
+                custOrderTable = new javax.swing.JTable(); // Jtable for customer order information
                 orderNumPrompt = new javax.swing.JLabel();
                 orderNumInput = new javax.swing.JTextField();
                 confirmOrderButton = new javax.swing.JButton();
                 // pending order tab
                 pendingOrder = new javax.swing.JPanel();
                 pendingOrderScrollPanel = new javax.swing.JScrollPane();
-                pendingOrderTable = new javax.swing.JTable();
+                pendingOrderTable = new javax.swing.JTable(); // Jtable for pending orders information
                 // order history tab
                 orderHistoryPanel = new javax.swing.JPanel();
                 orderHistScrollPane = new javax.swing.JScrollPane();
-                orderHistTable = new javax.swing.JTable();
+                orderHistTable = new javax.swing.JTable(); // Jtable for order history information
                 // logout tab
                 logOut = new javax.swing.JPanel();
                 logOutPrompt = new javax.swing.JLabel();
@@ -51,10 +51,10 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 setBackground(new java.awt.Color(166, 216, 233)); // set background color of window
 
                 restOptionTabs.setBackground(new java.awt.Color(166, 216, 233)); // set background color of restaurant
-                                                                                 // option
-                                                                                 // tab
+                                                                                 // options tab
 
-                viewInfo.setBackground(new java.awt.Color(199, 234, 245)); // set background color for view info tab
+                viewInfo.setBackground(new java.awt.Color(199, 234, 245)); // set background color for restuarant view
+                                                                           // info tab
 
                 // database connection to show driver info
                 String[] restInfo = connectDatabase.getRest(connectDatabase.getID()); // restaurant info array
@@ -126,7 +126,7 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                 orderNumPrompt.setText("Enter Order Number to be delivered: "); // label to show prompt for user
 
-                // let's user input text
+                // lets user input text
                 orderNumInput.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 orderNumInputActionPerformed(evt);
@@ -240,14 +240,14 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                 orderHistoryPanel.setBackground(new java.awt.Color(199, 234, 245)); // set background color of order
                                                                                     // history tab
 
-                // creat order history JTable
+                // create order history JTable
                 String[][] RestHist = connectDatabase.getRestCompleted(connectDatabase.getID());
                 if (!RestHist[0][0].equals("")) {
                         orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
                                         RestHist,
                                         new String[] {
-                                                "Order Number", "Customer ID", "Driver ID", "Customer Address",
-                                                "Phone Number", "Total Price"
+                                                        "Order Number", "Customer ID", "Driver ID", "Customer Address",
+                                                        "Phone Number", "Total Price"
                                         }));
                 } else {
                         orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -255,25 +255,11 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
                                                         { null, null, null, null, null, null }
                                         },
                                         new String[] {
-                                                "Order Number", "Customer ID", "Driver ID", "Customer Address",
-                                                "Phone Number", "Total Price"
+                                                        "Order Number", "Customer ID", "Driver ID", "Customer Address",
+                                                        "Phone Number", "Total Price"
                                         }));
                 }
                 orderHistScrollPane.setViewportView(orderHistTable);
-
-                /* 
-                orderHistTable.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
-                                                { "111", "10", "15", "123 Fake St, Sample City, CA 91750",
-                                                                "123123123" },
-                                                { null, null, null, null, null }
-                                },
-                                new String[] {
-                                                "Order Number", "Customer ID", "Delivery ID", "Customer Address",
-                                                "Phone Number", "Total Price"
-                                }));
-                orderHistScrollPane.setViewportView(orderHistTable);
-                */
                 // set column for customer address to be larger
                 if (orderHistTable.getColumnModel().getColumnCount() > 0) {
                         orderHistTable.getColumnModel().getColumn(3).setPreferredWidth(170);
@@ -341,7 +327,8 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                 restInfoTab.addTab("Restaurant Information", restOptionTabs); // names top tab "restaurant information"
 
-                // horizontal and vertical layouts for restaurant information tab
+                // horizontal and vertical layouts of all the tabs inside the restaurant
+                // information tab
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
@@ -431,10 +418,9 @@ public class RestaurantInfoGUI extends javax.swing.JFrame {
 
                         }
                 }
-                // this doesn't do anything yet
         }
 
-        // let's user input text
+        // lets user input text
         private void orderNumInputActionPerformed(java.awt.event.ActionEvent evt) {
 
         }
