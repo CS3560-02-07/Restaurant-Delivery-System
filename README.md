@@ -9,7 +9,7 @@ Our system is designed to help restaurants faciliate deliveries more efficiently
 - Proposed Solution: streamline delivery
   - Creating a delivery system that utilizes digital information about the customer, company, and product to make delivery experience more convenient
 
-Note: To run the program, please run the LoginPageGUI.java file
+Note: To run the program, please run the LoginPageGUI.java file and the SQL queries
 
 ## Tools and Resources
 - MySQL
